@@ -59,4 +59,5 @@ jobs:
           app-name: 'kinobackend'
           slot-name: 'Production'
           package: '*.jar'
+          retention-days: 1
           
