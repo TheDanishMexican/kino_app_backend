@@ -1,7 +1,7 @@
-package kea.kinobackend.project.configuration;
+package kea.kinoBackend.project.configuration;
 
-import kea.kinobackend.project.model.Movie;
-import kea.kinobackend.project.repository.MovieRepository;
+import kea.kinoBackend.project.model.Movie;
+import kea.kinoBackend.project.repository.MovieRepository;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;

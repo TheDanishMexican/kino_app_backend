@@ -1,4 +1,4 @@
-package kea.kinobackend.project.model;
+package kea.kinoBackend.project.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

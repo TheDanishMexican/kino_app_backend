@@ -1,7 +1,7 @@
-package kea.kinobackend.project.service;
+package kea.kinoBackend.project.service;
 
-import kea.kinobackend.project.model.Movie;
-import kea.kinobackend.project.repository.MovieRepository;
+import kea.kinoBackend.project.model.Movie;
+import kea.kinoBackend.project.repository.MovieRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

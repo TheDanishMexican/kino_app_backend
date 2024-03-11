@@ -1,6 +1,5 @@
-package kea.kinobackend;
+package kea.kinoBackend;
 
-import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
