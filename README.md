@@ -1,0 +1,1 @@
+[![Build and deploy JAR app to Azure Web App - kinobackend](https://github.com/TheDanishMexican/kino_app_backend/actions/workflows/main_kinobackend.yml/badge.svg)](https://github.com/TheDanishMexican/kino_app_backend/actions/workflows/main_kinobackend.yml)
