@@ -1,9 +1,9 @@
-package kea.kinobackend.project.controller;
+package kea.kinoBackend.project.controller;
 
 
 
-import kea.kinobackend.project.model.Movie;
-import kea.kinobackend.project.service.MovieService;
+import kea.kinoBackend.project.model.Movie;
+import kea.kinoBackend.project.service.MovieService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
