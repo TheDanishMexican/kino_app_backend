@@ -2,6 +2,7 @@ package kea.kinoBackend.project.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -9,6 +10,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "movies")
 public class Movie {
     @Id
     private String name;
