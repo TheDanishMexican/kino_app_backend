@@ -1,4 +1,4 @@
-package dat3.security.for_security_tests;
+package kea.kinoBackend.security.for_security_tests;
 
 import dat3.security.service.UserWithRolesService;
 import lombok.Getter;
