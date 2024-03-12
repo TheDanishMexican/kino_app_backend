@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "rows")
+@Table(name = "seatRows")
 public class Row {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,7 +14,7 @@ public class Row {
 
     private int amountOfSeats;
 
-    private int rowNumber;
+    private int seatRowNumber;
 
     @ManyToOne
     @JoinColumn(name = "hall_id", nullable = false)
@@ -31,7 +31,7 @@ public class Row {
 
     public Row(int amountOfSeats, int rowNumber, Hall hall, SeatType seatType) {
         this.amountOfSeats = amountOfSeats;
-        this.rowNumber = rowNumber;
+        this.seatRowNumber = rowNumber;
         this.hall = hall;
         this.seatType = seatType;
         this.seats = new ArrayList<>();
@@ -54,11 +54,11 @@ public class Row {
     }
 
     public int getRowNumber() {
-        return rowNumber;
+        return seatRowNumber;
     }
 
     public void setRowNumber(int rowNumber) {
-        this.rowNumber = rowNumber;
+        this.seatRowNumber = rowNumber;
     }
 
     public SeatType getSeatType() {

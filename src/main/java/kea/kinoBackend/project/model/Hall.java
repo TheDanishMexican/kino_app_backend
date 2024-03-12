@@ -19,12 +19,16 @@ public class Hall {
     @OneToMany(mappedBy = "hall")
     private List<Row> rows;
 
+    @OneToMany(mappedBy = "hall")
+    private List<Showing> showings;
+
     public Hall() {
     }
 
     public Hall(Cinema cinema) {
         this.cinema = cinema;
         this.rows = new ArrayList<>();
+        this.showings = new ArrayList<>();
     }
 
     public int getId() {
@@ -49,5 +53,13 @@ public class Hall {
 
     public void setRows(List<Row> rows) {
         this.rows = rows;
+    }
+
+    public List<Showing> getShowings() {
+        return showings;
+    }
+
+    public void setShowings(List<Showing> showings) {
+        this.showings = showings;
     }
 }
