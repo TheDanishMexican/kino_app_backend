@@ -1,4 +1,4 @@
-package dat3.security.entity;
+package kea.kinoBackend.security.entity;
 
 
 import jakarta.persistence.Entity;

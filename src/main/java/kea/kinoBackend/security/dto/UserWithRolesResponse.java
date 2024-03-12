@@ -1,7 +1,7 @@
-package dat3.security.dto;
+package kea.kinoBackend.security.dto;
 
 
-import dat3.security.entity.UserWithRoles;
+import kea.kinoBackend.security.entity.UserWithRoles;
 import lombok.Getter;
 import lombok.Setter;
 
