@@ -23,6 +23,8 @@ public class Hall {
     private List<Showing> showings;
 
     public Hall() {
+        this.rows = new ArrayList<>();
+        this.showings = new ArrayList<>();
     }
 
     public Hall(Cinema cinema) {

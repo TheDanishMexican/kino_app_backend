@@ -17,6 +17,11 @@ public class CinemaController {
         this.cinemaService = cinemaService;
     }
 
+    @GetMapping("/{id}")
+    public CinemaDTO getCinemaById(@PathVariable int id) {
+        return cinemaService.getCinemaById(id);
+    }
+
     @GetMapping
     public List<CinemaDTO> getAllCinemas() {
         return cinemaService.getAllCinemas();

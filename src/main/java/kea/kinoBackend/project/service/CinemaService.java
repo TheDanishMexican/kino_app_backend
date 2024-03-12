@@ -21,6 +21,11 @@ public class CinemaService {
         this.hallService = hallService;
     }
 
+    public CinemaDTO getCinemaById(int id) {
+        Cinema cinema = cinemaRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cinema not found"));
+        return toDTO(cinema);
+    }
+
     public List<CinemaDTO> getAllCinemas() {
         List<Cinema> cinemas = cinemaRepository.findAll();
         List<CinemaDTO> cinemaResponses = cinemas.stream().map(this::toDTO).toList();
