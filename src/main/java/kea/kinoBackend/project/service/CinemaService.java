@@ -1,5 +1,6 @@
 package kea.kinoBackend.project.service;
 
+import kea.kinoBackend.project.dto.CinemaDTO;
 import kea.kinoBackend.project.model.Cinema;
 import kea.kinoBackend.project.repository.CinemaRepository;
 import org.springframework.http.HttpStatus;
@@ -16,8 +17,20 @@ public class CinemaService {
         this.cinemaRepository = cinemaRepository;
     }
 
-    public List<Cinema> getAllCinemas() {
-        return cinemaRepository.findAll();
+//    public List<RecipeDTO> getAllRecipes(String category) {
+//        List<Recipe> recipes = category == null ? recipeRepository.findAll() : recipeRepository.findByCategoryName(category);
+//        List<RecipeDTO> recipeResponses = recipes.stream().map((r) -> new RecipeDTO(r,false)).toList();
+//        return recipeResponses;
+//    }
+
+    public List<CinemaDTO> getAllCinemas() {
+        List<Cinema> cinemaResponses = cinemaRepository.findAll();
+
+    }
+
+    private CinemaDTO toDTO(Cinema cinema) {
+        // Implement your conversion logic here
+        return new CinemaDTO(cinema.getId(), cinema.getName(), cinema.getLocation(), cinema.getHalls());
     }
 
 //    public RecipeDTO addRecipe(RecipeDTO request) {
@@ -32,5 +45,7 @@ public class CinemaService {
 //        return new RecipeDTO(newRecipe,false);
 //    }
 
+    public CinemaDTO addCinema(CinemaDTO request) {
 
+    }
 }

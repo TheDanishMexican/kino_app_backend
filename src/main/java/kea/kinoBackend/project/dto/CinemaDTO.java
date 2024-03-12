@@ -1,4 +1,6 @@
 package kea.kinoBackend.project.dto;
 
-public class CinemaDTO {
+import java.util.List;
+
+public record CinemaDTO(int id, String name, String location, List<HallDTO> halls) {
 }
