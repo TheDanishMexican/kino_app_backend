@@ -5,6 +5,7 @@ import kea.kinoBackend.project.dto.HallDTO;
 import kea.kinoBackend.project.model.Cinema;
 import kea.kinoBackend.project.repository.CinemaRepository;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -41,8 +42,7 @@ public class CinemaService {
         if (request.id() != id) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "You cannot change the id of an existing cinema");
         }
-        Cinema cinemaToEdit = cinemaRepository.findById(id).orElseThrow(()
-                -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cinema not found"));
+        Cinema cinemaToEdit = cinemaRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cinema not found"));
         updateCinema(cinemaToEdit, request);
         cinemaRepository.save(cinemaToEdit);
         return toDTO(cinemaToEdit);
@@ -61,4 +61,9 @@ public class CinemaService {
         return new CinemaDTO(cinema.getId(), cinema.getName(), cinema.getLocation(), hallDTOs);
     }
 
+    public ResponseEntity deleteCinema(int id) {
+        Cinema cinema = cinemaRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cinema not found"));
+        cinemaRepository.delete(cinema);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
 }

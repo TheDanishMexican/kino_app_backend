@@ -2,6 +2,7 @@ package kea.kinoBackend.project.controller;
 
 import kea.kinoBackend.project.dto.CinemaDTO;
 import kea.kinoBackend.project.service.CinemaService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,5 +30,10 @@ public class CinemaController {
     @PutMapping("/{id}")
     public CinemaDTO updateCinema(@RequestBody CinemaDTO request, @PathVariable int id) {
         return cinemaService.editCinema(request, id);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteCinema(@PathVariable int id) {
+        return cinemaService.deleteCinema(id);
     }
 }
