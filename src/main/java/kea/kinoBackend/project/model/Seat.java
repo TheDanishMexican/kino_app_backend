@@ -13,7 +13,7 @@ public class Seat {
 
     private boolean isReserved;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "seat_row_id", nullable = false)
     private Row row;
 

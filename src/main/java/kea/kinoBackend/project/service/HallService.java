@@ -8,7 +8,10 @@ import kea.kinoBackend.project.model.Cinema;
 import kea.kinoBackend.project.model.Hall;
 import kea.kinoBackend.project.repository.CinemaRepository;
 import kea.kinoBackend.project.repository.HallRepository;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -49,8 +52,25 @@ public class HallService {
         return toDTO(newHall);
     }
 
+    //Der skal tilføjes rows og showings til denne, men det kræver at der også bliver lavet metoder i deres service classes
     public void updateHall(Hall original, HallDTO request) {
         original.setCinema(cinemaRepository.findById(request.theaterID()).orElseThrow(() -> new IllegalArgumentException("Cinema not found")));
+    }
+
+    public HallDTO editHall(HallDTO request, int id) {
+        if (request.id() != id) {
+            throw new IllegalArgumentException("You cannot change the id of an existing hall");
+        }
+        Hall hallToEdit = hallRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Hall not found"));
+        updateHall(hallToEdit, request);
+        hallRepository.save(hallToEdit);
+        return toDTO(hallToEdit);
+    }
+
+    public ResponseEntity deleteHall(int id) {
+        Hall hall = hallRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Hall not found"));
+        hallRepository.delete(hall);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
 

@@ -17,7 +17,7 @@ public class Cinema {
 
     private String location;
 
-    @OneToMany(mappedBy = "cinema")
+    @OneToMany(mappedBy = "cinema", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Hall> halls;
 
     public Cinema() {

@@ -16,10 +16,10 @@ public class Hall {
     @JoinColumn(name = "theater_id", nullable = false)
     private Cinema cinema;
 
-    @OneToMany(mappedBy = "hall")
+    @OneToMany(mappedBy = "hall", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Row> rows;
 
-    @OneToMany(mappedBy = "hall")
+    @OneToMany(mappedBy = "hall", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Showing> showings;
 
     public Hall() {

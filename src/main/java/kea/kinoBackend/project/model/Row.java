@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "seatRows")
+@Table(name = "seat_rows")
 public class Row {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,14 +16,14 @@ public class Row {
 
     private int seatRowNumber;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "hall_id", nullable = false)
     private Hall hall;
 
     @Enumerated(EnumType.STRING)
     private SeatType seatType;
 
-    @OneToMany(mappedBy = "row")
+    @OneToMany(mappedBy = "row", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Seat> seats;
 
     public Row() {
