@@ -1,5 +1,7 @@
 package kea.kinoBackend.project.service;
 
+import kea.kinoBackend.project.dto.HallDTO;
+import kea.kinoBackend.project.dto.ShowingDTO;
 import kea.kinoBackend.project.model.Showing;
 import kea.kinoBackend.project.repository.ShowingRepository;
 import org.springframework.stereotype.Service;
@@ -16,5 +18,14 @@ public class ShowingService {
 
     public List<Showing> findAll() {
         return showingRepository.findAll();
+    }
+
+    public ShowingDTO toDTO(Showing showing) {
+        return new ShowingDTO(
+                showing.getId(),
+                showing.getHall().getId(),
+                showing.getTimeAndDate(),
+                showing.getFilmTitle()
+        );
     }
 }
