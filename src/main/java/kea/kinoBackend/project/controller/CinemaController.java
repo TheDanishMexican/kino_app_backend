@@ -2,9 +2,7 @@ package kea.kinoBackend.project.controller;
 
 import kea.kinoBackend.project.dto.CinemaDTO;
 import kea.kinoBackend.project.service.CinemaService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,5 +19,15 @@ public class CinemaController {
     @GetMapping
     public List<CinemaDTO> getAllCinemas() {
         return cinemaService.getAllCinemas();
+    }
+
+    @PostMapping
+    public CinemaDTO addCinema(@RequestBody CinemaDTO request) {
+        return cinemaService.addCinema(request);
+    }
+
+    @PutMapping("/{id}")
+    public CinemaDTO updateCinema(@RequestBody CinemaDTO request, @PathVariable int id) {
+        return cinemaService.editCinema(request, id);
     }
 }

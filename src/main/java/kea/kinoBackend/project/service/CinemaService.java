@@ -20,18 +20,39 @@ public class CinemaService {
         this.hallService = hallService;
     }
 
-//    public List<RecipeDTO> getAllRecipes(String category) {
-//        List<Recipe> recipes = category == null ? recipeRepository.findAll() : recipeRepository.findByCategoryName(category);
-//        List<RecipeDTO> recipeResponses = recipes.stream().map((r) -> new RecipeDTO(r,false)).toList();
-//        return recipeResponses;
-//    }
-
     public List<CinemaDTO> getAllCinemas() {
         List<Cinema> cinemas = cinemaRepository.findAll();
         List<CinemaDTO> cinemaResponses = cinemas.stream().map(this::toDTO).toList();
 
         return cinemaResponses;
     }
+
+    public CinemaDTO addCinema(CinemaDTO request) {
+        if (request.id() != null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "You cannot provide the id for a new cinema");
+        }
+        Cinema newCinema = new Cinema();
+        updateCinema(newCinema, request);
+        cinemaRepository.save(newCinema);
+        return toDTO(newCinema);
+    }
+
+    public CinemaDTO editCinema(CinemaDTO request, int id) {
+        if (request.id() != id) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "You cannot change the id of an existing cinema");
+        }
+        Cinema cinemaToEdit = cinemaRepository.findById(id).orElseThrow(()
+                -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cinema not found"));
+        updateCinema(cinemaToEdit, request);
+        cinemaRepository.save(cinemaToEdit);
+        return toDTO(cinemaToEdit);
+    }
+
+    public void updateCinema(Cinema original, CinemaDTO request) {
+        original.setName(request.name());
+        original.setLocation(request.location());
+    }
+
 
     private CinemaDTO toDTO(Cinema cinema) {
 
@@ -40,19 +61,4 @@ public class CinemaService {
         return new CinemaDTO(cinema.getId(), cinema.getName(), cinema.getLocation(), hallDTOs);
     }
 
-//    public RecipeDTO addRecipe(RecipeDTO request) {
-//        if (request.getId() != null) {
-//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "You cannot provide the id for a new recipe");
-//        }
-//        Category category = categoryRepository.findByName(request.getCategory()).
-//                orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Only existing categories are allowed"));
-//        Recipe newRecipe = new Recipe();
-//        updateRecipe(newRecipe, request, category);
-//        recipeRepository.save(newRecipe);
-//        return new RecipeDTO(newRecipe,false);
-//    }
-
-//    public CinemaDTO addCinema(CinemaDTO request) {
-//
-//    }
 }

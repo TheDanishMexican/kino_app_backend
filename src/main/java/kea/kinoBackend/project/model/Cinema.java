@@ -2,6 +2,7 @@ package kea.kinoBackend.project.model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -20,11 +21,13 @@ public class Cinema {
     private List<Hall> halls;
 
     public Cinema() {
+        this.halls = new ArrayList<>();
     }
 
     public Cinema(String name, String location) {
         this.name = name;
         this.location = location;
+        this.halls = new ArrayList<>();
     }
 
     public int getId() {
