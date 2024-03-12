@@ -2,7 +2,6 @@ package kea.kinoBackend.project.model;
 
 import jakarta.persistence.*;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Table(name = "showings")

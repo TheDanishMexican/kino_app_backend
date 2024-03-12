@@ -14,14 +14,13 @@ public class Seat {
     private boolean isReserved;
 
     @ManyToOne
-    @JoinColumn(name = "row_id", nullable = false)
+    @JoinColumn(name = "seat_row_id", nullable = false)
     private Row row;
 
     public Seat() {
     }
 
-    public Seat(int id, int seatNumber, boolean isReserved, Row row) {
-        this.id = id;
+    public Seat(int seatNumber, boolean isReserved, Row row) {
         this.seatNumber = seatNumber;
         this.isReserved = isReserved;
         this.row = row;

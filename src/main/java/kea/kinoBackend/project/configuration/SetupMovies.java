@@ -16,13 +16,15 @@ public class SetupMovies implements ApplicationRunner {
     private HallRepository hallRepository;
     private RowRepository rowRepository;
     private ShowingRepository showingRepository;
+    private SeatRepository seatRepository;
 
-    public SetupMovies(MovieRepository movieRepository, CinemaRepository cinemaRepository, HallRepository hallRepository, RowRepository rowRepository, ShowingRepository showingRepository) {
+    public SetupMovies(MovieRepository movieRepository, CinemaRepository cinemaRepository, HallRepository hallRepository, RowRepository rowRepository, ShowingRepository showingRepository, SeatRepository seatRepository) {
         this.movieRepository = movieRepository;
         this.cinemaRepository = cinemaRepository;
         this.hallRepository = hallRepository;
         this.rowRepository = rowRepository;
         this.showingRepository = showingRepository;
+        this.seatRepository = seatRepository;
     }
 
     public void run(ApplicationArguments args) {
@@ -51,5 +53,19 @@ public class SetupMovies implements ApplicationRunner {
         Row row1 = new Row(10, 1, hall1, SeatType.COUCH);
         rowRepository.save(row1);
 
+        Seat seat1 = new Seat(1, false, row1);
+        seatRepository.save(seat1);
+
+        Seat seat2 = new Seat(2, false, row1);
+        seatRepository.save(seat2);
+
+        row1.setSeats(seatRepository.findAll());
+        rowRepository.save(row1);
+
+        hall1.setRows(rowRepository.findAll());
+        hallRepository.save(hall1);
+
+        cinema1.setHalls(hallRepository.findAll());
+        cinemaRepository.save(cinema1);
     }
 }

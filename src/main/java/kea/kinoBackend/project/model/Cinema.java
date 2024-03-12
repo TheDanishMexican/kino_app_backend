@@ -2,6 +2,8 @@ package kea.kinoBackend.project.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "cinemas")
 public class Cinema {
@@ -13,6 +15,9 @@ public class Cinema {
     private String name;
 
     private String location;
+
+    @OneToMany(mappedBy = "cinema")
+    private List<Hall> halls;
 
     public Cinema() {
     }
@@ -44,5 +49,13 @@ public class Cinema {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public List<Hall> getHalls() {
+        return halls;
+    }
+
+    public void setHalls(List<Hall> halls) {
+        this.halls = halls;
     }
 }
