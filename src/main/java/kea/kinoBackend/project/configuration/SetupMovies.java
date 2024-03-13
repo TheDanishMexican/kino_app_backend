@@ -7,6 +7,8 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Arrays;
 
 @Component
 public class SetupMovies implements ApplicationRunner {
@@ -21,9 +23,37 @@ public class SetupMovies implements ApplicationRunner {
     }
 
     public void createMovies() {
-         movieRepository.save(new Movie("The Matrix", LocalDate.of(1999, 5, 5), "The Matrix is a 1999 science fiction action film written and directed by the Wachowskis. It is the first installment in The Matrix film series, starring Keanu Reeves, Laurence Fishburne, Carrie-Anne Moss, Hugo Weaving, and Joe Pantoliano."));
-         movieRepository.save(new Movie("The Matrix Reloaded", LocalDate.of(2003, 9, 20), "The Matrix Reloaded is a 2003 science fiction action film, the first sequel to The Matrix, and the second installment in The Matrix film series, written and directed by the Wachowskis."));
-         movieRepository.save(new Movie("The Matrix Revolutions", LocalDate.of(2003, 2, 17), "The Matrix Revolutions is a 2003 science fiction action film, the third installment of The Matrix trilogy, written and directed by the Wachowskis."));
-         movieRepository.save(new Movie("The Matrix Resurrections", LocalDate.of(2021, 7, 11), "The Matrix Resurrections is a 2021 science fiction action film produced, co-written, and directed by Lana Wachowski. It is the fourth installment in The Matrix film series, set twenty years after the events of the third film, The Matrix Revolutions."));
+        movieRepository.save(new Movie(
+                "Inception",
+                "A thief who steals corporate secrets through dream-sharing technology...",
+                LocalDate.of(2010, 7, 16),
+                "Christopher Nolan",
+                Arrays.asList("Leonardo DiCaprio", "Joseph Gordon-Levitt", "Ellen Page"),
+                Arrays.asList("Action", "Adventure", "Sci-Fi"),
+                LocalDateTime.now(),
+                LocalDateTime.now()
+        ));
+        movieRepository.save(new Movie(
+                "The Dark Knight",
+                "When the menace known as the Joker wreaks havoc and chaos on the people of Gotham...",
+                LocalDate.of(2008, 7, 18),
+                "Christopher Nolan",
+                Arrays.asList("Christian Bale", "Heath Ledger", "Aaron Eckhart"),
+                Arrays.asList("Action", "Crime", "Drama"),
+                LocalDateTime.now(),
+                LocalDateTime.now()
+        ));
+        movieRepository.save(new Movie(
+                "The Matrix",
+                "A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers...",
+                LocalDate.of(1999, 3, 31),
+                "Lana Wachowski",
+                Arrays.asList("Keanu Reeves", "Laurence Fishburne", "Carrie-Anne Moss"),
+                Arrays.asList("Action", "Sci-Fi"),
+                LocalDateTime.now(),
+                LocalDateTime.now()
+        ));
+        movieRepository.save(new Movie(
+                "American Psycho","A wealthy New York City investment banking executive hides his alternate psychopathic ego from his co-workers and friends as he escalates deeper into his illogical, gratuitous fantasies...",LocalDate.of(2000, 4, 14),"Mary Harron",Arrays.asList("Christian Bale", "Justin Theroux", "Josh Lucas"),Arrays.asList("Crime", "Drama", "Thriller"),LocalDateTime.now(),LocalDateTime.now()));
     }
 }
