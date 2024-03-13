@@ -6,9 +6,8 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.*;
+import java.util.Set;
 
 @Component
 public class SetupMovies implements ApplicationRunner {
@@ -54,8 +53,14 @@ public class SetupMovies implements ApplicationRunner {
         Hall hall2 = new Hall(cinema2);
         hallRepository.save(hall2);
 
-        Showing HarryPotterAt5 = new Showing(hall1, LocalDateTime.of(2022, 5, 5, 17, 0), "Harry Potter", Duration.ofMinutes(177));
-        showingRepository.save(HarryPotterAt5);
+        Set<DayOfWeek> weekdays = Set.of(DayOfWeek.MONDAY, DayOfWeek.TUESDAY, DayOfWeek.THURSDAY,
+                DayOfWeek.FRIDAY, DayOfWeek.SATURDAY);
+
+        // Create a new Showing instance with the set of weekdays
+        Showing harryPotterAt5 = new Showing(hall1, weekdays, LocalTime.of(17, 0), 177, "Harry Potter");
+
+        // Save the Showing instance using your repository
+        showingRepository.save(harryPotterAt5);
 
         Row row1 = new Row(10, 1, hall1, SeatType.COUCH);
         rowRepository.save(row1);

@@ -2,8 +2,11 @@ package kea.kinoBackend.project.model;
 
 import jakarta.persistence.*;
 
+import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.Set;
 
 @Table(name = "showings")
 @Entity
@@ -15,9 +18,16 @@ public class Showing {
     @ManyToOne
     private Hall hall;
 
-    private LocalDateTime timeAndDate;
+    @ElementCollection(targetClass = DayOfWeek.class)
+    @CollectionTable(name = "showing_weekdays", joinColumns = @JoinColumn(name = "showing_id"))
+    @Enumerated(EnumType.STRING)
+    private Set<DayOfWeek> weekdays;
 
-    private Duration movieDuration;
+    private LocalTime startTime;
+
+    private LocalTime endTime;
+
+    private int durationInMinutes;
 
     //replace this with the film class when created
     private String filmTitle;
@@ -25,12 +35,19 @@ public class Showing {
     public Showing() {
     }
 
-    public Showing(Hall hall, LocalDateTime timeAndDate, String filmTitle, Duration movieDuration) {
+    public Showing(Hall hall, Set<DayOfWeek> weekdays, LocalTime startTime, int durationInMinutes, String filmTitle) {
         this.hall = hall;
-        this.timeAndDate = timeAndDate;
+        this.weekdays = weekdays;
+        this.startTime = startTime;
+        this.durationInMinutes = durationInMinutes;
         this.filmTitle = filmTitle;
-        this.movieDuration = movieDuration;
+        calculateEndTime();
     }
+
+    private void calculateEndTime() {
+        this.endTime = startTime.plusMinutes(durationInMinutes);
+    }
+
 
     public int getId() {
         return id;
@@ -48,12 +65,36 @@ public class Showing {
         this.hall = hall;
     }
 
-    public LocalDateTime getTimeAndDate() {
-        return timeAndDate;
+    public Set<DayOfWeek> getWeekdays() {
+        return weekdays;
     }
 
-    public void setTimeAndDate(LocalDateTime timeAndDate) {
-        this.timeAndDate = timeAndDate;
+    public void setWeekdays(Set<DayOfWeek> weekdays) {
+        this.weekdays = weekdays;
+    }
+
+    public LocalTime getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(LocalTime startTime) {
+        this.startTime = startTime;
+    }
+
+    public LocalTime getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(LocalTime endTime) {
+        this.endTime = endTime;
+    }
+
+    public int getDurationInMinutes() {
+        return durationInMinutes;
+    }
+
+    public void setDurationInMinutes(int durationInMinutes) {
+        this.durationInMinutes = durationInMinutes;
     }
 
     public String getFilmTitle() {
@@ -62,13 +103,5 @@ public class Showing {
 
     public void setFilmTitle(String filmTitle) {
         this.filmTitle = filmTitle;
-    }
-
-    public Duration getMovieDuration() {
-        return movieDuration;
-    }
-
-    public void setMovieDuration(Duration movieDuration) {
-        this.movieDuration = movieDuration;
     }
 }

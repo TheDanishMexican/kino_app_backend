@@ -1,7 +1,12 @@
 package kea.kinoBackend.project.dto;
 
-import java.time.Duration;
-import java.time.LocalDateTime;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
-public record ShowingDTO(Integer id, int hallID, LocalDateTime timeAndDate, String filmTitle, Duration movieDuration) {}
+import java.time.DayOfWeek;
+import java.time.LocalTime;
+import java.util.Set;
+
+public record ShowingDTO(Integer id, int hallID, @JsonFormat(pattern = "HH:mm")LocalTime startTime, @JsonFormat(pattern = "HH:mm")LocalTime endTime,String filmTitle, int durationInMinutes, Set<DayOfWeek> weekdays) {}
+
+
 
