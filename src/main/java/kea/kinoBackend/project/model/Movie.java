@@ -15,10 +15,8 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 public class Movie {
-//    @Column(unique = true)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -44,5 +42,13 @@ public class Movie {
     private LocalDateTime edited;
 
 
+    public Movie(String name, String description, LocalDate releaseDate, String director, List<String> actors, List<String> genres) {
+        this.name = name;
+        this.description = description;
+        this.releaseDate = releaseDate;
+        this.director = director;
+        this.actors = actors;
+        this.genres = genres;
+    }
 
 }

@@ -5,6 +5,7 @@ import kea.kinoBackend.project.dto.MovieDTO;
 import kea.kinoBackend.project.model.Movie;
 import kea.kinoBackend.project.repository.MovieRepository;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -13,7 +14,7 @@ import java.util.List;
 
 @Service
 public class MovieService {
-    private MovieRepository movieRepository;
+    private final MovieRepository movieRepository;
 
     public MovieService(MovieRepository movieRepository) {
         this.movieRepository = movieRepository;
@@ -25,10 +26,38 @@ public class MovieService {
         return movieResponses;
     }
 
-    public MovieDTO getMovieById(int id) {
-        Movie movie = movieRepository.findById(id).orElseThrow(() ->
+    public MovieDTO getMovieById(int idInt) {
+        Movie movie = movieRepository.findById(idInt).orElseThrow(() ->
                 new ResponseStatusException(HttpStatus.NOT_FOUND, "Movie not found"));
         return new MovieDTO(movie,false);
+    }
+
+    public MovieDTO addMovie(MovieDTO request) {
+        if (request.getId() != null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "You cannot provide the id for a new movie");
+        }
+        Movie newMovie = new Movie();
+        updateMovie(newMovie, request);
+        movieRepository.save(newMovie);
+        return new MovieDTO(newMovie,false);
+    }
+
+    public MovieDTO editMovie(MovieDTO request, int id) {
+        if (request.getId() != id) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "You cannot change the id of an existing movie");
+        }
+        Movie movieToEdit = movieRepository.findById(id).orElseThrow(()
+                -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Movie not found"));
+        updateMovie(movieToEdit, request);
+        movieRepository.save(movieToEdit);
+        return new MovieDTO(movieToEdit,false);
+    }
+
+    public ResponseEntity deleteMovie(int id) {
+        Movie movieToDelete = movieRepository.findById(id).orElseThrow(()
+                -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Movie not found"));
+        movieRepository.delete(movieToDelete);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
     private void updateMovie(Movie original, MovieDTO request) {
