@@ -34,4 +34,9 @@ public class RowController {
     public RowDTO updateRow(@RequestBody RowDTO request, @PathVariable int id) {
         return rowService.editRow(request, id);
     }
+
+    @DeleteMapping("/{id}")
+    public void deleteRow(@PathVariable int id) {
+        rowService.deleteRow(id);
+    }
 }

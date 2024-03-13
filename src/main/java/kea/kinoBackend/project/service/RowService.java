@@ -7,6 +7,8 @@ import kea.kinoBackend.project.model.Hall;
 import kea.kinoBackend.project.model.Row;
 import kea.kinoBackend.project.repository.HallRepository;
 import kea.kinoBackend.project.repository.RowRepository;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -56,6 +58,18 @@ public class RowService {
         updateRow(row, request);
         rowRepository.save(row);
         return toDTO(row);
+    }
+
+//    public ResponseEntity deleteHall(int id) {
+//        Hall hall = hallRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Hall not found"));
+//        hallRepository.delete(hall);
+//        return new ResponseEntity(HttpStatus.NO_CONTENT);
+//    }
+
+    public ResponseEntity deleteRow(int id) {
+        Row row = rowRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Row not found"));
+        rowRepository.delete(row);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 
