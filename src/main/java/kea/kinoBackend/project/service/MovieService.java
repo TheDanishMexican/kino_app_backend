@@ -43,9 +43,6 @@ public class MovieService {
     }
 
     public MovieDTO editMovie(MovieDTO request, int id) {
-        if (request.getId() != id) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "You cannot change the id of an existing movie");
-        }
         Movie movieToEdit = movieRepository.findById(id).orElseThrow(()
                 -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Movie not found"));
         updateMovie(movieToEdit, request);

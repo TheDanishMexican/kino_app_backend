@@ -32,6 +32,39 @@ public class SetupMovies implements ApplicationRunner {
                 Arrays.asList("Action", "Sci-Fi", "Thriller") // genres
         );
         movieRepository.save(testMovie);
+
+        Movie Barbie = new Movie(
+                "Barbie", // name
+                "A Barbie movie", // description
+                LocalDate.of(2021, 1, 1), // releaseDate
+                "Barbie", // director
+                Arrays.asList("Barbie", "Ken", "Skipper"), // actors
+                Arrays.asList("Animation", "Family", "Fantasy") // genres
+        );
+
+        movieRepository.save(Barbie);
+
+        Movie testMovie2 = new Movie(
+                "The Dark Knight", // name
+                "When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman must accept one of the greatest psychological and physical tests of his ability to fight injustice.", // description
+                LocalDate.of(2008, 7, 18), // releaseDate
+                "Christopher Nolan", // director
+                Arrays.asList("Christian Bale", "Heath Ledger", "Aaron Eckhart"), // actors
+                Arrays.asList("Action", "Crime", "Drama") // genres
+        );
+
+        movieRepository.save(testMovie2);
+
+        Movie testMovie3 = new Movie(
+                "The Shawshank Redemption", // name
+                "Two imprisoned", // description
+                LocalDate.of(1994, 10, 14), // releaseDate
+                "Frank Darabont", // director
+                Arrays.asList("Tim Robbins", "Morgan Freeman", "Bob Gunton"), // actors
+                Arrays.asList("Drama", "blop") // genres
+        );
+        movieRepository.save(testMovie3);
+
     }
 
 }
