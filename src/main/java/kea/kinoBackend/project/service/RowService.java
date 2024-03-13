@@ -60,12 +60,6 @@ public class RowService {
         return toDTO(row);
     }
 
-//    public ResponseEntity deleteHall(int id) {
-//        Hall hall = hallRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Hall not found"));
-//        hallRepository.delete(hall);
-//        return new ResponseEntity(HttpStatus.NO_CONTENT);
-//    }
-
     public ResponseEntity deleteRow(int id) {
         Row row = rowRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Row not found"));
         rowRepository.delete(row);
