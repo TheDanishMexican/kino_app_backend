@@ -44,8 +44,14 @@ public class SetupMovies implements ApplicationRunner {
         Cinema cinema1 = new Cinema("Central Bio", "Copenhagen");
         cinemaRepository.save(cinema1);
 
+        Cinema cinema2 = new Cinema("West Bio", "Vestegnen");
+        cinemaRepository.save(cinema2);
+
         Hall hall1 = new Hall(cinema1);
         hallRepository.save(hall1);
+
+        Hall hall2 = new Hall(cinema2);
+        hallRepository.save(hall2);
 
         Showing HarryPotterAt5 = new Showing(hall1, LocalDateTime.of(2022, 5, 5, 17, 0), "Harry Potter");
         showingRepository.save(HarryPotterAt5);

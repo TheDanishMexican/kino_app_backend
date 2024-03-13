@@ -2,7 +2,9 @@ package kea.kinoBackend.project.service;
 
 import kea.kinoBackend.project.dto.CinemaDTO;
 import kea.kinoBackend.project.dto.HallDTO;
+import kea.kinoBackend.project.dto.HallIdDTO;
 import kea.kinoBackend.project.model.Cinema;
+import kea.kinoBackend.project.model.Hall;
 import kea.kinoBackend.project.repository.CinemaRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CinemaService {
@@ -20,6 +23,7 @@ public class CinemaService {
         this.cinemaRepository = cinemaRepository;
         this.hallService = hallService;
     }
+
 
     public CinemaDTO getCinemaById(int id) {
         Cinema cinema = cinemaRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cinema not found"));
@@ -61,9 +65,10 @@ public class CinemaService {
 
     private CinemaDTO toDTO(Cinema cinema) {
 
-        List<HallDTO> hallDTOs = cinema.getHalls().stream().map(hallService::toDTO).toList();
+        List<HallIdDTO> hallIdDTOS = cinema.getHalls().stream()
+                .map(hall -> new HallIdDTO(hall.getId())).toList();
 
-        return new CinemaDTO(cinema.getId(), cinema.getName(), cinema.getLocation(), hallDTOs);
+        return new CinemaDTO(cinema.getId(), cinema.getName(), cinema.getLocation(), hallIdDTOS);
     }
 
     public ResponseEntity deleteCinema(int id) {
