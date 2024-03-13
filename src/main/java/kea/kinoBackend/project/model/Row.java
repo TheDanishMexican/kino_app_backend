@@ -27,6 +27,7 @@ public class Row {
     private List<Seat> seats;
 
     public Row() {
+        this.seats = new ArrayList<>();
     }
 
     public Row(int amountOfSeats, int rowNumber, Hall hall, SeatType seatType) {

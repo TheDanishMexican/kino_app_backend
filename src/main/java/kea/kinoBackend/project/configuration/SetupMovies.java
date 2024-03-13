@@ -59,6 +59,9 @@ public class SetupMovies implements ApplicationRunner {
         Row row1 = new Row(10, 1, hall1, SeatType.COUCH);
         rowRepository.save(row1);
 
+        Row row2 = new Row(10, 1, hall2, SeatType.COWBOY);
+        rowRepository.save(row2);
+
         Seat seat1 = new Seat(1, false, row1);
         seatRepository.save(seat1);
 
