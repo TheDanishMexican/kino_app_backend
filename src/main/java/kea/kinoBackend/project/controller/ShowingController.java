@@ -29,4 +29,9 @@ public class ShowingController {
     public ShowingDTO addShowing(@RequestBody ShowingDTO request) {
         return showingService.addShowing(request);
     }
+
+    @PutMapping("/{id}")
+    public ShowingDTO updateShowing(@RequestBody ShowingDTO request, @PathVariable int id) {
+        return showingService.editShowing(request, id);
+    }
 }

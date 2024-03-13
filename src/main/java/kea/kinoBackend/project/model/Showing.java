@@ -2,6 +2,7 @@ package kea.kinoBackend.project.model;
 
 import jakarta.persistence.*;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 
 @Table(name = "showings")
@@ -16,16 +17,19 @@ public class Showing {
 
     private LocalDateTime timeAndDate;
 
+    private Duration movieDuration;
+
     //replace this with the film class when created
     private String filmTitle;
 
     public Showing() {
     }
 
-    public Showing(Hall hall, LocalDateTime timeAndDate, String filmTitle) {
+    public Showing(Hall hall, LocalDateTime timeAndDate, String filmTitle, Duration movieDuration) {
         this.hall = hall;
         this.timeAndDate = timeAndDate;
         this.filmTitle = filmTitle;
+        this.movieDuration = movieDuration;
     }
 
     public int getId() {
@@ -58,5 +62,13 @@ public class Showing {
 
     public void setFilmTitle(String filmTitle) {
         this.filmTitle = filmTitle;
+    }
+
+    public Duration getMovieDuration() {
+        return movieDuration;
+    }
+
+    public void setMovieDuration(Duration movieDuration) {
+        this.movieDuration = movieDuration;
     }
 }

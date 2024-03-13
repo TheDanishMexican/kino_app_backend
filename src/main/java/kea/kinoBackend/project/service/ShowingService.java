@@ -48,12 +48,25 @@ public class ShowingService {
         original.setHall(hallRepository.findById(request.hallID()).orElseThrow(() -> new IllegalArgumentException("Hall not found")));
     }
 
+    public ShowingDTO editShowing(ShowingDTO request, int id) {
+        Showing showing = showingRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Showing not found"));
+        updateShowing(showing, request);
+        showingRepository.save(showing);
+        return toDTO(showing);
+
+    }
+
     public ShowingDTO toDTO(Showing showing) {
+        long totalMinutes = showing.getMovieDuration().toMinutes();
+        long hours = totalMinutes / 60;
+        long minutes = totalMinutes % 60;
+
         return new ShowingDTO(
                 showing.getId(),
                 showing.getHall().getId(),
                 showing.getTimeAndDate(),
-                showing.getFilmTitle()
+                showing.getFilmTitle(),
+                hours + " hours " + minutes + " minutes"
         );
     }
 }
