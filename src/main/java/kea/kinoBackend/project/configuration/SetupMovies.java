@@ -53,7 +53,7 @@ public class SetupMovies implements ApplicationRunner {
                 LocalDateTime.now(),
                 LocalDateTime.now()
         ));
-        movieRepository.save(new Movie(
-                "American Psycho","A wealthy New York City investment banking executive hides his alternate psychopathic ego from his co-workers and friends as he escalates deeper into his illogical, gratuitous fantasies...",LocalDate.of(2000, 4, 14),"Mary Harron",Arrays.asList("Christian Bale", "Justin Theroux", "Josh Lucas"),Arrays.asList("Crime", "Drama", "Thriller"),LocalDateTime.now(),LocalDateTime.now()));
-    }
+//        movieRepository.save(new Movie(
+//                "American Psycho","A wealthy New York City investment banking executive hides his alternate psychopathic ego from his co-workers and friends as he escalates deeper into his illogical, gratuitous fantasies...",LocalDate.of(2000, 4, 14),"Mary Harron",Arrays.asList("Christian Bale", "Justin Theroux", "Josh Lucas"),Arrays.asList("Crime", "Drama", "Thriller"),LocalDateTime.now(),LocalDateTime.now()));
+   }
 }

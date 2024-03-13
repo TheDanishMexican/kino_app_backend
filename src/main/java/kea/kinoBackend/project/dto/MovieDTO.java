@@ -13,6 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class MovieDTO {
+    private int id;
     private String name;
     private String description;
     private String releaseDate;
@@ -23,6 +24,7 @@ public class MovieDTO {
     private String edited;
 
     public MovieDTO(Movie r, boolean includeAll) {
+        this.id = r.getId();
         this.name = r.getName();
         this.description = r.getDescription();
         this.releaseDate = r.getReleaseDate().toString();
