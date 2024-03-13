@@ -3,5 +3,5 @@ package kea.kinoBackend.project.dto;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
-public record ShowingDTO(Integer id, int hallID, LocalDateTime timeAndDate, String filmTitle, String movieDuration) {}
+public record ShowingDTO(Integer id, int hallID, LocalDateTime timeAndDate, String filmTitle, Duration movieDuration) {}
 

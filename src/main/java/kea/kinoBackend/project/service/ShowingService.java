@@ -7,6 +7,8 @@ import kea.kinoBackend.project.repository.HallRepository;
 import kea.kinoBackend.project.repository.ShowingRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -36,6 +38,11 @@ public class ShowingService {
             throw new IllegalArgumentException("You cannot provide the id for a new showing");
         }
 
+        // Check if the time slot is available
+        if (!isTimeSlotAvailable(request.hallID(), request.timeAndDate(), request.movieDuration(), null)) {
+            throw new IllegalArgumentException("The time slot is not available for the showing");
+        }
+
         Showing newShowing = new Showing();
         updateShowing(newShowing, request);
         showingRepository.save(newShowing);
@@ -46,27 +53,42 @@ public class ShowingService {
         original.setTimeAndDate(request.timeAndDate());
         original.setFilmTitle(request.filmTitle());
         original.setHall(hallRepository.findById(request.hallID()).orElseThrow(() -> new IllegalArgumentException("Hall not found")));
+        original.setMovieDuration(request.movieDuration());
     }
 
     public ShowingDTO editShowing(ShowingDTO request, int id) {
         Showing showing = showingRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Showing not found"));
+
+        // Check if the time slot is available
+        if (!isTimeSlotAvailable(request.hallID(), request.timeAndDate(), request.movieDuration(), id)) {
+            throw new IllegalArgumentException("Another showing already occupies the specified time slot");
+        }
+
         updateShowing(showing, request);
         showingRepository.save(showing);
         return toDTO(showing);
 
     }
 
+    private boolean isTimeSlotAvailable(int hallID, LocalDateTime timeAndDate, Duration duration, int showingIdToIgnore) {
+        // Calculate end time of the showing
+        LocalDateTime endTime = timeAndDate.plus(duration);
+
+        // Query the database for showings in the same hall that overlap with the specified time span
+        List<Showing> overlappingShowings = showingRepository.findOverlappingShowings(hallID, timeAndDate, endTime, showingIdToIgnore);
+
+        // If there are any overlapping showings, the time slot is not available
+        return overlappingShowings.isEmpty();
+    }
+
     public ShowingDTO toDTO(Showing showing) {
-        long totalMinutes = showing.getMovieDuration().toMinutes();
-        long hours = totalMinutes / 60;
-        long minutes = totalMinutes % 60;
 
         return new ShowingDTO(
                 showing.getId(),
                 showing.getHall().getId(),
                 showing.getTimeAndDate(),
                 showing.getFilmTitle(),
-                hours + " hours " + minutes + " minutes"
+                showing.getMovieDuration()
         );
     }
 }
