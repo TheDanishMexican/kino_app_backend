@@ -1,0 +1,24 @@
+
+name: Build branch as test
+
+on:
+  push:
+    branches:
+      - '**'        # matches every branch
+      - '!main'   # excludes main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Java version
+        uses: actions/setup-java@v1
+        with:
+          java-version: '17'
+
+      - name: Build with Maven
+        run: mvn clean install

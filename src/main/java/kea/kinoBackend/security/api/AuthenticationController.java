@@ -1,9 +1,9 @@
-package dat3.security.api;
+package kea.kinoBackend.security.api;
 
-import dat3.security.dto.LoginRequest;
-import dat3.security.dto.LoginResponse;
-import dat3.security.entity.UserWithRoles;
-import dat3.security.service.UserDetailsServiceImp;
+import kea.kinoBackend.security.dto.LoginRequest;
+import kea.kinoBackend.security.dto.LoginResponse;
+import kea.kinoBackend.security.entity.UserWithRoles;
+import kea.kinoBackend.security.service.UserDetailsServiceImp;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -40,7 +40,7 @@ public class AuthenticationController {
   @Value("${app.token-expiration}")
   private long tokenExpiration;
 
-  private AuthenticationManager authenticationManager;
+  private final AuthenticationManager authenticationManager;
 
   JwtEncoder encoder;
 

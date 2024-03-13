@@ -1,8 +1,8 @@
 package kea.kinoBackend.security.config;
 
 import com.nimbusds.jose.jwk.source.ImmutableSecret;
-import dat3.security.error.CustomOAuth2AccessDeniedHandler;
-import dat3.security.error.CustomOAuth2AuthenticationEntryPoint;
+import kea.kinoBackend.security.error.CustomOAuth2AccessDeniedHandler;
+import kea.kinoBackend.security.error.CustomOAuth2AuthenticationEntryPoint;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,4 @@
-package dat3.security.dto;
+package kea.kinoBackend.security.dto;
 
 
 
