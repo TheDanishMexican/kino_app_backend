@@ -63,7 +63,7 @@ public class RowService {
     public ResponseEntity deleteRow(int id) {
         Row row = rowRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Row not found"));
         rowRepository.delete(row);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
 
