@@ -44,7 +44,7 @@ public class Showing {
         calculateEndTime();
     }
 
-    private void calculateEndTime() {
+    public void calculateEndTime() {
         this.endTime = startTime.plusMinutes(durationInMinutes);
     }
 

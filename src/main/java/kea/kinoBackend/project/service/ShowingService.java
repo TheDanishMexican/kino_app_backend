@@ -54,8 +54,10 @@ public class ShowingService {
         original.setDurationInMinutes(request.durationInMinutes());
         original.setWeekdays(request.weekdays());
         if (original.getEndTime() == null) {
-            original.setEndTime(original.getStartTime().plusMinutes(original.getDurationInMinutes()));
+            original.calculateEndTime();
         }
+
+
     }
 
     public ShowingDTO editShowing(ShowingDTO request, int id) {

@@ -59,7 +59,9 @@ public class SetupMovies implements ApplicationRunner {
         // Create a new Showing instance with the set of weekdays
         Showing harryPotterAt5 = new Showing(hall1, weekdays, LocalTime.of(17, 0), 177, "Harry Potter");
 
+        Showing theMatrixAt8 = new Showing(hall1, weekdays, LocalTime.of(20, 0), 189, "The Matrix");
         // Save the Showing instance using your repository
+        showingRepository.save(theMatrixAt8);
         showingRepository.save(harryPotterAt5);
 
         Row row1 = new Row(10, 1, hall1, SeatType.COUCH);
