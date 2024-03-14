@@ -9,7 +9,7 @@ public class Seat {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private int seatNumber;
+    private String seatNumber;
 
     private boolean isReserved;
 
@@ -24,7 +24,7 @@ public class Seat {
     public Seat() {
     }
 
-    public Seat(int seatNumber, boolean isReserved, Row row) {
+    public Seat(String seatNumber, boolean isReserved, Row row) {
         this.seatNumber = seatNumber;
         this.isReserved = isReserved;
         this.row = row;
@@ -40,12 +40,28 @@ public class Seat {
         this.id = id;
     }
 
-    public int getSeatNumber() {
+    public String getSeatNumber() {
         return seatNumber;
     }
 
-    public void setSeatNumber(int seatNumber) {
+    public void setSeatNumber(String seatNumber) {
         this.seatNumber = seatNumber;
+    }
+
+    public int getCinemaId() {
+        return cinemaId;
+    }
+
+    public void setCinemaId(int cinemaId) {
+        this.cinemaId = cinemaId;
+    }
+
+    public int getHallId() {
+        return hallId;
+    }
+
+    public void setHallId(int hallId) {
+        this.hallId = hallId;
     }
 
     public boolean isReserved() {
