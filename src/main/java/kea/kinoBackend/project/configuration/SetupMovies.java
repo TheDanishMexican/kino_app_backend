@@ -1,25 +1,37 @@
 package kea.kinoBackend.project.configuration;
 
-import kea.kinoBackend.project.model.Movie;
-import kea.kinoBackend.project.repository.MovieRepository;
+import kea.kinoBackend.project.model.*;
+import kea.kinoBackend.project.repository.*;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+
 import java.util.Arrays;
+
 
 @Component
 public class SetupMovies implements ApplicationRunner {
     private MovieRepository movieRepository;
+    private CinemaRepository cinemaRepository;
+    private HallRepository hallRepository;
+    private RowRepository rowRepository;
+    private ShowingRepository showingRepository;
+    private SeatRepository seatRepository;
 
-    public SetupMovies(MovieRepository movieRepository) {
+    public SetupMovies(MovieRepository movieRepository, CinemaRepository cinemaRepository, HallRepository hallRepository, RowRepository rowRepository, ShowingRepository showingRepository, SeatRepository seatRepository) {
         this.movieRepository = movieRepository;
+        this.cinemaRepository = cinemaRepository;
+        this.hallRepository = hallRepository;
+        this.rowRepository = rowRepository;
+        this.showingRepository = showingRepository;
+        this.seatRepository = seatRepository;
     }
 
     public void run(ApplicationArguments args) {
-        createMovies();
+        createMovies(); createCinemas();
     }
 
     public void createMovies() {
@@ -71,4 +83,34 @@ public class SetupMovies implements ApplicationRunner {
 
     }
 
+    public void createCinemas() {
+
+
+        Cinema cinema1 = new Cinema("Central Bio", "Copenhagen");
+        cinemaRepository.save(cinema1);
+
+        Hall hall1 = new Hall(cinema1);
+        hallRepository.save(hall1);
+
+        Showing HarryPotterAt5 = new Showing(hall1, LocalDateTime.of(2022, 5, 5, 17, 0), "Harry Potter");
+        showingRepository.save(HarryPotterAt5);
+
+        Row row1 = new Row(10, 1, hall1, SeatType.COUCH);
+        rowRepository.save(row1);
+
+        Seat seat1 = new Seat(1, false, row1);
+        seatRepository.save(seat1);
+
+        Seat seat2 = new Seat(2, false, row1);
+        seatRepository.save(seat2);
+
+        row1.setSeats(seatRepository.findAll());
+        rowRepository.save(row1);
+
+        hall1.setRows(rowRepository.findAll());
+        hallRepository.save(hall1);
+
+        cinema1.setHalls(hallRepository.findAll());
+        cinemaRepository.save(cinema1);
+    }
 }
