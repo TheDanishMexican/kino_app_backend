@@ -60,6 +60,7 @@ public class MovieService {
     private void updateMovie(Movie original, MovieDTO request) {
         original.setName(request.getName());
         original.setDescription(request.getDescription());
+        original.setDuration(request.getDuration());
         if (request.getReleaseDate() != null) {
             LocalDate releaseDate = LocalDate.parse(request.getReleaseDate());
             original.setReleaseDate(releaseDate);

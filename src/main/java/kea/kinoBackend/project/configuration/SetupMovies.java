@@ -26,6 +26,7 @@ public class SetupMovies implements ApplicationRunner {
         Movie testMovie = new Movie(
                 "Inception", // name
                 "A thief, who steals corporate secrets through the use of dream-sharing technology, is given the inverse task of planting an idea into the mind of a C.E.O.", // description
+                148, // duration
                 LocalDate.of(2010, 7, 16), // releaseDate
                 "Christopher Nolan", // director
                 Arrays.asList("Leonardo DiCaprio", "Joseph Gordon-Levitt", "Ellen Page"), // actors
@@ -36,6 +37,7 @@ public class SetupMovies implements ApplicationRunner {
         Movie Barbie = new Movie(
                 "Barbie", // name
                 "A Barbie movie", // description
+                90, // duration
                 LocalDate.of(2021, 1, 1), // releaseDate
                 "Barbie", // director
                 Arrays.asList("Barbie", "Ken", "Skipper"), // actors
@@ -47,6 +49,7 @@ public class SetupMovies implements ApplicationRunner {
         Movie testMovie2 = new Movie(
                 "The Dark Knight", // name
                 "When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman must accept one of the greatest psychological and physical tests of his ability to fight injustice.", // description
+                152, // duration
                 LocalDate.of(2008, 7, 18), // releaseDate
                 "Christopher Nolan", // director
                 Arrays.asList("Christian Bale", "Heath Ledger", "Aaron Eckhart"), // actors
@@ -58,6 +61,7 @@ public class SetupMovies implements ApplicationRunner {
         Movie testMovie3 = new Movie(
                 "The Shawshank Redemption", // name
                 "Two imprisoned", // description
+                120, // duration
                 LocalDate.of(1994, 10, 14), // releaseDate
                 "Frank Darabont", // director
                 Arrays.asList("Tim Robbins", "Morgan Freeman", "Bob Gunton"), // actors

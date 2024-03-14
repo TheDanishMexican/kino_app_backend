@@ -18,6 +18,7 @@ public class MovieDTO {
     private String description;
     private String releaseDate;
     private String director;
+    private int duration;
     private List<String> actors;
     private List<String> genres;
     private String created;
@@ -27,6 +28,7 @@ public class MovieDTO {
         this.id = r.getId();
         this.name = r.getName();
         this.description = r.getDescription();
+        this.duration = r.getDuration();
         this.releaseDate = r.getReleaseDate().toString();
         this.director = r.getDirector();
         this.actors = r.getActors();

@@ -29,10 +29,12 @@ public class Movie {
 
     private String director;
 
+    private int duration;
+
     @ElementCollection
     private List<String> actors;
 
-    @ElementCollection //laver vidst en ny tabel for genres kryds tabel type vibes
+    @ElementCollection
     private List<String> genres;
 
     @CreationTimestamp
@@ -42,9 +44,10 @@ public class Movie {
     private LocalDateTime edited;
 
 
-    public Movie(String name, String description, LocalDate releaseDate, String director, List<String> actors, List<String> genres) {
+    public Movie(String name, String description, int duration, LocalDate releaseDate, String director, List<String> actors, List<String> genres) {
         this.name = name;
         this.description = description;
+        this.duration = duration;
         this.releaseDate = releaseDate;
         this.director = director;
         this.actors = actors;
