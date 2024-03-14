@@ -1,23 +1,46 @@
 package kea.kinoBackend.project.model;
 
+
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-
+import java.util.List;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "movies")
 public class Movie {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
     private String name;
+
+    private String posterUrl;
 
     private String description;
 
     private LocalDate releaseDate;
+
+    private String director;
+
+    private int duration;
+
+    @ElementCollection
+    private List<String> actors;
+
+    @ElementCollection
+    private List<String> genres;
 
     @CreationTimestamp
     private LocalDateTime created;
@@ -25,53 +48,16 @@ public class Movie {
     @UpdateTimestamp
     private LocalDateTime edited;
 
-    public Movie() {
-    }
 
-    public Movie(String name, LocalDate releaseDate, String description) {
-        System.out.println("Movie created: " + name);
+    public Movie(String name, String posterUrl, String description, int duration, LocalDate releaseDate, String director, List<String> actors, List<String> genres) {
         this.name = name;
+        this.posterUrl = posterUrl;
         this.description = description;
+        this.duration = duration;
         this.releaseDate = releaseDate;
+        this.director = director;
+        this.actors = actors;
+        this.genres = genres;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public LocalDate getReleaseDate() {
-        return releaseDate;
-    }
-
-    public void setReleaseDate(LocalDate releaseDate) {
-        this.releaseDate = releaseDate;
-    }
-
-    public LocalDateTime getCreated() {
-        return created;
-    }
-
-    public void setCreated(LocalDateTime created) {
-        this.created = created;
-    }
-
-    public LocalDateTime getEdited() {
-        return edited;
-    }
-
-    public void setEdited(LocalDateTime edited) {
-        this.edited = edited;
-    }
 }

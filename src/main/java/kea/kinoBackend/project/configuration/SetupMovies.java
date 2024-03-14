@@ -12,6 +12,9 @@ import java.time.LocalTime;
 import java.util.List;
 import java.util.Set;
 
+import java.util.Arrays;
+
+
 @Component
 public class SetupMovies implements ApplicationRunner {
     private MovieRepository movieRepository;
@@ -37,10 +40,56 @@ public class SetupMovies implements ApplicationRunner {
     }
 
     public void createMovies() {
-         movieRepository.save(new Movie("The Matrix", LocalDate.of(1999, 5, 5), "The Matrix is a 1999 science fiction action film written and directed by the Wachowskis. It is the first installment in The Matrix film series, starring Keanu Reeves, Laurence Fishburne, Carrie-Anne Moss, Hugo Weaving, and Joe Pantoliano."));
-         movieRepository.save(new Movie("The Matrix Reloaded", LocalDate.of(2003, 9, 20), "The Matrix Reloaded is a 2003 science fiction action film, the first sequel to The Matrix, and the second installment in The Matrix film series, written and directed by the Wachowskis."));
-         movieRepository.save(new Movie("The Matrix Revolutions", LocalDate.of(2003, 2, 17), "The Matrix Revolutions is a 2003 science fiction action film, the third installment of The Matrix trilogy, written and directed by the Wachowskis."));
-         movieRepository.save(new Movie("The Matrix Resurrections", LocalDate.of(2021, 7, 11), "The Matrix Resurrections is a 2021 science fiction action film produced, co-written, and directed by Lana Wachowski. It is the fourth installment in The Matrix film series, set twenty years after the events of the third film, The Matrix Revolutions."));
+        Movie testMovie = new Movie(
+                "Inception", // name
+                "https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_.jpg", // posterUrl
+                "A thief, who steals corporate secrets through the use of dream-sharing technology, is given the inverse task of planting an idea into the mind of a C.E.O.", // description
+                148, // duration
+                LocalDate.of(2010, 7, 16), // releaseDate
+                "Christopher Nolan", // director
+                Arrays.asList("Leonardo DiCaprio", "Joseph Gordon-Levitt", "Ellen Page"), // actors
+                Arrays.asList("Action", "Sci-Fi", "Thriller") // genres
+        );
+        movieRepository.save(testMovie);
+
+        Movie Barbie = new Movie(
+                "Barbie", // name
+                "https://m.media-amazon.com/images/M/MV5BOWIyN2Y5NmYtMzdjZi00MzcyLWI2NzgtNjM4NmJmZTcwNDJkXkEyXkFqcGdeQXVyNzQyNTU2MjI@._V1_.jpg", // posterUrl
+                "A Barbie movie", // description
+                90, // duration
+                LocalDate.of(2021, 1, 1), // releaseDate
+                "Barbie", // director
+                Arrays.asList("Barbie", "Ken", "Skipper"), // actors
+                Arrays.asList("Animation", "Family", "Fantasy") // genres
+        );
+
+        movieRepository.save(Barbie);
+
+        Movie testMovie2 = new Movie(
+                "The Dark Knight", // name
+                "https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_.jpg", // posterUrl
+                "When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman must accept one of the greatest psychological and physical tests of his ability to fight injustice.", // description
+                152, // duration
+                LocalDate.of(2008, 7, 18), // releaseDate
+                "Christopher Nolan", // director
+                Arrays.asList("Christian Bale", "Heath Ledger", "Aaron Eckhart"), // actors
+                Arrays.asList("Action", "Crime", "Drama") // genres
+        );
+
+        movieRepository.save(testMovie2);
+
+        Movie testMovie3 = new Movie(
+                "The Shawshank Redemption", // name
+                "https://m.media-amazon.com/images/M/MV5BNDE3ODcxYzMtY2YzZC00NmNlLWJiNDMtZDViZWM2MzIxZDYwXkEyXkFqcGdeQXVyNjAwNDUxODI@._V1_.jpg", // posterUrl
+                "Two imprisoned", // description
+                120, // duration
+                LocalDate.of(1994, 10, 14), // releaseDate
+                "Frank Darabont", // director
+                Arrays.asList("Tim Robbins", "Morgan Freeman", "Bob Gunton"), // actors
+                Arrays.asList("Drama", "blop") // genres
+        );
+        movieRepository.save(testMovie3);
+
     }
 
     public void createCinemas() {
