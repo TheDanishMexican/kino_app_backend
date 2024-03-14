@@ -15,6 +15,7 @@ import java.util.List;
 public class MovieDTO {
     private Integer id;
     private String name;
+    private String posterUrl;
     private String description;
     private String releaseDate;
     private String director;
@@ -27,6 +28,7 @@ public class MovieDTO {
     public MovieDTO(Movie r, boolean includeAll) {
         this.id = r.getId();
         this.name = r.getName();
+        this.posterUrl = r.getPosterUrl();
         this.description = r.getDescription();
         this.duration = r.getDuration();
         this.releaseDate = r.getReleaseDate().toString();

@@ -37,6 +37,7 @@ public class SetupMovies implements ApplicationRunner {
     public void createMovies() {
         Movie testMovie = new Movie(
                 "Inception", // name
+                "https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_.jpg", // posterUrl
                 "A thief, who steals corporate secrets through the use of dream-sharing technology, is given the inverse task of planting an idea into the mind of a C.E.O.", // description
                 148, // duration
                 LocalDate.of(2010, 7, 16), // releaseDate
@@ -48,6 +49,7 @@ public class SetupMovies implements ApplicationRunner {
 
         Movie Barbie = new Movie(
                 "Barbie", // name
+                "https://m.media-amazon.com/images/M/MV5BOWIyN2Y5NmYtMzdjZi00MzcyLWI2NzgtNjM4NmJmZTcwNDJkXkEyXkFqcGdeQXVyNzQyNTU2MjI@._V1_.jpg", // posterUrl
                 "A Barbie movie", // description
                 90, // duration
                 LocalDate.of(2021, 1, 1), // releaseDate
@@ -60,6 +62,7 @@ public class SetupMovies implements ApplicationRunner {
 
         Movie testMovie2 = new Movie(
                 "The Dark Knight", // name
+                "https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_.jpg", // posterUrl
                 "When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman must accept one of the greatest psychological and physical tests of his ability to fight injustice.", // description
                 152, // duration
                 LocalDate.of(2008, 7, 18), // releaseDate
@@ -72,6 +75,7 @@ public class SetupMovies implements ApplicationRunner {
 
         Movie testMovie3 = new Movie(
                 "The Shawshank Redemption", // name
+                "https://m.media-amazon.com/images/M/MV5BNDE3ODcxYzMtY2YzZC00NmNlLWJiNDMtZDViZWM2MzIxZDYwXkEyXkFqcGdeQXVyNjAwNDUxODI@._V1_.jpg", // posterUrl
                 "Two imprisoned", // description
                 120, // duration
                 LocalDate.of(1994, 10, 14), // releaseDate

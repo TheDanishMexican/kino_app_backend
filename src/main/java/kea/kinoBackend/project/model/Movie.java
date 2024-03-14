@@ -26,6 +26,8 @@ public class Movie {
 
     private String name;
 
+    private String posterUrl;
+
     private String description;
 
     private LocalDate releaseDate;
@@ -47,8 +49,9 @@ public class Movie {
     private LocalDateTime edited;
 
 
-    public Movie(String name, String description, int duration, LocalDate releaseDate, String director, List<String> actors, List<String> genres) {
+    public Movie(String name, String posterUrl, String description, int duration, LocalDate releaseDate, String director, List<String> actors, List<String> genres) {
         this.name = name;
+        this.posterUrl = posterUrl;
         this.description = description;
         this.duration = duration;
         this.releaseDate = releaseDate;
