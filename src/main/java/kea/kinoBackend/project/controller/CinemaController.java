@@ -34,6 +34,7 @@ public class CinemaController {
         return cinemaService.getSeatsByCinemaId(id);
     }
 
+    // refactor to optionals/body
     @GetMapping("/{cinemaId}/halls/{hallId}/seats")
     public ResponseEntity<List<SeatDTO>> getAllSeatsInHallInCinema(@PathVariable("cinemaId") int cinemaId, @PathVariable("hallId") int hallId) {
         List<SeatDTO> seats = cinemaService.getAllSeatsInHall(cinemaId, hallId);
@@ -52,6 +53,7 @@ public class CinemaController {
         return ResponseEntity.ok(halls);
     }
 
+    // refactor to optionals/body
     @GetMapping("/{cinemaId}/halls/{hallId}/rows")
     public ResponseEntity<List<RowDTO>> getAllRowsInHallInCinema(@PathVariable("cinemaId") int cinemaId, @PathVariable("hallId") int hallId) {
         List<RowDTO> rows = cinemaService.getAllRowsInHallInCinemaById(cinemaId, hallId);
@@ -70,6 +72,7 @@ public class CinemaController {
         return ResponseEntity.ok(showings);
     }
 
+    // refactor to optionals/body
     @GetMapping("/{cinemaId}/halls/{hallId}/showings")
     public ResponseEntity<List<ShowingDTO>> getAllShowingsInHallInCinema(@PathVariable("cinemaId") int cinemaId, @PathVariable("hallId") int hallId) {
         List<ShowingDTO> showings = cinemaService.getAllShowingsInHallInCinemaById(cinemaId, hallId);
@@ -79,6 +82,7 @@ public class CinemaController {
         return ResponseEntity.ok(showings);
     }
 
+    // refactor to optionals/body
     @GetMapping("/{cinemaId}/halls/{hallId}/reservations")
     public ResponseEntity<List<ReservationDTO>> getAllReservationsInHallInCinema(@PathVariable("cinemaId") int cinemaId, @PathVariable("hallId") int hallId) {
         List<ReservationDTO> reservations = cinemaService.getAllReservationsInHallInCinemaById(cinemaId, hallId);
@@ -87,6 +91,7 @@ public class CinemaController {
         }
         return ResponseEntity.ok(reservations);
     }
+
 
     @GetMapping("/{id}/reservations")
     public ResponseEntity<List<ReservationDTO>> getAllReservationsInCinema(@PathVariable int id) {
