@@ -9,23 +9,23 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private int userID;
+    private int userId;
 
-    private int seatID;
+    private int seatId;
 
     @ManyToOne
     private Showing showing;
 
-    private int hallID;
+    private int hallId;
 
     public Reservation() {
     }
 
-    public Reservation(int userID, int seatID, Showing showing) {
-        this.userID = userID;
-        this.seatID = seatID;
+    public Reservation(int userId, int seatId, Showing showing) {
+        this.userId = userId;
+        this.seatId = seatId;
         this.showing = showing;
-        this.hallID = showing.getHall().getId();
+        this.hallId = showing.getHall().getId();
     }
 
     public int getId() {
@@ -36,20 +36,20 @@ public class Reservation {
         this.id = id;
     }
 
-    public int getUserID() {
-        return userID;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUserID(int customerID) {
-        this.userID = customerID;
+    public void setUserId(int customerID) {
+        this.userId = customerID;
     }
 
-    public int getSeatID() {
-        return seatID;
+    public int getSeatId() {
+        return seatId;
     }
 
-    public void setSeatID(int seatID) {
-        this.seatID = seatID;
+    public void setSeatId(int seatID) {
+        this.seatId = seatID;
     }
 
     public Showing getShowing() {
@@ -60,7 +60,7 @@ public class Reservation {
         this.showing = showing;
     }
 
-    public int getHallID() {
-        return hallID;
+    public int getHallId() {
+        return hallId;
     }
 }

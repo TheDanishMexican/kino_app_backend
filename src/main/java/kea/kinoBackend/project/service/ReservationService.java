@@ -30,10 +30,10 @@ public class ReservationService {
     public ReservationDTO toDTO(Reservation reservation) {
         return new ReservationDTO(
                 reservation.getId(),
-                reservation.getUserID(),
-                reservation.getSeatID(),
+                reservation.getUserId(),
+                reservation.getSeatId(),
                 reservation.getShowing().getId(),
-                reservation.getHallID()
+                reservation.getHallId()
         );
     }
 

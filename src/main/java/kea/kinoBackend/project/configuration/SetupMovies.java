@@ -110,13 +110,16 @@ public class SetupMovies implements ApplicationRunner {
         Set<DayOfWeek> weekdays = Set.of(DayOfWeek.MONDAY, DayOfWeek.TUESDAY, DayOfWeek.THURSDAY,
                 DayOfWeek.FRIDAY, DayOfWeek.SATURDAY);
 
-        // Create a new Showing instance with the set of weekdays
-        Showing harryPotterAt5 = new Showing(hall1, weekdays, LocalTime.of(17, 0), 177, "Harry Potter");
+        Movie barbie = movieRepository.findByNameLike("Barbie");
+        Movie inception = movieRepository.findByNameLike("Inception");
 
-        Showing theMatrixAt8 = new Showing(hall1, weekdays, LocalTime.of(20, 0), 189, "The Matrix");
+        // Create a new Showing instance with the set of weekdays
+        Showing barbieAt5 = new Showing(hall1, weekdays, LocalTime.of(17, 0), barbie);
+
+        Showing inceptionAt8 = new Showing(hall1, weekdays, LocalTime.of(20, 0), inception);
         // Save the Showing instance using your repository
-        showingRepository.save(theMatrixAt8);
-        showingRepository.save(harryPotterAt5);
+        showingRepository.save(inceptionAt8);
+        showingRepository.save(barbieAt5);
 
         Row row1 = new Row(10, 1, hall1, SeatType.COUCH);
         rowRepository.save(row1);
@@ -139,11 +142,11 @@ public class SetupMovies implements ApplicationRunner {
         cinema1.setHalls(hallRepository.findAll());
         cinemaRepository.save(cinema1);
 
-        Reservation reservation1 = new Reservation(1, 1, theMatrixAt8);
+        Reservation reservation1 = new Reservation(1, 1, inceptionAt8);
         reservationRepository.save(reservation1);
 
-        List<Reservation> reservations = reservationRepository.findShowingsByHallID(1);
-        harryPotterAt5.setReservations(reservations);
-        showingRepository.save(harryPotterAt5);
+        List<Reservation> reservations = reservationRepository.findShowingsByHallId(1);
+        barbieAt5.setReservations(reservations);
+        showingRepository.save(barbieAt5);
     }
 }

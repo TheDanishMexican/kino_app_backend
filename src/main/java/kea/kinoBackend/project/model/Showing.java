@@ -35,17 +35,18 @@ public class Showing {
     private List<Reservation> reservations;
 
     //replace this with the film class when created
-    private String filmTitle;
+    @OneToOne
+    private Movie movie;
 
     public Showing() {
     }
 
-    public Showing(Hall hall, Set<DayOfWeek> weekdays, LocalTime startTime, int durationInMinutes, String filmTitle) {
+    public Showing(Hall hall, Set<DayOfWeek> weekdays, LocalTime startTime, Movie movie) {
         this.hall = hall;
         this.weekdays = weekdays;
         this.startTime = startTime;
-        this.durationInMinutes = durationInMinutes;
-        this.filmTitle = filmTitle;
+        this.durationInMinutes = movie.getDuration();
+        this.movie = movie;
         calculateEndTime();
         this.reservations = new ArrayList<>();
         this.cinemaId = hall.getCinema().getId();
@@ -104,12 +105,12 @@ public class Showing {
         this.durationInMinutes = durationInMinutes;
     }
 
-    public String getFilmTitle() {
-        return filmTitle;
+    public Movie getMovie() {
+        return movie;
     }
 
-    public void setFilmTitle(String filmTitle) {
-        this.filmTitle = filmTitle;
+    public void setMovie(Movie movie) {
+        this.movie = movie;
     }
 
     public List<Reservation> getReservations() {
@@ -118,5 +119,13 @@ public class Showing {
 
     public void setReservations(List<Reservation> reservations) {
         this.reservations = reservations;
+    }
+
+    public int getCinemaId() {
+        return cinemaId;
+    }
+
+    public void setCinemaId(int cinemaId) {
+        this.cinemaId = cinemaId;
     }
 }
