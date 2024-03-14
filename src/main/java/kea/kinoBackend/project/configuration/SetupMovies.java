@@ -62,7 +62,7 @@ public class SetupMovies implements ApplicationRunner {
 
         Movie testMovie2 = new Movie(
                 "The Dark Knight", // name
-                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROE5xwAH1C5P47qMAyG2rffn9KF4JjWks7sbBXPy1TJw&s", // posterUrl
+                "https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_.jpg", // posterUrl
                 "When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman must accept one of the greatest psychological and physical tests of his ability to fight injustice.", // description
                 152, // duration
                 LocalDate.of(2008, 7, 18), // releaseDate
