@@ -1,6 +1,7 @@
 package kea.kinoBackend.project.service;
 
 import kea.kinoBackend.project.dto.ReservationDTO;
+import kea.kinoBackend.project.dto.SeatDTO;
 import kea.kinoBackend.project.model.Reservation;
 import kea.kinoBackend.project.repository.ReservationRepository;
 import org.springframework.stereotype.Service;
@@ -10,9 +11,11 @@ import java.util.List;
 @Service
 public class ReservationService {
     private ReservationRepository reservationRepository;
+    private SeatService seatService;
 
-    public ReservationService(ReservationRepository reservationRepository) {
+    public ReservationService(ReservationRepository reservationRepository, SeatService seatService) {
         this.reservationRepository = reservationRepository;
+        this.seatService = seatService;
     }
 
     public List<ReservationDTO> getAllReservations() {
@@ -28,10 +31,12 @@ public class ReservationService {
     }
 
     public ReservationDTO toDTO(Reservation reservation) {
+        List<SeatDTO> seatDTOs = reservation.getSeats().stream().map(seatService::toDTO).toList();
+
         return new ReservationDTO(
                 reservation.getId(),
                 reservation.getUserId(),
-                reservation.getSeatId(),
+                seatDTOs,
                 reservation.getShowing().getId(),
                 reservation.getHallId()
         );

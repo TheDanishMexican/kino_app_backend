@@ -2,5 +2,7 @@ package kea.kinoBackend.project.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-public record ReservationDTO (@JsonIgnore Integer id, int customerId, int seatId, int showingId, int hallId){
+import java.util.List;
+
+public record ReservationDTO (@JsonIgnore Integer id, int customerId, List<SeatDTO> seats, int showingId, int hallId){
 }

@@ -2,6 +2,8 @@ package kea.kinoBackend.project.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "reservations")
 public class Reservation {
@@ -11,21 +13,33 @@ public class Reservation {
 
     private int userId;
 
-    private int seatId;
+
+    @OneToMany
+    private List<Seat> seats;
 
     @ManyToOne
     private Showing showing;
 
     private int hallId;
 
+    private int cinemaId;
+
     public Reservation() {
     }
 
-    public Reservation(int userId, int seatId, Showing showing) {
+    public Reservation(int userId, List<Seat> seats, Showing showing) {
         this.userId = userId;
-        this.seatId = seatId;
+        this.seats = seats;
         this.showing = showing;
         this.hallId = showing.getHall().getId();
+        markSeatsAsReserved();
+        this.cinemaId = showing.getHall().getCinema().getId();
+    }
+
+    private void markSeatsAsReserved() {
+        for (Seat seat : seats) {
+            seat.setReserved(true);
+        }
     }
 
     public int getId() {
@@ -40,16 +54,16 @@ public class Reservation {
         return userId;
     }
 
-    public void setUserId(int customerID) {
-        this.userId = customerID;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
-    public int getSeatId() {
-        return seatId;
+    public List<Seat> getSeats() {
+        return seats;
     }
 
-    public void setSeatId(int seatID) {
-        this.seatId = seatID;
+    public void setSeats(List<Seat> seats) {
+        this.seats = seats;
     }
 
     public Showing getShowing() {
@@ -62,5 +76,17 @@ public class Reservation {
 
     public int getHallId() {
         return hallId;
+    }
+
+    public void setHallId(int hallId) {
+        this.hallId = hallId;
+    }
+
+    public int getCinemaId() {
+        return cinemaId;
+    }
+
+    public void setCinemaId(int cinemaId) {
+        this.cinemaId = cinemaId;
     }
 }

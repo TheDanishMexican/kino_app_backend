@@ -79,6 +79,24 @@ public class CinemaController {
         return ResponseEntity.ok(showings);
     }
 
+    @GetMapping("/{cinemaId}/halls/{hallId}/reservations")
+    public ResponseEntity<List<ReservationDTO>> getAllReservationsInHallInCinema(@PathVariable("cinemaId") int cinemaId, @PathVariable("hallId") int hallId) {
+        List<ReservationDTO> reservations = cinemaService.getAllReservationsInHallInCinemaById(cinemaId, hallId);
+        if (reservations.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(reservations);
+    }
+
+    @GetMapping("/{id}/reservations")
+    public ResponseEntity<List<ReservationDTO>> getAllReservationsInCinema(@PathVariable int id) {
+        List<ReservationDTO> reservations = cinemaService.getAllReservationsInCinemaById(id);
+        if (reservations.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(reservations);
+    }
+
     @PostMapping
     public CinemaDTO addCinema(@RequestBody CinemaDTO request) {
         return cinemaService.addCinema(request);

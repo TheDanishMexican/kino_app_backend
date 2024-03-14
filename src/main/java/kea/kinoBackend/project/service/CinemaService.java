@@ -21,9 +21,11 @@ public class CinemaService {
     private RowService rowService;
     private ShowingRepository showingRepository;
     private ShowingService showingService;
+    private ReservationRepository reservationRepository;
+    private ReservationService reservationService;
 
 
-    public CinemaService(CinemaRepository cinemaRepository, HallService hallService, HallRepository hallRepository, SeatRepository seatRepository, SeatService seatService, RowRepository rowRepository, RowService rowService, ShowingRepository showingRepository, ShowingService showingService) {
+    public CinemaService(CinemaRepository cinemaRepository, HallService hallService, HallRepository hallRepository, SeatRepository seatRepository, SeatService seatService, RowRepository rowRepository, RowService rowService, ShowingRepository showingRepository, ShowingService showingService, ReservationRepository reservationRepository, ReservationService reservationService) {
         this.cinemaRepository = cinemaRepository;
         this.hallService = hallService;
         this.hallRepository = hallRepository;
@@ -33,6 +35,8 @@ public class CinemaService {
         this.rowService = rowService;
         this.showingRepository = showingRepository;
         this.showingService = showingService;
+        this.reservationRepository = reservationRepository;
+        this.reservationService = reservationService;
     }
 
     public CinemaDTO getCinemaById(int id) {
@@ -123,6 +127,17 @@ public class CinemaService {
                 .toList();
     }
 
+    public List<ReservationDTO> getAllReservationsInHallInCinemaById(int cinemaId, int hallId) {
+        return reservationRepository.findAllByCinemaIdAndHallId(cinemaId, hallId).stream()
+                .map(reservationService::toDTO)
+                .toList();
+    }
+
+    public List<ReservationDTO> getAllReservationsInCinemaById(int id) {
+        return reservationRepository.findAllByCinemaId(id).stream()
+                .map(reservationService::toDTO)
+                .toList();
+    }
 
 
 }

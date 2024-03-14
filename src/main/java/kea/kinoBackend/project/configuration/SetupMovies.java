@@ -10,6 +10,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 
 
@@ -145,10 +146,12 @@ public class SetupMovies implements ApplicationRunner {
         cinema1.setHalls(hallRepository.findAll());
         cinemaRepository.save(cinema1);
 
-        Reservation reservation1 = new Reservation(1, 1, inceptionAt8Hall1);
+        List<Seat> seats = List.of(seat2, seat1);
+
+        Reservation reservation1 = new Reservation(1, seats, inceptionAt8Hall1);
         reservationRepository.save(reservation1);
 
-        Reservation reservation2 = new Reservation(2, 2, barbieAt5Hall1);
-        reservationRepository.save(reservation2);
+//        Reservation reservation2 = new Reservation(2, 2, barbieAt5Hall1);
+//        reservationRepository.save(reservation2);
     }
 }
