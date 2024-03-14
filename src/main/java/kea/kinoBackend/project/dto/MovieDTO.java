@@ -1,5 +1,6 @@
 package kea.kinoBackend.project.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import kea.kinoBackend.project.model.Movie;
 import lombok.Getter;
@@ -13,8 +14,10 @@ import java.util.List;
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class MovieDTO {
+    @JsonIgnore
     private Integer id;
     private String name;
+    @JsonIgnore
     private String posterUrl;
     private String description;
     private String releaseDate;
@@ -22,7 +25,9 @@ public class MovieDTO {
     private int duration;
     private List<String> actors;
     private List<String> genres;
+    @JsonIgnore
     private String created;
+    @JsonIgnore
     private String edited;
 
     public MovieDTO(Movie r, boolean includeAll) {

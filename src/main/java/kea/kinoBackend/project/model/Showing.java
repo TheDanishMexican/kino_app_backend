@@ -34,8 +34,7 @@ public class Showing {
     @OneToMany(mappedBy = "showing")
     private List<Reservation> reservations;
 
-    //replace this with the film class when created
-    @OneToOne
+    @ManyToOne
     private Movie movie;
 
     public Showing() {

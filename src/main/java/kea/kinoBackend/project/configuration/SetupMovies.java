@@ -9,10 +9,8 @@ import org.springframework.stereotype.Component;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.List;
-import java.util.Set;
-
 import java.util.Arrays;
+import java.util.Set;
 
 
 @Component
@@ -112,14 +110,19 @@ public class SetupMovies implements ApplicationRunner {
 
         Movie barbie = movieRepository.findByNameLike("Barbie");
         Movie inception = movieRepository.findByNameLike("Inception");
+        Movie batman = movieRepository.findByNameLike("The Dark Knight");
 
-        // Create a new Showing instance with the set of weekdays
-        Showing barbieAt5 = new Showing(hall1, weekdays, LocalTime.of(17, 0), barbie);
 
-        Showing inceptionAt8 = new Showing(hall1, weekdays, LocalTime.of(20, 0), inception);
-        // Save the Showing instance using your repository
-        showingRepository.save(inceptionAt8);
-        showingRepository.save(barbieAt5);
+        Showing barbieAt5Hall1 = new Showing(hall1, weekdays, LocalTime.of(17, 0), barbie);
+        Showing inceptionAt8Hall1 = new Showing(hall1, weekdays, LocalTime.of(20, 0), inception);
+        Showing batmanAt5Hall2 = new Showing(hall2, weekdays, LocalTime.of(15, 0), batman);
+        Showing inceptionAt8Hall2 = new Showing(hall2, weekdays, LocalTime.of(11, 0), inception);
+
+        showingRepository.save(inceptionAt8Hall1);
+        showingRepository.save(barbieAt5Hall1);
+        showingRepository.save(batmanAt5Hall2);
+        showingRepository.save(inceptionAt8Hall2);
+
 
         Row row1 = new Row(10, 1, hall1, SeatType.COUCH);
         rowRepository.save(row1);
@@ -142,11 +145,10 @@ public class SetupMovies implements ApplicationRunner {
         cinema1.setHalls(hallRepository.findAll());
         cinemaRepository.save(cinema1);
 
-        Reservation reservation1 = new Reservation(1, 1, inceptionAt8);
+        Reservation reservation1 = new Reservation(1, 1, inceptionAt8Hall1);
         reservationRepository.save(reservation1);
 
-        List<Reservation> reservations = reservationRepository.findShowingsByHallId(1);
-        barbieAt5.setReservations(reservations);
-        showingRepository.save(barbieAt5);
+        Reservation reservation2 = new Reservation(2, 2, barbieAt5Hall1);
+        reservationRepository.save(reservation2);
     }
 }
