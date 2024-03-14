@@ -16,6 +16,8 @@ public class Reservation {
     @ManyToOne
     private Showing showing;
 
+    private int hallID;
+
     public Reservation() {
     }
 
@@ -23,6 +25,7 @@ public class Reservation {
         this.userID = userID;
         this.seatID = seatID;
         this.showing = showing;
+        this.hallID = showing.getHall().getId();
     }
 
     public int getId() {
@@ -55,5 +58,9 @@ public class Reservation {
 
     public void setShowing(Showing showing) {
         this.showing = showing;
+    }
+
+    public int getHallID() {
+        return hallID;
     }
 }

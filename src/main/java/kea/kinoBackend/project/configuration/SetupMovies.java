@@ -6,7 +6,10 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
-import java.time.*;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.List;
 import java.util.Set;
 
 @Component
@@ -90,6 +93,8 @@ public class SetupMovies implements ApplicationRunner {
         Reservation reservation1 = new Reservation(1, 1, theMatrixAt8);
         reservationRepository.save(reservation1);
 
-
+        List<Reservation> reservations = reservationRepository.findShowingsByHallID(1);
+        harryPotterAt5.setReservations(reservations);
+        showingRepository.save(harryPotterAt5);
     }
 }

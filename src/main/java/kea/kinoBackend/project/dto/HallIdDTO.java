@@ -1,4 +1,4 @@
 package kea.kinoBackend.project.dto;
 
-public record HallIdDTO(Integer hallID) {
+public record HallIdDTO(Integer hallId) {
 }

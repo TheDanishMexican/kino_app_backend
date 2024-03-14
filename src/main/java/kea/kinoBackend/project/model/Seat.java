@@ -13,6 +13,10 @@ public class Seat {
 
     private boolean isReserved;
 
+    private int cinemaId;
+
+    private int hallId;
+
     @ManyToOne
     @JoinColumn(name = "seat_row_id", nullable = false)
     private Row row;
@@ -24,6 +28,8 @@ public class Seat {
         this.seatNumber = seatNumber;
         this.isReserved = isReserved;
         this.row = row;
+        this.cinemaId = row.getHall().getCinema().getId();
+        this.hallId = row.getHall().getId();
     }
 
     public int getId() {

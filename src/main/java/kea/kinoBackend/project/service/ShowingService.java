@@ -1,27 +1,24 @@
 package kea.kinoBackend.project.service;
 
-import kea.kinoBackend.project.dto.HallDTO;
+import kea.kinoBackend.project.dto.ReservationDTO;
 import kea.kinoBackend.project.dto.ShowingDTO;
 import kea.kinoBackend.project.model.Showing;
 import kea.kinoBackend.project.repository.HallRepository;
 import kea.kinoBackend.project.repository.ShowingRepository;
 import org.springframework.stereotype.Service;
 
-import java.time.DayOfWeek;
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class ShowingService {
     private ShowingRepository showingRepository;
     private HallRepository hallRepository;
+    private ReservationService reservationService;
 
-    public ShowingService(ShowingRepository showingRepository, HallRepository hallRepository) {
+    public ShowingService(ShowingRepository showingRepository, HallRepository hallRepository, ReservationService reservationService) {
         this.showingRepository = showingRepository;
         this.hallRepository = hallRepository;
+        this.reservationService = reservationService;
     }
 
     public List<ShowingDTO> findAllShowings() {
@@ -71,6 +68,10 @@ public class ShowingService {
 
     public ShowingDTO toDTO(Showing showing) {
 
+        List<ReservationDTO> reservationDTOs = showing.getReservations().stream()
+                .map(reservationService::toDTO)
+                .toList();
+
         return new ShowingDTO(
                 showing.getId(),
                 showing.getHall().getId(),
@@ -78,7 +79,8 @@ public class ShowingService {
                 showing.getEndTime(),
                 showing.getFilmTitle(),
                 showing.getDurationInMinutes(),
-                showing.getWeekdays()
+                showing.getWeekdays(),
+                reservationDTOs
 
         );
     }

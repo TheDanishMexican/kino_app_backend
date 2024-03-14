@@ -1,17 +1,14 @@
 package kea.kinoBackend.project.service;
 
-import kea.kinoBackend.project.dto.CinemaDTO;
 import kea.kinoBackend.project.dto.HallDTO;
 import kea.kinoBackend.project.dto.RowDTO;
 import kea.kinoBackend.project.dto.ShowingDTO;
-import kea.kinoBackend.project.model.Cinema;
 import kea.kinoBackend.project.model.Hall;
 import kea.kinoBackend.project.repository.CinemaRepository;
 import kea.kinoBackend.project.repository.HallRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -54,7 +51,7 @@ public class HallService {
 
     //Der skal tilføjes rows og showings til denne, men det kræver at der også bliver lavet metoder i deres service classes
     public void updateHall(Hall original, HallDTO request) {
-        original.setCinema(cinemaRepository.findById(request.cinemaID()).orElseThrow(() -> new IllegalArgumentException("Cinema not found")));
+        original.setCinema(cinemaRepository.findById(request.cinemaId()).orElseThrow(() -> new IllegalArgumentException("Cinema not found")));
     }
 
     public HallDTO editHall(HallDTO request, int id) {

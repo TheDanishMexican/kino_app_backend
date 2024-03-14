@@ -1,8 +1,8 @@
 package kea.kinoBackend.project.controller;
 
 import kea.kinoBackend.project.dto.CinemaDTO;
+import kea.kinoBackend.project.dto.SeatDTO;
 import kea.kinoBackend.project.service.CinemaService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,6 +28,11 @@ public class CinemaController {
     @GetMapping
     public List<CinemaDTO> getAllCinemas() {
         return cinemaService.getAllCinemas();
+    }
+
+    @GetMapping("/{id}/seats")
+    public List<SeatDTO> getSeatsByCinemaId(@PathVariable int id) {
+        return cinemaService.getSeatsByCinemaId(id);
     }
 
     @PostMapping

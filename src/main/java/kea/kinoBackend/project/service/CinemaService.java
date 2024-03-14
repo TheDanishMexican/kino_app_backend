@@ -1,27 +1,32 @@
 package kea.kinoBackend.project.service;
 
 import kea.kinoBackend.project.dto.CinemaDTO;
-import kea.kinoBackend.project.dto.HallDTO;
 import kea.kinoBackend.project.dto.HallIdDTO;
+import kea.kinoBackend.project.dto.SeatDTO;
 import kea.kinoBackend.project.model.Cinema;
-import kea.kinoBackend.project.model.Hall;
 import kea.kinoBackend.project.repository.CinemaRepository;
+import kea.kinoBackend.project.repository.HallRepository;
+import kea.kinoBackend.project.repository.SeatRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class CinemaService {
     private CinemaRepository cinemaRepository;
     private HallService hallService;
+    private HallRepository hallRepository;
+    private SeatRepository seatRepository;
 
-    public CinemaService(CinemaRepository cinemaRepository, HallService hallService) {
+
+    public CinemaService(CinemaRepository cinemaRepository, HallService hallService, HallRepository hallRepository, SeatRepository seatRepository) {
         this.cinemaRepository = cinemaRepository;
         this.hallService = hallService;
+        this.hallRepository = hallRepository;
+        this.seatRepository = seatRepository;
     }
 
 
@@ -75,5 +80,11 @@ public class CinemaService {
         Cinema cinema = cinemaRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cinema not found"));
         cinemaRepository.delete(cinema);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
+
+    public List<SeatDTO> getSeatsByCinemaId(int id) {
+        List<SeatDTO> seats = seatRepository.findAllByCinemaId(id).stream().map(seat -> new SeatDTO(seat.getId(), seat.getSeatNumber(), seat.isReserved(), seat.getRow().getId())).toList();
+
+        return seats;
     }
 }

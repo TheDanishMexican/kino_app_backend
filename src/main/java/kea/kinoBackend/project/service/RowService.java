@@ -1,9 +1,7 @@
 package kea.kinoBackend.project.service;
 
-import kea.kinoBackend.project.dto.HallDTO;
 import kea.kinoBackend.project.dto.RowDTO;
 import kea.kinoBackend.project.dto.SeatDTO;
-import kea.kinoBackend.project.model.Hall;
 import kea.kinoBackend.project.model.Row;
 import kea.kinoBackend.project.repository.HallRepository;
 import kea.kinoBackend.project.repository.RowRepository;
@@ -49,7 +47,7 @@ public class RowService {
     public void updateRow(Row original, RowDTO request) {
         original.setAmountOfSeats(request.amountOfSeats());
         original.setRowNumber(request.rowNumber());
-        original.setHall(hallRepository.findById(request.hallID()).orElseThrow(() -> new IllegalArgumentException("Hall not found")));
+        original.setHall(hallRepository.findById(request.hallId()).orElseThrow(() -> new IllegalArgumentException("Hall not found")));
         original.setSeatType(request.seatType());
     }
 
