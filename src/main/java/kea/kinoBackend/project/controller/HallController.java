@@ -9,11 +9,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/halls")
-public class HalController {
+public class HallController {
 
     private final HallService hallService;
 
-    public HalController(HallService hallService) {
+    public HallController(HallService hallService) {
         this.hallService = hallService;
     }
 

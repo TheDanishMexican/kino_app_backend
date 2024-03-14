@@ -1,18 +1,17 @@
 package kea.kinoBackend.project.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import java.util.List;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -26,25 +25,26 @@ public class Movie {
 
     private String name;
 
+    @JsonIgnore
     private String posterUrl;
-
+    @JsonIgnore
     private String description;
-
+    @JsonIgnore
     private LocalDate releaseDate;
-
+    @JsonIgnore
     private String director;
-
+    @JsonIgnore
     private int duration;
-
+    @JsonIgnore
     @ElementCollection
     private List<String> actors;
-
+    @JsonIgnore
     @ElementCollection
     private List<String> genres;
-
+    @JsonIgnore
     @CreationTimestamp
     private LocalDateTime created;
-
+    @JsonIgnore
     @UpdateTimestamp
     private LocalDateTime edited;
 

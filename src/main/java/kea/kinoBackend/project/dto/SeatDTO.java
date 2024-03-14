@@ -1,4 +1,6 @@
 package kea.kinoBackend.project.dto;
 
-public record SeatDTO(int id, int seatNumber, boolean isReserved, int rowID) {}
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+public record SeatDTO(@JsonIgnore Integer id, String seatNumber, boolean isReserved, int rowId) {}
 

@@ -1,5 +1,6 @@
 package kea.kinoBackend.project.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -8,9 +9,10 @@ import java.util.List;
 @Entity
 @Table(name = "cinemas")
 public class Cinema {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
+    @JsonIgnore
     private int id;
 
     private String name;

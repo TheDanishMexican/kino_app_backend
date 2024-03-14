@@ -2,7 +2,11 @@ package kea.kinoBackend.project.model;
 
 import jakarta.persistence.*;
 
-import java.time.LocalDateTime;
+import java.time.DayOfWeek;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 @Table(name = "showings")
 @Entity
@@ -14,19 +18,43 @@ public class Showing {
     @ManyToOne
     private Hall hall;
 
-    private LocalDateTime timeAndDate;
+    @ElementCollection(targetClass = DayOfWeek.class)
+    @CollectionTable(name = "showing_weekdays", joinColumns = @JoinColumn(name = "showing_id"))
+    @Enumerated(EnumType.STRING)
+    private Set<DayOfWeek> weekdays;
 
-    //replace this with the film class when created
-    private String filmTitle;
+    private LocalTime startTime;
+
+    private LocalTime endTime;
+
+    private int durationInMinutes;
+
+    private int cinemaId;
+
+    @OneToMany(mappedBy = "showing")
+    private List<Reservation> reservations;
+
+    @ManyToOne
+    private Movie movie;
 
     public Showing() {
     }
 
-    public Showing(Hall hall, LocalDateTime timeAndDate, String filmTitle) {
+    public Showing(Hall hall, Set<DayOfWeek> weekdays, LocalTime startTime, Movie movie) {
         this.hall = hall;
-        this.timeAndDate = timeAndDate;
-        this.filmTitle = filmTitle;
+        this.weekdays = weekdays;
+        this.startTime = startTime;
+        this.durationInMinutes = movie.getDuration();
+        this.movie = movie;
+        calculateEndTime();
+        this.reservations = new ArrayList<>();
+        this.cinemaId = hall.getCinema().getId();
     }
+
+    public void calculateEndTime() {
+        this.endTime = startTime.plusMinutes(durationInMinutes);
+    }
+
 
     public int getId() {
         return id;
@@ -44,19 +72,59 @@ public class Showing {
         this.hall = hall;
     }
 
-    public LocalDateTime getTimeAndDate() {
-        return timeAndDate;
+    public Set<DayOfWeek> getWeekdays() {
+        return weekdays;
     }
 
-    public void setTimeAndDate(LocalDateTime timeAndDate) {
-        this.timeAndDate = timeAndDate;
+    public void setWeekdays(Set<DayOfWeek> weekdays) {
+        this.weekdays = weekdays;
     }
 
-    public String getFilmTitle() {
-        return filmTitle;
+    public LocalTime getStartTime() {
+        return startTime;
     }
 
-    public void setFilmTitle(String filmTitle) {
-        this.filmTitle = filmTitle;
+    public void setStartTime(LocalTime startTime) {
+        this.startTime = startTime;
+    }
+
+    public LocalTime getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(LocalTime endTime) {
+        this.endTime = endTime;
+    }
+
+    public int getDurationInMinutes() {
+        return durationInMinutes;
+    }
+
+    public void setDurationInMinutes(int durationInMinutes) {
+        this.durationInMinutes = durationInMinutes;
+    }
+
+    public Movie getMovie() {
+        return movie;
+    }
+
+    public void setMovie(Movie movie) {
+        this.movie = movie;
+    }
+
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
+    }
+
+    public int getCinemaId() {
+        return cinemaId;
+    }
+
+    public void setCinemaId(int cinemaId) {
+        this.cinemaId = cinemaId;
     }
 }
