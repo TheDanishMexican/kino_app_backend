@@ -9,7 +9,7 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private int customerID;
+    private int userID;
 
     private int seatID;
 
@@ -19,8 +19,8 @@ public class Reservation {
     public Reservation() {
     }
 
-    public Reservation(int customerID, int seatID, Showing showing) {
-        this.customerID = customerID;
+    public Reservation(int userID, int seatID, Showing showing) {
+        this.userID = userID;
         this.seatID = seatID;
         this.showing = showing;
     }
@@ -33,12 +33,12 @@ public class Reservation {
         this.id = id;
     }
 
-    public int getCustomerID() {
-        return customerID;
+    public int getUserID() {
+        return userID;
     }
 
-    public void setCustomerID(int customerID) {
-        this.customerID = customerID;
+    public void setUserID(int customerID) {
+        this.userID = customerID;
     }
 
     public int getSeatID() {

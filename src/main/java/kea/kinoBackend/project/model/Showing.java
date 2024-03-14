@@ -6,6 +6,8 @@ import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Table(name = "showings")
@@ -29,6 +31,9 @@ public class Showing {
 
     private int durationInMinutes;
 
+    @OneToMany(mappedBy = "showing")
+    private List<Reservation> reservations;
+
     //replace this with the film class when created
     private String filmTitle;
 
@@ -42,6 +47,7 @@ public class Showing {
         this.durationInMinutes = durationInMinutes;
         this.filmTitle = filmTitle;
         calculateEndTime();
+        this.reservations = new ArrayList<>();
     }
 
     public void calculateEndTime() {
@@ -103,5 +109,13 @@ public class Showing {
 
     public void setFilmTitle(String filmTitle) {
         this.filmTitle = filmTitle;
+    }
+
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
     }
 }
