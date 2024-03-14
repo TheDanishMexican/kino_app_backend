@@ -1,12 +1,8 @@
 package kea.kinoBackend.project.service;
 
-import kea.kinoBackend.project.dto.CinemaDTO;
-import kea.kinoBackend.project.dto.HallIdDTO;
-import kea.kinoBackend.project.dto.SeatDTO;
+import kea.kinoBackend.project.dto.*;
 import kea.kinoBackend.project.model.Cinema;
-import kea.kinoBackend.project.repository.CinemaRepository;
-import kea.kinoBackend.project.repository.HallRepository;
-import kea.kinoBackend.project.repository.SeatRepository;
+import kea.kinoBackend.project.repository.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -20,15 +16,24 @@ public class CinemaService {
     private HallService hallService;
     private HallRepository hallRepository;
     private SeatRepository seatRepository;
+    private SeatService seatService;
+    private RowRepository rowRepository;
+    private RowService rowService;
+    private ShowingRepository showingRepository;
+    private ShowingService showingService;
 
 
-    public CinemaService(CinemaRepository cinemaRepository, HallService hallService, HallRepository hallRepository, SeatRepository seatRepository) {
+    public CinemaService(CinemaRepository cinemaRepository, HallService hallService, HallRepository hallRepository, SeatRepository seatRepository, SeatService seatService, RowRepository rowRepository, RowService rowService, ShowingRepository showingRepository, ShowingService showingService) {
         this.cinemaRepository = cinemaRepository;
         this.hallService = hallService;
         this.hallRepository = hallRepository;
         this.seatRepository = seatRepository;
+        this.seatService = seatService;
+        this.rowRepository = rowRepository;
+        this.rowService = rowService;
+        this.showingRepository = showingRepository;
+        this.showingService = showingService;
     }
-
 
     public CinemaDTO getCinemaById(int id) {
         Cinema cinema = cinemaRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cinema not found"));
@@ -83,8 +88,41 @@ public class CinemaService {
     }
 
     public List<SeatDTO> getSeatsByCinemaId(int id) {
-        List<SeatDTO> seats = seatRepository.findAllByCinemaId(id).stream().map(seat -> new SeatDTO(seat.getId(), seat.getSeatNumber(), seat.isReserved(), seat.getRow().getId())).toList();
-
-        return seats;
+        return seatRepository.findAllByCinemaId(id).stream()
+                .map(seatService::toDTO)
+                .toList();
     }
+
+    public List<SeatDTO> getAllSeatsInHall(int cinemaId, int hallId) {
+        return seatRepository.findAllByCinemaIdAndHallId(cinemaId, hallId).stream()
+                .map(seatService::toDTO)
+                .toList();
+    }
+
+    public List<HallDTO> getAllHallsByCinemaId(int id) {
+        return hallRepository.findAllByCinemaId(id).stream()
+                .map(hallService::toDTO)
+                .toList();
+    }
+
+    public List<RowDTO> getAllRowsInHallInCinemaById(int cinemaId, int hallId) {
+        return rowRepository.findAllByCinemaIdAndHallId(cinemaId, hallId).stream()
+                .map(rowService::toDTO)
+                .toList();
+    }
+
+    public List<ShowingDTO> getAllShowingsInCinemaById(int id) {
+        return showingRepository.findAllByCinemaId(id).stream()
+                .map(showingService::toDTO)
+                .toList();
+    }
+
+    public List<ShowingDTO> getAllShowingsInHallInCinemaById(int cinemaId, int hallId) {
+        return showingRepository.findAllByCinemaIdAndHallId(cinemaId, hallId).stream()
+                .map(showingService::toDTO)
+                .toList();
+    }
+
+
+
 }

@@ -16,6 +16,8 @@ public class Row {
 
     private int seatRowNumber;
 
+    private int cinemaId;
+
     @ManyToOne
     @JoinColumn(name = "hall_id", nullable = false)
     private Hall hall;
@@ -36,6 +38,7 @@ public class Row {
         this.hall = hall;
         this.seatType = seatType;
         this.seats = new ArrayList<>();
+        this.cinemaId = hall.getCinema().getId();
     }
 
     public int getId() {
@@ -84,5 +87,21 @@ public class Row {
 
     public void setHall(Hall hall) {
         this.hall = hall;
+    }
+
+    public int getSeatRowNumber() {
+        return seatRowNumber;
+    }
+
+    public void setSeatRowNumber(int seatRowNumber) {
+        this.seatRowNumber = seatRowNumber;
+    }
+
+    public int getCinemaId() {
+        return cinemaId;
+    }
+
+    public void setCinemaId(int cinemaId) {
+        this.cinemaId = cinemaId;
     }
 }

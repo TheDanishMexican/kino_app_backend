@@ -1,8 +1,6 @@
 package kea.kinoBackend.project.service;
 
-import kea.kinoBackend.project.dto.HallDTO;
 import kea.kinoBackend.project.dto.SeatDTO;
-import kea.kinoBackend.project.model.Hall;
 import kea.kinoBackend.project.model.Seat;
 import kea.kinoBackend.project.repository.RowRepository;
 import kea.kinoBackend.project.repository.SeatRepository;
@@ -41,7 +39,7 @@ public class SeatService {
             throw new IllegalArgumentException("You cannot provide the id for a new seat");
         }
 
-        Optional<Seat> existingSeat = seatRepository.findByRowIdAndSeatNumber(request.rowID(), request.seatNumber());
+        Optional<Seat> existingSeat = seatRepository.findByRowIdAndSeatNumber(request.rowId(), request.seatNumber());
         if (existingSeat.isPresent()) {
             throw new IllegalArgumentException("A seat with the same seat number already exists in the row");
         }
@@ -55,7 +53,7 @@ public class SeatService {
     public void updateSeat(Seat original, SeatDTO request) {
         original.setSeatNumber(request.seatNumber());
         original.setReserved(request.isReserved());
-        original.setRow(rowRepository.findById(request.rowID()).orElseThrow(() -> new IllegalArgumentException("Row not found")));
+        original.setRow(rowRepository.findById(request.rowId()).orElseThrow(() -> new IllegalArgumentException("Row not found")));
     }
 
     public SeatDTO editSeat(SeatDTO request, int id) {

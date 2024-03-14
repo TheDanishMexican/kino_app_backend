@@ -3,8 +3,6 @@ package kea.kinoBackend.project.model;
 import jakarta.persistence.*;
 
 import java.time.DayOfWeek;
-import java.time.Duration;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +29,8 @@ public class Showing {
 
     private int durationInMinutes;
 
+    private int cinemaId;
+
     @OneToMany(mappedBy = "showing")
     private List<Reservation> reservations;
 
@@ -48,6 +48,7 @@ public class Showing {
         this.filmTitle = filmTitle;
         calculateEndTime();
         this.reservations = new ArrayList<>();
+        this.cinemaId = hall.getCinema().getId();
     }
 
     public void calculateEndTime() {

@@ -47,7 +47,7 @@ public class ShowingService {
     public void updateShowing(Showing original, ShowingDTO request) {
         original.setStartTime(request.startTime());
         original.setFilmTitle(request.filmTitle());
-        original.setHall(hallRepository.findById(request.hallID()).orElseThrow(() -> new IllegalArgumentException("Hall not found")));
+        original.setHall(hallRepository.findById(request.hallId()).orElseThrow(() -> new IllegalArgumentException("Hall not found")));
         original.setDurationInMinutes(request.durationInMinutes());
         original.setWeekdays(request.weekdays());
         if (original.getEndTime() == null) {

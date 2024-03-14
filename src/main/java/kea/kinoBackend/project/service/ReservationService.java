@@ -5,12 +5,21 @@ import kea.kinoBackend.project.model.Reservation;
 import kea.kinoBackend.project.repository.ReservationRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ReservationService {
     private ReservationRepository reservationRepository;
 
     public ReservationService(ReservationRepository reservationRepository) {
         this.reservationRepository = reservationRepository;
+    }
+
+    public List<ReservationDTO> getAllReservations() {
+        List<Reservation> reservations = reservationRepository.findAll();
+        List<ReservationDTO> reservationResponses = reservations.stream().map(this::toDTO).toList();
+
+        return reservationResponses;
     }
 
     public ReservationDTO getReservationById(int id) {
