@@ -80,7 +80,8 @@ public class ShowingService {
                 showing.getMovie(),
                 showing.getDurationInMinutes(),
                 showing.getWeekdays(),
-                reservationDTOs
+                reservationDTOs,
+                showing.getPrice()
 
         );
     }

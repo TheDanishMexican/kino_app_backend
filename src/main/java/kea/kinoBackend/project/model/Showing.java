@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -31,6 +30,8 @@ public class Showing {
 
     private int cinemaId;
 
+    private double price;
+
     @OneToMany(mappedBy = "showing")
     private List<Reservation> reservations;
 
@@ -40,15 +41,14 @@ public class Showing {
     public Showing() {
     }
 
-    public Showing(Hall hall, Set<DayOfWeek> weekdays, LocalTime startTime, Movie movie) {
+    public Showing(Hall hall, Set<DayOfWeek> weekdays, LocalTime startTime, Movie movie, double price) {
         this.hall = hall;
         this.weekdays = weekdays;
         this.startTime = startTime;
         this.durationInMinutes = movie.getDuration();
         this.movie = movie;
+        this.price = price;
         calculateEndTime();
-        this.reservations = new ArrayList<>();
-        this.cinemaId = hall.getCinema().getId();
     }
 
     public void calculateEndTime() {
@@ -126,5 +126,13 @@ public class Showing {
 
     public void setCinemaId(int cinemaId) {
         this.cinemaId = cinemaId;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 }

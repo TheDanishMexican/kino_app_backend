@@ -153,9 +153,9 @@ public class SetupMovies implements ApplicationRunner {
         //SHOWINGS FOR HALL1 IN CENTRALBIO
         Set<DayOfWeek> allWeek = Set.of(DayOfWeek.MONDAY, DayOfWeek.TUESDAY, DayOfWeek.WEDNESDAY, DayOfWeek.THURSDAY, DayOfWeek.FRIDAY, DayOfWeek.SATURDAY, DayOfWeek.SUNDAY);
 
-        Showing barbieAt5Hall1 = new Showing(hall1CentralBio, allWeek, LocalTime.of(16, 10), barbie);
-        Showing inceptionAt8Hall1 = new Showing(hall1CentralBio, allWeek, LocalTime.of(19, 30), inception);
-        Showing batmanAt11Hall1 = new Showing(hall1CentralBio, allWeek, LocalTime.of(11, 35 ), batman);
+        Showing barbieAt5Hall1 = new Showing(hall1CentralBio, allWeek, LocalTime.of(16, 10), barbie, 100);
+        Showing inceptionAt8Hall1 = new Showing(hall1CentralBio, allWeek, LocalTime.of(19, 30), inception, 100);
+        Showing batmanAt11Hall1 = new Showing(hall1CentralBio, allWeek, LocalTime.of(11, 35 ), batman, 100);
 
         List<Showing> showings = List.of(barbieAt5Hall1, inceptionAt8Hall1, batmanAt11Hall1);
         showingRepository.saveAll(showings);
