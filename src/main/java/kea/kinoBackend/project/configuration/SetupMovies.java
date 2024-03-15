@@ -2,8 +2,11 @@ package kea.kinoBackend.project.configuration;
 
 import kea.kinoBackend.project.model.*;
 import kea.kinoBackend.project.repository.*;
+import kea.kinoBackend.security.entity.UserWithRoles;
+import kea.kinoBackend.security.repository.UserWithRolesRepository;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.time.DayOfWeek;
@@ -23,8 +26,10 @@ public class SetupMovies implements ApplicationRunner {
     private ShowingRepository showingRepository;
     private SeatRepository seatRepository;
     private ReservationRepository reservationRepository;
+    private UserWithRolesRepository UserWithRolesRepository;
+    private PasswordEncoder passwordEncoder;
 
-    public SetupMovies(MovieRepository movieRepository, CinemaRepository cinemaRepository, HallRepository hallRepository, RowRepository rowRepository, ShowingRepository showingRepository, SeatRepository seatRepository, ReservationRepository reservationRepository) {
+    public SetupMovies(MovieRepository movieRepository, CinemaRepository cinemaRepository, HallRepository hallRepository, RowRepository rowRepository, ShowingRepository showingRepository, SeatRepository seatRepository, ReservationRepository reservationRepository, UserWithRolesRepository userWithRolesRepository, PasswordEncoder passwordEncoder) {
         this.movieRepository = movieRepository;
         this.cinemaRepository = cinemaRepository;
         this.hallRepository = hallRepository;
@@ -32,10 +37,12 @@ public class SetupMovies implements ApplicationRunner {
         this.showingRepository = showingRepository;
         this.seatRepository = seatRepository;
         this.reservationRepository = reservationRepository;
+        UserWithRolesRepository = userWithRolesRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public void run(ApplicationArguments args) {
-        createMovies(); createCinemas();
+        createMovies(); createCinemas(); createUserForTesting();
     }
 
     //HELPER METHOD TO CREATE SEATS FAST FOR A ROW,
@@ -171,5 +178,9 @@ public class SetupMovies implements ApplicationRunner {
         reservationRepository.saveAll(reservations);
     }
 
+    public void createUserForTesting() {
+        UserWithRoles user1 = new UserWithRoles("user1", passwordEncoder.encode("password"), "test@email.com");
+        UserWithRolesRepository.save(user1);
+    }
 
 }

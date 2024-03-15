@@ -1,5 +1,6 @@
 package kea.kinoBackend.project.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import kea.kinoBackend.project.dto.*;
 import kea.kinoBackend.project.service.CinemaService;
 import org.springframework.http.ResponseEntity;
@@ -17,18 +18,21 @@ public class CinemaController {
         this.cinemaService = cinemaService;
     }
 
+    @Operation(summary = "Get one cinema", description = "Get a cinema by ID")
     //Henter kun cinema med halls indeni som ID, ingen rows eller seats, de findes på hall get requestet
     @GetMapping("/{id}")
     public CinemaDTO getCinemaById(@PathVariable int id) {
         return cinemaService.getCinemaById(id);
     }
 
+    @Operation(summary = "Get all cinemas", description = "Get a list of all cinemas")
     //Henter kun cinemas med halls indeni som ID, ingen rows eller seats, de findes på hall get requestet
     @GetMapping
     public List<CinemaDTO> getAllCinemas() {
         return cinemaService.getAllCinemas();
     }
 
+    @Operation(summary = "Get all seats in a cinema", description = "Get a list of all seats in a cinema")
     @GetMapping("/{id}/seats")
     public List<SeatDTO> getAllSeatsInCinema(@PathVariable int id) {
         return cinemaService.getSeatsByCinemaId(id);
