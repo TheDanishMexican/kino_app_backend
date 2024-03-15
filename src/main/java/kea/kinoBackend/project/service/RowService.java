@@ -73,7 +73,7 @@ public class RowService {
                 row.getHall().getId(),
                 row.getSeatType(),
                 row.getSeats().stream()
-                        .map(seat -> new SeatDTO(seat.getId(), seat.getSeatNumber(), seat.isReserved(), seat.getRow().getId()))
+                        .map(seat -> new SeatDTO(seat.getId(), seat.getSeatNumber(), seat.getRow().getId()))
                         .collect(Collectors.toList())
         );
     }

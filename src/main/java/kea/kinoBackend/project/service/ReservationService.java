@@ -38,7 +38,9 @@ public class ReservationService {
                 reservation.getUserId(),
                 seatDTOs,
                 reservation.getShowing().getId(),
-                reservation.getHallId()
+                reservation.getHallId(),
+                reservation.getTotalPrice(),
+                reservation.getSeatPrice()
         );
     }
 

@@ -11,8 +11,6 @@ public class Seat {
 
     private String seatNumber;
 
-    private boolean isReserved;
-
     private int cinemaId;
 
     private int hallId;
@@ -24,9 +22,8 @@ public class Seat {
     public Seat() {
     }
 
-    public Seat(String seatNumber, boolean isReserved, Row row) {
+    public Seat(String seatNumber, Row row) {
         this.seatNumber = seatNumber;
-        this.isReserved = isReserved;
         this.row = row;
         this.cinemaId = row.getHall().getCinema().getId();
         this.hallId = row.getHall().getId();
@@ -62,14 +59,6 @@ public class Seat {
 
     public void setHallId(int hallId) {
         this.hallId = hallId;
-    }
-
-    public boolean isReserved() {
-        return isReserved;
-    }
-
-    public void setReserved(boolean reserved) {
-        isReserved = reserved;
     }
 
     public Row getRow() {

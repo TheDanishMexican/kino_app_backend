@@ -49,7 +49,7 @@ public class SetupMovies implements ApplicationRunner {
     // THE LETTER IS BASED ON THE ROW, SO ROW 1 WILL HAVE A AS SEAT LETTER FX
     public void createSeats(Row row, String seatLetter) {
         for (int i = 1; i<= 10; i++) {
-            Seat seat = new Seat(i + seatLetter, false, row);
+            Seat seat = new Seat(i + seatLetter, row);
             seatRepository.save(seat);
         }
     }

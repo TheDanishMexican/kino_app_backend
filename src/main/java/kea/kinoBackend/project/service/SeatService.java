@@ -52,7 +52,6 @@ public class SeatService {
 
     public void updateSeat(Seat original, SeatDTO request) {
         original.setSeatNumber(request.seatNumber());
-        original.setReserved(request.isReserved());
         original.setRow(rowRepository.findById(request.rowId()).orElseThrow(() -> new IllegalArgumentException("Row not found")));
     }
 
@@ -80,12 +79,10 @@ public class SeatService {
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
-
     public SeatDTO toDTO(Seat seat) {
         return new SeatDTO(
                 seat.getId(),
                 seat.getSeatNumber(),
-                seat.isReserved(),
                 seat.getRow().getId()
         );
     }
