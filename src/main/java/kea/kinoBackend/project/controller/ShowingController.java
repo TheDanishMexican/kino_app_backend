@@ -52,4 +52,9 @@ public class ShowingController {
         return ResponseEntity.ok().body(response);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteShowing(@PathVariable int id) {
+       return showingService.deleteShowing(id);
+    }
+
 }

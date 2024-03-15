@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Table(name = "showings")
@@ -35,6 +36,7 @@ public class Showing {
     private Movie movie;
 
     public Showing() {
+        this.reservations = new ArrayList<>();
     }
 
     public Showing(Hall hall, LocalTime startTime, Movie movie, double price, LocalDate showingDate) {
@@ -46,6 +48,7 @@ public class Showing {
         calculateEndTime();
         this.cinemaId = hall.getCinema().getId();
         this.showingDate = showingDate;
+        this.reservations = new ArrayList<>();
     }
 
     public void calculateEndTime() {
