@@ -42,7 +42,7 @@ public class SetupMovies implements ApplicationRunner {
     }
 
     public void run(ApplicationArguments args) {
-        createMovies(); createCinemas(); createUserForTesting();
+        createMovies(); createCinemas();
     }
 
     //HELPER METHOD TO CREATE SEATS FAST FOR A ROW,
@@ -167,20 +167,19 @@ public class SetupMovies implements ApplicationRunner {
         List<Seat> seatsForReservation4 = List.of(seatRepository.findBySeatNumber("1D"), seatRepository.findBySeatNumber("2D"), seatRepository.findBySeatNumber("3D"));
         List<Seat> seatsForReservation5 = List.of(seatRepository.findBySeatNumber("1E"), seatRepository.findBySeatNumber("2E"), seatRepository.findBySeatNumber("3E"));
 
+        //User to make a reservation
+        UserWithRoles userDaniel = new UserWithRoles("Daniel", passwordEncoder.encode("password"), "test@email.com");
+        UserWithRolesRepository.save(userDaniel);
+
+
         //RESERVATIONS FOR SHOWINGS IN HALL1 CENTRALBIO
-        Reservation reservation1 = new Reservation(1, seatsForReservation1,barbieAt5Hall1);
-        Reservation reservation2 = new Reservation(2, seatsForReservation2,barbieAt5Hall1);
-        Reservation reservation3 = new Reservation(3, seatsForReservation3,barbieAt5Hall1);
-        Reservation reservation4 = new Reservation(4, seatsForReservation4,barbieAt5Hall1);
-        Reservation reservation5 = new Reservation(5, seatsForReservation5,barbieAt5Hall1);
+        Reservation reservation1 = new Reservation(1, seatsForReservation1,barbieAt5Hall1, userDaniel);
+        Reservation reservation2 = new Reservation(2, seatsForReservation2,barbieAt5Hall1, userDaniel);
+        Reservation reservation3 = new Reservation(3, seatsForReservation3,barbieAt5Hall1, userDaniel);
+        Reservation reservation4 = new Reservation(4, seatsForReservation4,barbieAt5Hall1, userDaniel);
+        Reservation reservation5 = new Reservation(5, seatsForReservation5,barbieAt5Hall1, userDaniel);
 
         List<Reservation> reservations = List.of(reservation1, reservation2, reservation3, reservation4, reservation5);
         reservationRepository.saveAll(reservations);
     }
-
-    public void createUserForTesting() {
-        UserWithRoles user1 = new UserWithRoles("user1", passwordEncoder.encode("password"), "test@email.com");
-        UserWithRolesRepository.save(user1);
-    }
-
 }

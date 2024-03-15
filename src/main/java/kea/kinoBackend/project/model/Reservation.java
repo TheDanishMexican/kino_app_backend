@@ -1,6 +1,7 @@
 package kea.kinoBackend.project.model;
 
 import jakarta.persistence.*;
+import kea.kinoBackend.security.entity.UserWithRoles;
 
 import java.util.List;
 
@@ -28,10 +29,13 @@ public class Reservation {
 
     private double seatPrice;
 
+    @ManyToOne
+    private UserWithRoles user;
+
     public Reservation() {
     }
 
-    public Reservation(int userId, List<Seat> seats, Showing showing) {
+    public Reservation(int userId, List<Seat> seats, Showing showing, UserWithRoles user) {
         this.userId = userId;
         this.seats = seats;
         this.showing = showing;
@@ -39,6 +43,7 @@ public class Reservation {
         this.cinemaId = showing.getHall().getCinema().getId();
         this.totalPrice = calculateTotalPrice();
         this.seatPrice = calculateSeatPrice();
+        this.user = user;
     }
 
     private double calculateTotalPrice() {
@@ -126,5 +131,13 @@ public class Reservation {
 
     public void setSeatPrice(double seatPrice) {
         this.seatPrice = seatPrice;
+    }
+
+    public UserWithRoles getUser() {
+        return user;
+    }
+
+    public void setUser(UserWithRoles user) {
+        this.user = user;
     }
 }
