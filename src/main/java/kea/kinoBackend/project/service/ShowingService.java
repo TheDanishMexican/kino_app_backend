@@ -49,7 +49,8 @@ public class ShowingService {
         original.setMovie(request.movie());
         original.setHall(hallRepository.findById(request.hallId()).orElseThrow(() -> new IllegalArgumentException("Hall not found")));
         original.setDurationInMinutes(request.durationInMinutes());
-        original.setWeekdays(request.weekdays());
+        original.setPrice(request.price());
+        original.setCinemaId(request.cinemaId());
         if (original.getEndTime() == null) {
             original.calculateEndTime();
         }
@@ -79,9 +80,9 @@ public class ShowingService {
                 showing.getEndTime(),
                 showing.getMovie(),
                 showing.getDurationInMinutes(),
-                showing.getWeekdays(),
                 reservationDTOs,
-                showing.getPrice()
+                showing.getPrice(),
+                showing.getHall().getCinema().getId()
 
         );
     }

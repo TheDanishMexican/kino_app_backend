@@ -2,10 +2,8 @@ package kea.kinoBackend.project.model;
 
 import jakarta.persistence.*;
 
-import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.List;
-import java.util.Set;
 
 @Table(name = "showings")
 @Entity
@@ -16,11 +14,6 @@ public class Showing {
 
     @ManyToOne
     private Hall hall;
-
-    @ElementCollection(targetClass = DayOfWeek.class)
-    @CollectionTable(name = "showing_weekdays", joinColumns = @JoinColumn(name = "showing_id"))
-    @Enumerated(EnumType.STRING)
-    private Set<DayOfWeek> weekdays;
 
     private LocalTime startTime;
 
@@ -41,14 +34,14 @@ public class Showing {
     public Showing() {
     }
 
-    public Showing(Hall hall, Set<DayOfWeek> weekdays, LocalTime startTime, Movie movie, double price) {
+    public Showing(Hall hall, LocalTime startTime, Movie movie, double price) {
         this.hall = hall;
-        this.weekdays = weekdays;
         this.startTime = startTime;
         this.durationInMinutes = movie.getDuration();
         this.movie = movie;
         this.price = price;
         calculateEndTime();
+        this.cinemaId = hall.getCinema().getId();
     }
 
     public void calculateEndTime() {
@@ -70,14 +63,6 @@ public class Showing {
 
     public void setHall(Hall hall) {
         this.hall = hall;
-    }
-
-    public Set<DayOfWeek> getWeekdays() {
-        return weekdays;
-    }
-
-    public void setWeekdays(Set<DayOfWeek> weekdays) {
-        this.weekdays = weekdays;
     }
 
     public LocalTime getStartTime() {
