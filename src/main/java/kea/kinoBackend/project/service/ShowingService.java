@@ -51,6 +51,7 @@ public class ShowingService {
         original.setDurationInMinutes(request.durationInMinutes());
         original.setPrice(request.price());
         original.setCinemaId(request.cinemaId());
+        original.setShowingDate(request.showingDate());
         if (original.getEndTime() == null) {
             original.calculateEndTime();
         }
@@ -82,7 +83,8 @@ public class ShowingService {
                 showing.getDurationInMinutes(),
                 reservationDTOs,
                 showing.getPrice(),
-                showing.getHall().getCinema().getId()
+                showing.getHall().getCinema().getId(),
+                showing.getShowingDate()
 
         );
     }

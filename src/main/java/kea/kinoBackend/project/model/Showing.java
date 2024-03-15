@@ -2,6 +2,7 @@ package kea.kinoBackend.project.model;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -14,6 +15,8 @@ public class Showing {
 
     @ManyToOne
     private Hall hall;
+
+    private LocalDate showingDate;
 
     private LocalTime startTime;
 
@@ -34,7 +37,7 @@ public class Showing {
     public Showing() {
     }
 
-    public Showing(Hall hall, LocalTime startTime, Movie movie, double price) {
+    public Showing(Hall hall, LocalTime startTime, Movie movie, double price, LocalDate showingDate) {
         this.hall = hall;
         this.startTime = startTime;
         this.durationInMinutes = movie.getDuration();
@@ -42,6 +45,7 @@ public class Showing {
         this.price = price;
         calculateEndTime();
         this.cinemaId = hall.getCinema().getId();
+        this.showingDate = showingDate;
     }
 
     public void calculateEndTime() {
@@ -119,5 +123,13 @@ public class Showing {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public LocalDate getShowingDate() {
+        return showingDate;
+    }
+
+    public void setShowingDate(LocalDate showingDate) {
+        this.showingDate = showingDate;
     }
 }
