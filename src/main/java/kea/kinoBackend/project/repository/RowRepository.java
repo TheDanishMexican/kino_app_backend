@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface RowRepository extends JpaRepository<Row, Integer> {
     List<Row> findAllByCinemaIdAndHallId(int cinemaId, int hallId);
+
 }

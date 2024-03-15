@@ -2,8 +2,12 @@ package kea.kinoBackend.project.service;
 
 import kea.kinoBackend.project.dto.ReservationDTO;
 import kea.kinoBackend.project.dto.ShowingDTO;
+import kea.kinoBackend.project.model.Seat;
+import kea.kinoBackend.project.model.SeatType;
 import kea.kinoBackend.project.model.Showing;
 import kea.kinoBackend.project.repository.HallRepository;
+import kea.kinoBackend.project.repository.RowRepository;
+import kea.kinoBackend.project.repository.SeatRepository;
 import kea.kinoBackend.project.repository.ShowingRepository;
 import org.springframework.stereotype.Service;
 
@@ -14,11 +18,16 @@ public class ShowingService {
     private ShowingRepository showingRepository;
     private HallRepository hallRepository;
     private ReservationService reservationService;
+    private SeatRepository seatRepository;
+    private RowRepository rowRepository;
 
-    public ShowingService(ShowingRepository showingRepository, HallRepository hallRepository, ReservationService reservationService) {
+    public ShowingService(ShowingRepository showingRepository, HallRepository hallRepository,
+                          ReservationService reservationService, SeatRepository seatRepository, RowRepository rowRepository) {
         this.showingRepository = showingRepository;
         this.hallRepository = hallRepository;
         this.reservationService = reservationService;
+        this.seatRepository = seatRepository;
+        this.rowRepository = rowRepository;
     }
 
     public List<ShowingDTO> findAllShowings() {
@@ -55,8 +64,6 @@ public class ShowingService {
         if (original.getEndTime() == null) {
             original.calculateEndTime();
         }
-
-
     }
 
     public ShowingDTO editShowing(ShowingDTO request, int id) {
@@ -66,6 +73,31 @@ public class ShowingService {
         showingRepository.save(showing);
         return toDTO(showing);
     }
+
+    public double getSeatPriceFromShowing(int showingId, int seatId) {
+        double seatPrice = 0;
+
+        double showingPrice = showingRepository.findById(showingId).orElseThrow(() ->
+                new IllegalArgumentException("Showing not found")).getPrice();
+
+        Seat seat = seatRepository.findById(seatId).orElseThrow(() ->
+                new IllegalArgumentException("Seat not found"));
+
+        SeatType seatType = seat.getRow().getSeatType();
+
+            switch (seatType) {
+                case COUCH:
+                    seatPrice += showingPrice * 0.8;
+                    break;
+                case STANDARD:
+                    seatPrice += showingPrice;
+                    break;
+                case COWBOY:
+                    seatPrice += showingPrice * 1.2;
+                    break;
+            }
+            return seatPrice;
+        }
 
 
     public ShowingDTO toDTO(Showing showing) {
