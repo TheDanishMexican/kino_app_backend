@@ -59,7 +59,7 @@ public class ShowingService {
 
     public void updateShowing(Showing original, ShowingDTO request) {
         original.setStartTime(request.startTime());
-        original.setMovie(movieRepository.findById(request.movieId()).orElseThrow(() ->
+        original.setMovie(movieRepository.findById(request.movie().getId()).orElseThrow(() ->
                 new IllegalArgumentException("Movie not found")));
         original.setHall(hallRepository.findById(request.hallId()).orElseThrow(() ->
                 new IllegalArgumentException("Hall not found")));
@@ -145,7 +145,7 @@ public class ShowingService {
                 showing.getHall().getId(),
                 showing.getStartTime(),
                 showing.getEndTime(),
-                showing.getMovie().getId(),
+                showing.getMovie(),
                 showing.getDurationInMinutes(),
                 reservationDTOs,
                 showing.getPrice(),
