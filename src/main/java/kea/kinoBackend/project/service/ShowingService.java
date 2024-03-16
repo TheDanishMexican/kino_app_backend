@@ -1,10 +1,9 @@
 package kea.kinoBackend.project.service;
 
 import kea.kinoBackend.project.dto.ReservationDTO;
+import kea.kinoBackend.project.dto.SeatDTO;
 import kea.kinoBackend.project.dto.ShowingDTO;
-import kea.kinoBackend.project.model.Seat;
-import kea.kinoBackend.project.model.SeatType;
-import kea.kinoBackend.project.model.Showing;
+import kea.kinoBackend.project.model.*;
 import kea.kinoBackend.project.repository.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,16 +19,18 @@ public class ShowingService {
     private SeatRepository seatRepository;
     private RowRepository rowRepository;
     private MovieRepository movieRepository;
+    private SeatService seatService;
 
     public ShowingService(ShowingRepository showingRepository, HallRepository hallRepository,
                           ReservationService reservationService, SeatRepository seatRepository,
-                          RowRepository rowRepository, MovieRepository movieRepository) {
+                          RowRepository rowRepository, MovieRepository movieRepository, SeatService seatService) {
         this.showingRepository = showingRepository;
         this.hallRepository = hallRepository;
         this.reservationService = reservationService;
         this.seatRepository = seatRepository;
         this.rowRepository = rowRepository;
         this.movieRepository = movieRepository;
+        this.seatService = seatService;
     }
 
     public List<ShowingDTO> findAllShowings() {
@@ -106,6 +107,16 @@ public class ShowingService {
                     break;
             }
             return seatPrice;
+        }
+
+        public List<SeatDTO> getSeatsInShowing(int showingId) {
+            Hall hall = hallRepository.findById((showingRepository.findById(showingId)).orElseThrow(() ->
+                    new IllegalArgumentException("Showing not found")).getHall().getId()).orElseThrow(() ->
+                    new IllegalArgumentException("Hall not found"));
+
+            List<Seat> seats = seatRepository.findAllByCinemaIdAndHallId(hall.getCinema().getId(), hall.getId());
+
+            return seats.stream().map(seatService::toDTO).toList();
         }
 
 

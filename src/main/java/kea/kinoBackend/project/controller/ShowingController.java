@@ -1,5 +1,6 @@
 package kea.kinoBackend.project.controller;
 
+import kea.kinoBackend.project.dto.SeatDTO;
 import kea.kinoBackend.project.dto.ShowingDTO;
 import kea.kinoBackend.project.service.ShowingService;
 import org.springframework.http.ResponseEntity;
@@ -55,6 +56,11 @@ public class ShowingController {
     @DeleteMapping("/{id}")
     public ResponseEntity deleteShowing(@PathVariable int id) {
        return showingService.deleteShowing(id);
+    }
+
+    @GetMapping("{id}/seats")
+    public List<SeatDTO> getSeatsInShowing(@PathVariable int id) {
+        return showingService.getSeatsInShowing(id);
     }
 
 }
