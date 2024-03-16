@@ -42,23 +42,6 @@ public class ReservationService {
         return toDTO(reservation);
     }
 
-//    public RowDTO addRow(RowDTO request) {
-//        if (request.id() != null) {
-//            throw new IllegalArgumentException("You cannot provide the id for a new row");
-//        }
-//        Row newRow = new Row();
-//        updateRow(newRow, request);
-//        rowRepository.save(newRow);
-//        return toDTO(newRow);
-//    }
-//
-//    public void updateRow(Row original, RowDTO request) {
-//        original.setAmountOfSeats(request.amountOfSeats());
-//        original.setRowNumber(request.rowNumber());
-//        original.setHall(hallRepository.findById(request.hallId()).orElseThrow(() -> new IllegalArgumentException("Hall not found")));
-//        original.setSeatType(request.seatType());
-//    }
-
     public ReservationDTO addReservation(ReservationDTO request) {
         if (request.id() != null) {
             throw new IllegalArgumentException("You cannot provide the id for a new reservation");
@@ -71,7 +54,6 @@ public class ReservationService {
 
     public void updateReservation(Reservation original, ReservationDTO request) {
 
-        original.setUserId(request.id());
         original.setSeats(request.seats().stream()
                 .map(seat -> seatRepository.findById(seat.id()).orElseThrow(() ->
                         new IllegalArgumentException("Seat not found")))
@@ -96,7 +78,6 @@ public class ReservationService {
 
         return new ReservationDTO(
                 reservation.getId(),
-                reservation.getUserId(),
                 seatDTOs,
                 reservation.getShowing().getId(),
                 reservation.getHallId(),

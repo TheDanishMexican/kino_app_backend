@@ -35,8 +35,7 @@ public class Reservation {
     public Reservation() {
     }
 
-    public Reservation(int userId, List<Seat> seats, Showing showing, UserWithRoles user) {
-        this.userId = userId;
+    public Reservation(List<Seat> seats, Showing showing, UserWithRoles user) {
         this.seats = seats;
         this.showing = showing;
         this.hallId = showing.getHall().getId();
@@ -75,14 +74,6 @@ public class Reservation {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
     }
 
     public List<Seat> getSeats() {

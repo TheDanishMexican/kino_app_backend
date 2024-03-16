@@ -2,7 +2,9 @@ package kea.kinoBackend.project.configuration;
 
 import kea.kinoBackend.project.model.*;
 import kea.kinoBackend.project.repository.*;
+import kea.kinoBackend.security.entity.Role;
 import kea.kinoBackend.security.entity.UserWithRoles;
+import kea.kinoBackend.security.repository.RoleRepository;
 import kea.kinoBackend.security.repository.UserWithRolesRepository;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -10,8 +12,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 
 @Component
@@ -25,8 +29,12 @@ public class SetupMovies implements ApplicationRunner {
     private ReservationRepository reservationRepository;
     private UserWithRolesRepository UserWithRolesRepository;
     private PasswordEncoder passwordEncoder;
+    private RoleRepository roleRepository;
 
-    public SetupMovies(MovieRepository movieRepository, CinemaRepository cinemaRepository, HallRepository hallRepository, RowRepository rowRepository, ShowingRepository showingRepository, SeatRepository seatRepository, ReservationRepository reservationRepository, UserWithRolesRepository userWithRolesRepository, PasswordEncoder passwordEncoder) {
+    public SetupMovies(MovieRepository movieRepository, CinemaRepository cinemaRepository, HallRepository hallRepository,
+                       RowRepository rowRepository, ShowingRepository showingRepository, SeatRepository seatRepository,
+                       ReservationRepository reservationRepository, UserWithRolesRepository userWithRolesRepository,
+                       PasswordEncoder passwordEncoder, RoleRepository roleRepository) {
         this.movieRepository = movieRepository;
         this.cinemaRepository = cinemaRepository;
         this.hallRepository = hallRepository;
@@ -36,6 +44,7 @@ public class SetupMovies implements ApplicationRunner {
         this.reservationRepository = reservationRepository;
         UserWithRolesRepository = userWithRolesRepository;
         this.passwordEncoder = passwordEncoder;
+        this.roleRepository = roleRepository;
     }
 
     public void run(ApplicationArguments args) {
@@ -149,8 +158,29 @@ public class SetupMovies implements ApplicationRunner {
 
         //User to make a reservation
         UserWithRoles userDaniel = new UserWithRoles("Daniel", passwordEncoder.encode("password"), "test@email.com");
+        roleRepository.save(new Role("USER"));
+        Role roleUser = roleRepository.findById("USER").orElseThrow(()-> new NoSuchElementException("Role 'user' not found"));
+        userDaniel.addRole(roleUser);
         UserWithRolesRepository.save(userDaniel);
 
+        //CREATED SHOWINGS FOR HALL1 IN CENTRALBIO
+        Showing BarbieAt12 = new Showing(hall1CentralBio, LocalTime.of(12, 0), barbie, 100, LocalDate.of(2021, 1, 1));
+        Showing InceptionAt15 = new Showing(hall1CentralBio, LocalTime.of(15, 0), inception, 120, LocalDate.of(2021, 1, 1));
+        Showing BatmanAt18 = new Showing(hall1CentralBio, LocalTime.of(18, 0), batman, 140, LocalDate.of(2021, 1, 1));
+        showingRepository.save(BarbieAt12);
+        showingRepository.save(InceptionAt15);
+        showingRepository.save(BatmanAt18);
+
+        //CREATED SEATS FOR RESERVATION
+        List<Seat> seats = List.of(seatRepository.findBySeatNumber("1A"), seatRepository.findBySeatNumber("2A"), seatRepository.findBySeatNumber("3A"));
+
+        //CREATED RESERVATION FOR SHOWING1 IN HALL1 IN CENTRALBIO
+        Reservation reservation1 = new Reservation(seats, BarbieAt12, userDaniel);
+        Reservation reservation2 = new Reservation(seats, InceptionAt15, userDaniel);
+        Reservation reservation3 = new Reservation(seats, BatmanAt18, userDaniel);
+        reservationRepository.save(reservation1);
+        reservationRepository.save(reservation2);
+        reservationRepository.save(reservation3);
 
     }
 }
