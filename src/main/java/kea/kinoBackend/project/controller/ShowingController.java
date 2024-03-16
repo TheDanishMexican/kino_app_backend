@@ -63,4 +63,9 @@ public class ShowingController {
         return showingService.getSeatsInShowing(id);
     }
 
+    @GetMapping("{id}/reserved_seats")
+    public List<SeatDTO> getReservedSeatsInShowing(@PathVariable int id) {
+        return showingService.getReservedSeatsInShowing(id);
+    }
+
 }

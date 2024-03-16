@@ -173,11 +173,13 @@ public class SetupMovies implements ApplicationRunner {
 
         //CREATED SEATS FOR RESERVATION
         List<Seat> seats = List.of(seatRepository.findBySeatNumber("1A"), seatRepository.findBySeatNumber("2A"), seatRepository.findBySeatNumber("3A"));
+        List<Seat> seats2 = List.of(seatRepository.findBySeatNumber("1B"), seatRepository.findBySeatNumber("2B"), seatRepository.findBySeatNumber("3B"));
+        List<Seat> seats3 = List.of(seatRepository.findBySeatNumber("1C"), seatRepository.findBySeatNumber("2C"), seatRepository.findBySeatNumber("3C"));
 
         //CREATED RESERVATION FOR SHOWING1 IN HALL1 IN CENTRALBIO
         Reservation reservation1 = new Reservation(seats, BarbieAt12, userDaniel);
-        Reservation reservation2 = new Reservation(seats, InceptionAt15, userDaniel);
-        Reservation reservation3 = new Reservation(seats, BatmanAt18, userDaniel);
+        Reservation reservation2 = new Reservation(seats2, InceptionAt15, userDaniel);
+        Reservation reservation3 = new Reservation(seats3, BatmanAt18, userDaniel);
         reservationRepository.save(reservation1);
         reservationRepository.save(reservation2);
         reservationRepository.save(reservation3);

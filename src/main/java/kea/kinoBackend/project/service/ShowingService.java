@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -117,6 +118,19 @@ public class ShowingService {
             List<Seat> seats = seatRepository.findAllByCinemaIdAndHallId(hall.getCinema().getId(), hall.getId());
 
             return seats.stream().map(seatService::toDTO).toList();
+        }
+
+        public List<SeatDTO> getReservedSeatsInShowing(int showingId) {
+            List<Seat> reservedSeats = new ArrayList<>();
+
+            List<Reservation> reservations = showingRepository.findById(showingId).orElseThrow(() ->
+                    new IllegalArgumentException("Showing not found")).getReservations();
+
+            for (Reservation reservation : reservations) {
+                reservedSeats.addAll(reservation.getSeats());
+            }
+
+            return reservedSeats.stream().map(seatService::toDTO).toList();
         }
 
 
