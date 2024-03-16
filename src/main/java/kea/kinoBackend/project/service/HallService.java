@@ -51,6 +51,7 @@ public class HallService {
 
     //Der skal tilføjes rows og showings til denne, men det kræver at der også bliver lavet metoder i deres service classes
     public void updateHall(Hall original, HallDTO request) {
+        System.out.println("hall added to cinema" + request.cinemaId());
         original.setCinema(cinemaRepository.findById(request.cinemaId()).orElseThrow(() -> new IllegalArgumentException("Cinema not found")));
     }
 

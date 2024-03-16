@@ -1,6 +1,7 @@
 package kea.kinoBackend.project.model;
 
 import jakarta.persistence.*;
+import kea.kinoBackend.security.entity.UserWithRoles;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ public class Reservation {
     private int userId;
 
 
-    @OneToMany
+    @ManyToMany
     private List<Seat> seats;
 
     @ManyToOne
@@ -24,22 +25,48 @@ public class Reservation {
 
     private int cinemaId;
 
+    private double totalPrice;
+
+    private double seatPrice;
+
+    @ManyToOne
+    private UserWithRoles user;
+
     public Reservation() {
     }
 
-    public Reservation(int userId, List<Seat> seats, Showing showing) {
+    public Reservation(int userId, List<Seat> seats, Showing showing, UserWithRoles user) {
         this.userId = userId;
         this.seats = seats;
         this.showing = showing;
         this.hallId = showing.getHall().getId();
-        markSeatsAsReserved();
         this.cinemaId = showing.getHall().getCinema().getId();
+        this.totalPrice = calculateTotalPrice();
+        this.seatPrice = calculateSeatPrice();
+        this.user = user;
     }
 
-    private void markSeatsAsReserved() {
+    private double calculateTotalPrice() {
+        double totalPrice = 0;
+
         for (Seat seat : seats) {
-            seat.setReserved(true);
+            switch(seat.getRow().getSeatType()) {
+                case COUCH:
+                    totalPrice += showing.getPrice() * 0.8;
+                    break;
+                case STANDARD:
+                    totalPrice += showing.getPrice();
+                    break;
+                case COWBOY:
+                    totalPrice += showing.getPrice() * 1.2;
+                    break;
+            }
         }
+        return totalPrice;
+    }
+
+    public double calculateSeatPrice() {
+       return totalPrice / seats.size();
     }
 
     public int getId() {
@@ -88,5 +115,29 @@ public class Reservation {
 
     public void setCinemaId(int cinemaId) {
         this.cinemaId = cinemaId;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public double getSeatPrice() {
+        return seatPrice;
+    }
+
+    public void setSeatPrice(double seatPrice) {
+        this.seatPrice = seatPrice;
+    }
+
+    public UserWithRoles getUser() {
+        return user;
+    }
+
+    public void setUser(UserWithRoles user) {
+        this.user = user;
     }
 }

@@ -42,14 +42,14 @@ public class SetupMovies implements ApplicationRunner {
     }
 
     public void run(ApplicationArguments args) {
-        createMovies(); createCinemas(); createUserForTesting();
+        createMovies(); createCinemas();
     }
 
     //HELPER METHOD TO CREATE SEATS FAST FOR A ROW,
     // THE LETTER IS BASED ON THE ROW, SO ROW 1 WILL HAVE A AS SEAT LETTER FX
     public void createSeats(Row row, String seatLetter) {
         for (int i = 1; i<= 10; i++) {
-            Seat seat = new Seat(i + seatLetter, false, row);
+            Seat seat = new Seat(i + seatLetter, row);
             seatRepository.save(seat);
         }
     }
@@ -153,9 +153,9 @@ public class SetupMovies implements ApplicationRunner {
         //SHOWINGS FOR HALL1 IN CENTRALBIO
         Set<DayOfWeek> allWeek = Set.of(DayOfWeek.MONDAY, DayOfWeek.TUESDAY, DayOfWeek.WEDNESDAY, DayOfWeek.THURSDAY, DayOfWeek.FRIDAY, DayOfWeek.SATURDAY, DayOfWeek.SUNDAY);
 
-        Showing barbieAt5Hall1 = new Showing(hall1CentralBio, allWeek, LocalTime.of(16, 10), barbie);
-        Showing inceptionAt8Hall1 = new Showing(hall1CentralBio, allWeek, LocalTime.of(19, 30), inception);
-        Showing batmanAt11Hall1 = new Showing(hall1CentralBio, allWeek, LocalTime.of(11, 35 ), batman);
+        Showing barbieAt5Hall1 = new Showing(hall1CentralBio ,LocalTime.of(16, 10), barbie, 100, LocalDate.of(2024, 3, 18));
+        Showing inceptionAt8Hall1 = new Showing(hall1CentralBio, LocalTime.of(19, 30), inception, 100, LocalDate.of(2024, 3, 18));
+        Showing batmanAt11Hall1 = new Showing(hall1CentralBio, LocalTime.of(11, 35 ), batman, 100, LocalDate.of(2024, 3, 18));
 
         List<Showing> showings = List.of(barbieAt5Hall1, inceptionAt8Hall1, batmanAt11Hall1);
         showingRepository.saveAll(showings);
@@ -167,20 +167,19 @@ public class SetupMovies implements ApplicationRunner {
         List<Seat> seatsForReservation4 = List.of(seatRepository.findBySeatNumber("1D"), seatRepository.findBySeatNumber("2D"), seatRepository.findBySeatNumber("3D"));
         List<Seat> seatsForReservation5 = List.of(seatRepository.findBySeatNumber("1E"), seatRepository.findBySeatNumber("2E"), seatRepository.findBySeatNumber("3E"));
 
+        //User to make a reservation
+        UserWithRoles userDaniel = new UserWithRoles("Daniel", passwordEncoder.encode("password"), "test@email.com");
+        UserWithRolesRepository.save(userDaniel);
+
+
         //RESERVATIONS FOR SHOWINGS IN HALL1 CENTRALBIO
-        Reservation reservation1 = new Reservation(1, seatsForReservation1,barbieAt5Hall1);
-        Reservation reservation2 = new Reservation(2, seatsForReservation2,barbieAt5Hall1);
-        Reservation reservation3 = new Reservation(3, seatsForReservation3,barbieAt5Hall1);
-        Reservation reservation4 = new Reservation(4, seatsForReservation4,barbieAt5Hall1);
-        Reservation reservation5 = new Reservation(5, seatsForReservation5,barbieAt5Hall1);
+        Reservation reservation1 = new Reservation(1, seatsForReservation1,barbieAt5Hall1, userDaniel);
+        Reservation reservation2 = new Reservation(2, seatsForReservation2,barbieAt5Hall1, userDaniel);
+        Reservation reservation3 = new Reservation(3, seatsForReservation3,barbieAt5Hall1, userDaniel);
+        Reservation reservation4 = new Reservation(4, seatsForReservation4,barbieAt5Hall1, userDaniel);
+        Reservation reservation5 = new Reservation(5, seatsForReservation5,barbieAt5Hall1, userDaniel);
 
         List<Reservation> reservations = List.of(reservation1, reservation2, reservation3, reservation4, reservation5);
         reservationRepository.saveAll(reservations);
     }
-
-    public void createUserForTesting() {
-        UserWithRoles user1 = new UserWithRoles("user1", passwordEncoder.encode("password"), "test@email.com");
-        UserWithRolesRepository.save(user1);
-    }
-
 }

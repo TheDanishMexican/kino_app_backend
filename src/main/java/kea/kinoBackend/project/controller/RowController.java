@@ -2,6 +2,7 @@ package kea.kinoBackend.project.controller;
 
 import kea.kinoBackend.project.dto.RowDTO;
 import kea.kinoBackend.project.service.RowService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,7 +37,7 @@ public class RowController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteRow(@PathVariable int id) {
-        rowService.deleteRow(id);
+    public ResponseEntity deleteRow(@PathVariable int id) {
+        return rowService.deleteRow(id);
     }
 }

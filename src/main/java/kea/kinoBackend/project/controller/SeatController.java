@@ -1,6 +1,5 @@
 package kea.kinoBackend.project.controller;
 
-import kea.kinoBackend.project.dto.HallDTO;
 import kea.kinoBackend.project.dto.SeatDTO;
 import kea.kinoBackend.project.service.SeatService;
 import org.springframework.http.ResponseEntity;
@@ -41,4 +40,5 @@ public class SeatController {
     public ResponseEntity deleteSeat(@PathVariable int id) {
         return seatService.deleteSeat(id);
     }
+
 }

@@ -2,9 +2,12 @@ package kea.kinoBackend.project.service;
 
 import kea.kinoBackend.project.dto.ReservationDTO;
 import kea.kinoBackend.project.dto.ShowingDTO;
+import kea.kinoBackend.project.model.Seat;
+import kea.kinoBackend.project.model.SeatType;
 import kea.kinoBackend.project.model.Showing;
-import kea.kinoBackend.project.repository.HallRepository;
-import kea.kinoBackend.project.repository.ShowingRepository;
+import kea.kinoBackend.project.repository.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,11 +17,19 @@ public class ShowingService {
     private ShowingRepository showingRepository;
     private HallRepository hallRepository;
     private ReservationService reservationService;
+    private SeatRepository seatRepository;
+    private RowRepository rowRepository;
+    private MovieRepository movieRepository;
 
-    public ShowingService(ShowingRepository showingRepository, HallRepository hallRepository, ReservationService reservationService) {
+    public ShowingService(ShowingRepository showingRepository, HallRepository hallRepository,
+                          ReservationService reservationService, SeatRepository seatRepository,
+                          RowRepository rowRepository, MovieRepository movieRepository) {
         this.showingRepository = showingRepository;
         this.hallRepository = hallRepository;
         this.reservationService = reservationService;
+        this.seatRepository = seatRepository;
+        this.rowRepository = rowRepository;
+        this.movieRepository = movieRepository;
     }
 
     public List<ShowingDTO> findAllShowings() {
@@ -46,15 +57,17 @@ public class ShowingService {
 
     public void updateShowing(Showing original, ShowingDTO request) {
         original.setStartTime(request.startTime());
-        original.setMovie(request.movie());
-        original.setHall(hallRepository.findById(request.hallId()).orElseThrow(() -> new IllegalArgumentException("Hall not found")));
-        original.setDurationInMinutes(request.durationInMinutes());
-        original.setWeekdays(request.weekdays());
+        original.setMovie(movieRepository.findById(request.movieId()).orElseThrow(() ->
+                new IllegalArgumentException("Movie not found")));
+        original.setHall(hallRepository.findById(request.hallId()).orElseThrow(() ->
+                new IllegalArgumentException("Hall not found")));
+        original.setDurationInMinutes(original.getMovie().getDuration());
+        original.setPrice(request.price());
+        original.setCinemaId(request.cinemaId());
+        original.setShowingDate(request.showingDate());
         if (original.getEndTime() == null) {
             original.calculateEndTime();
         }
-
-
     }
 
     public ShowingDTO editShowing(ShowingDTO request, int id) {
@@ -65,9 +78,39 @@ public class ShowingService {
         return toDTO(showing);
     }
 
+    public ResponseEntity deleteShowing(int id) {
+        showingRepository.deleteById(id);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
+
+    public double getSeatPriceFromShowing(int showingId, int seatId) {
+        double seatPrice = 0;
+
+        double showingPrice = showingRepository.findById(showingId).orElseThrow(() ->
+                new IllegalArgumentException("Showing not found")).getPrice();
+
+        Seat seat = seatRepository.findById(seatId).orElseThrow(() ->
+                new IllegalArgumentException("Seat not found"));
+
+        SeatType seatType = seat.getRow().getSeatType();
+
+            switch (seatType) {
+                case COUCH:
+                    seatPrice += showingPrice * 0.8;
+                    break;
+                case STANDARD:
+                    seatPrice += showingPrice;
+                    break;
+                case COWBOY:
+                    seatPrice += showingPrice * 1.2;
+                    break;
+            }
+            return seatPrice;
+        }
+
+
 
     public ShowingDTO toDTO(Showing showing) {
-
         List<ReservationDTO> reservationDTOs = showing.getReservations().stream()
                 .map(reservationService::toDTO)
                 .toList();
@@ -77,10 +120,12 @@ public class ShowingService {
                 showing.getHall().getId(),
                 showing.getStartTime(),
                 showing.getEndTime(),
-                showing.getMovie(),
+                showing.getMovie().getId(),
                 showing.getDurationInMinutes(),
-                showing.getWeekdays(),
-                reservationDTOs
+                reservationDTOs,
+                showing.getPrice(),
+                showing.getHall().getCinema().getId(),
+                showing.getShowingDate()
 
         );
     }
