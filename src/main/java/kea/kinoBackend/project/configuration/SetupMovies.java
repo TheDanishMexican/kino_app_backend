@@ -9,12 +9,9 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 
 
 @Component
@@ -150,36 +147,10 @@ public class SetupMovies implements ApplicationRunner {
         createSeats(row6Hall1CentralBio, "F");
 
 
-        //SHOWINGS FOR HALL1 IN CENTRALBIO
-        Set<DayOfWeek> allWeek = Set.of(DayOfWeek.MONDAY, DayOfWeek.TUESDAY, DayOfWeek.WEDNESDAY, DayOfWeek.THURSDAY, DayOfWeek.FRIDAY, DayOfWeek.SATURDAY, DayOfWeek.SUNDAY);
-
-        Showing barbieAt5Hall1 = new Showing(hall1CentralBio ,LocalTime.of(16, 10), barbie, 100, LocalDate.of(2024, 3, 18));
-        Showing inceptionAt8Hall1 = new Showing(hall1CentralBio, LocalTime.of(19, 30), inception, 100, LocalDate.of(2024, 3, 18));
-        Showing batmanAt11Hall1 = new Showing(hall1CentralBio, LocalTime.of(11, 35 ), batman, 100, LocalDate.of(2024, 3, 18));
-
-        List<Showing> showings = List.of(barbieAt5Hall1, inceptionAt8Hall1, batmanAt11Hall1);
-        showingRepository.saveAll(showings);
-
-        //LISTS OF SEATS FOR RESERVATIONS
-        List<Seat> seatsForReservation1 = List.of(seatRepository.findBySeatNumber("1A"), seatRepository.findBySeatNumber("2A"), seatRepository.findBySeatNumber("3A"));
-        List<Seat> seatsForReservation2 = List.of(seatRepository.findBySeatNumber("1B"), seatRepository.findBySeatNumber("2B"), seatRepository.findBySeatNumber("3B"));
-        List<Seat> seatsForReservation3 = List.of(seatRepository.findBySeatNumber("1C"), seatRepository.findBySeatNumber("2C"), seatRepository.findBySeatNumber("3C"));
-        List<Seat> seatsForReservation4 = List.of(seatRepository.findBySeatNumber("1D"), seatRepository.findBySeatNumber("2D"), seatRepository.findBySeatNumber("3D"));
-        List<Seat> seatsForReservation5 = List.of(seatRepository.findBySeatNumber("1E"), seatRepository.findBySeatNumber("2E"), seatRepository.findBySeatNumber("3E"));
-
         //User to make a reservation
         UserWithRoles userDaniel = new UserWithRoles("Daniel", passwordEncoder.encode("password"), "test@email.com");
         UserWithRolesRepository.save(userDaniel);
 
 
-        //RESERVATIONS FOR SHOWINGS IN HALL1 CENTRALBIO
-        Reservation reservation1 = new Reservation(1, seatsForReservation1,barbieAt5Hall1, userDaniel);
-        Reservation reservation2 = new Reservation(2, seatsForReservation2,barbieAt5Hall1, userDaniel);
-        Reservation reservation3 = new Reservation(3, seatsForReservation3,barbieAt5Hall1, userDaniel);
-        Reservation reservation4 = new Reservation(4, seatsForReservation4,barbieAt5Hall1, userDaniel);
-        Reservation reservation5 = new Reservation(5, seatsForReservation5,barbieAt5Hall1, userDaniel);
-
-        List<Reservation> reservations = List.of(reservation1, reservation2, reservation3, reservation4, reservation5);
-        reservationRepository.saveAll(reservations);
     }
 }
