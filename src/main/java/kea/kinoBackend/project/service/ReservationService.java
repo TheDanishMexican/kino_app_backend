@@ -21,13 +21,15 @@ public class ReservationService {
     private ShowingRepository showingRepository;
     private UserWithRolesRepository userRepository;
     private SeatRepository seatRepository;
+    private UserWithRolesRepository userWithRolesRepository;
 
     public ReservationService(ReservationRepository reservationRepository, SeatService seatService,
-                              ShowingRepository showingRepository, SeatRepository seatRepository) {
+                              ShowingRepository showingRepository, SeatRepository seatRepository, UserWithRolesRepository userWithRolesRepository) {
         this.reservationRepository = reservationRepository;
         this.seatService = seatService;
         this.showingRepository = showingRepository;
         this.seatRepository = seatRepository;
+        this.userWithRolesRepository = userWithRolesRepository;
     }
 
     public List<ReservationDTO> getAllReservations() {
@@ -43,6 +45,8 @@ public class ReservationService {
     }
 
     public ReservationDTO addReservation(ReservationDTO request) {
+        System.out.println("this is the cinemaID " + request.cinemaId());
+
         if (request.id() != null) {
             throw new IllegalArgumentException("You cannot provide the id for a new reservation");
         }
@@ -60,10 +64,12 @@ public class ReservationService {
                 .collect(Collectors.toList()));
         original.setShowing(showingRepository.findById(request.showingId()).orElseThrow(() ->
                 new IllegalArgumentException("Showing not found")));
+        original.setCinemaId(showingRepository.findById(request.showingId()).orElseThrow(() ->
+                new IllegalArgumentException("Showing not found")).getHall().getCinema().getId());
         original.setHallId(request.hallId());
         original.setTotalPrice(request.totalPrice());
         original.setSeatPrice(request.seatPrice());
-        original.setUser(userRepository.findById(request.userName()).orElseThrow(() ->
+        original.setUser(userWithRolesRepository.findById(request.userName()).orElseThrow(() ->
                 new IllegalArgumentException("User not found")));
     }
 
@@ -83,7 +89,8 @@ public class ReservationService {
                 reservation.getHallId(),
                 reservation.getTotalPrice(),
                 reservation.getSeatPrice(),
-                reservation.getUser().getUsername()
+                reservation.getUser().getUsername(),
+                reservation.getShowing().getHall().getCinema().getId()
         );
     }
 

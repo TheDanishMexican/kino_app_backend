@@ -1,6 +1,7 @@
 package kea.kinoBackend.project.controller;
 
 import kea.kinoBackend.project.dto.SeatDTO;
+import kea.kinoBackend.project.model.Row;
 import kea.kinoBackend.project.service.SeatService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,6 +35,11 @@ public class SeatController {
     @PutMapping("/{id}")
     public SeatDTO updateSeat(@RequestBody SeatDTO request, @PathVariable int id) {
         return seatService.editSeat(request, id);
+    }
+
+    @GetMapping("/{id}/row")
+    public Row getRow(@PathVariable int id) {
+        return seatService.getRowBySeatId(id);
     }
 
     @DeleteMapping("/{id}")

@@ -12,9 +12,6 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private int userId;
-
-
     @ManyToMany
     private List<Seat> seats;
 
@@ -131,4 +128,5 @@ public class Reservation {
     public void setUser(UserWithRoles user) {
         this.user = user;
     }
+
 }
