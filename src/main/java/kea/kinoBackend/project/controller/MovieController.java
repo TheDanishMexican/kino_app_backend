@@ -5,6 +5,7 @@ package kea.kinoBackend.project.controller;
 import kea.kinoBackend.project.dto.MovieDTO;
 import kea.kinoBackend.project.model.Movie;
 import kea.kinoBackend.project.service.MovieService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,16 +34,19 @@ public class MovieController {
         return movieService.getMovieById(id);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping
     public MovieDTO addMovie(@RequestBody MovieDTO request) {
         return movieService.addMovie(request);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping(path = "/{id}")
     public MovieDTO editMovie(@RequestBody MovieDTO request,@PathVariable int id) {
         return movieService.editMovie(request,id);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping(path = "/{id}")
     public void deleteMovie(@PathVariable int id) {
         movieService.deleteMovie(id);
