@@ -164,12 +164,20 @@ public class SetupMovies implements ApplicationRunner {
         UserWithRolesRepository.save(userDaniel);
 
         //CREATED SHOWINGS FOR HALL1 IN CENTRALBIO
-        Showing BarbieAt12 = new Showing(hall1CentralBio, LocalTime.of(12, 0), barbie, 100, LocalDate.of(2021, 1, 1));
-        Showing InceptionAt15 = new Showing(hall1CentralBio, LocalTime.of(15, 0), inception, 120, LocalDate.of(2021, 1, 1));
-        Showing BatmanAt18 = new Showing(hall1CentralBio, LocalTime.of(18, 0), batman, 140, LocalDate.of(2021, 1, 1));
-        showingRepository.save(BarbieAt12);
-        showingRepository.save(InceptionAt15);
-        showingRepository.save(BatmanAt18);
+        Showing BarbieAt12march3 = new Showing(hall1CentralBio, LocalTime.of(12, 0), barbie, 100, LocalDate.of(2024, 3, 18));
+        Showing InceptionAt15march3 = new Showing(hall1CentralBio, LocalTime.of(15, 0), inception, 120, LocalDate.of(2024, 3, 18));
+        Showing BatmanAt18march3 = new Showing(hall1CentralBio, LocalTime.of(18, 0), batman, 140, LocalDate.of(2024, 3, 18));
+        Showing BarbieAt12march4 = new Showing(hall1CentralBio, LocalTime.of(12, 0), barbie, 100, LocalDate.of(2024, 3, 19));
+        Showing InceptionAt15march4 = new Showing(hall1CentralBio, LocalTime.of(15, 0), inception, 120, LocalDate.of(2024, 3, 19));
+        Showing BatmanAt18march4 = new Showing(hall1CentralBio, LocalTime.of(18, 0), batman, 140, LocalDate.of(2024, 3, 19));
+        Showing BarbieAt12march5 = new Showing(hall1CentralBio, LocalTime.of(12, 0), barbie, 100, LocalDate.of(2024, 3, 20));
+        Showing InceptionAt15march5 = new Showing(hall1CentralBio, LocalTime.of(15, 0), inception, 120, LocalDate.of(2024, 3, 20));
+        Showing BatmanAt18march5 = new Showing(hall1CentralBio, LocalTime.of(18, 0), batman, 140, LocalDate.of(2024, 3, 20));
+
+
+        showingRepository.saveAll(List.of(BarbieAt12march3, InceptionAt15march3, BatmanAt18march3, BarbieAt12march4, InceptionAt15march4,
+                BatmanAt18march4, BarbieAt12march5, InceptionAt15march5, BatmanAt18march5));
+
 
         //CREATED SEATS FOR RESERVATION
         List<Seat> seats = List.of(seatRepository.findBySeatNumber("1A"), seatRepository.findBySeatNumber("2A"), seatRepository.findBySeatNumber("3A"));
@@ -177,9 +185,9 @@ public class SetupMovies implements ApplicationRunner {
         List<Seat> seats3 = List.of(seatRepository.findBySeatNumber("1C"), seatRepository.findBySeatNumber("2C"), seatRepository.findBySeatNumber("3C"));
 
         //CREATED RESERVATION FOR SHOWING1 IN HALL1 IN CENTRALBIO
-        Reservation reservation1 = new Reservation(seats, BarbieAt12, userDaniel);
-        Reservation reservation2 = new Reservation(seats2, InceptionAt15, userDaniel);
-        Reservation reservation3 = new Reservation(seats3, BatmanAt18, userDaniel);
+        Reservation reservation1 = new Reservation(seats, BarbieAt12march3, userDaniel);
+        Reservation reservation2 = new Reservation(seats2, InceptionAt15march3, userDaniel);
+        Reservation reservation3 = new Reservation(seats3, BatmanAt18march3, userDaniel);
         reservationRepository.save(reservation1);
         reservationRepository.save(reservation2);
         reservationRepository.save(reservation3);

@@ -68,4 +68,9 @@ public class ShowingController {
         return showingService.getReservedSeatsInShowing(id);
     }
 
+    @GetMapping("/{id}/cinema")
+    public int getCinemaId(@PathVariable int id) {
+        return showingService.getCinemaId(id);
+    }
+
 }
