@@ -1,7 +1,9 @@
 package kea.kinoBackend.project.controller;
 
+import kea.kinoBackend.project.dto.RowDTO;
 import kea.kinoBackend.project.dto.SeatDTO;
 import kea.kinoBackend.project.dto.ShowingDTO;
+import kea.kinoBackend.project.service.RowService;
 import kea.kinoBackend.project.service.ShowingService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +16,7 @@ import java.util.Map;
 @RequestMapping("/showings")
 public class ShowingController {
     private ShowingService showingService;
+    private RowService rowService;
 
     public ShowingController(ShowingService showingService) {
         this.showingService = showingService;
@@ -67,5 +70,11 @@ public class ShowingController {
     public List<SeatDTO> getReservedSeatsInShowing(@PathVariable int id) {
         return showingService.getReservedSeatsInShowing(id);
     }
+
+    @GetMapping("{id}/rows")
+    public List<RowDTO> getRowsInShowing(@PathVariable int id) {
+        return showingService.getRowsInShowing(id);
+    }
+
 
 }
