@@ -4,6 +4,7 @@ import kea.kinoBackend.project.dto.SeatDTO;
 import kea.kinoBackend.project.model.Row;
 import kea.kinoBackend.project.service.SeatService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,11 +28,13 @@ public class SeatController {
         return seatService.getSeatById(id);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping
     public SeatDTO addSeat(@RequestBody SeatDTO request) {
         return seatService.addSeat(request);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/{id}")
     public SeatDTO updateSeat(@RequestBody SeatDTO request, @PathVariable int id) {
         return seatService.editSeat(request, id);
@@ -42,6 +45,7 @@ public class SeatController {
         return seatService.getRowBySeatId(id);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity deleteSeat(@PathVariable int id) {
         return seatService.deleteSeat(id);
