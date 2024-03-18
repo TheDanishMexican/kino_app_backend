@@ -1,6 +1,7 @@
 package kea.kinoBackend.project.service;
 
 import kea.kinoBackend.project.dto.ReservationDTO;
+import kea.kinoBackend.project.dto.RowDTO;
 import kea.kinoBackend.project.dto.SeatDTO;
 import kea.kinoBackend.project.dto.ShowingDTO;
 import kea.kinoBackend.project.model.*;
@@ -21,10 +22,11 @@ public class ShowingService {
     private RowRepository rowRepository;
     private MovieRepository movieRepository;
     private SeatService seatService;
+    private RowService rowService;
 
     public ShowingService(ShowingRepository showingRepository, HallRepository hallRepository,
                           ReservationService reservationService, SeatRepository seatRepository,
-                          RowRepository rowRepository, MovieRepository movieRepository, SeatService seatService) {
+                          RowRepository rowRepository, MovieRepository movieRepository, SeatService seatService, RowService rowService) {
         this.showingRepository = showingRepository;
         this.hallRepository = hallRepository;
         this.reservationService = reservationService;
@@ -32,12 +34,12 @@ public class ShowingService {
         this.rowRepository = rowRepository;
         this.movieRepository = movieRepository;
         this.seatService = seatService;
+        this.rowService = rowService;
     }
 
     public List<ShowingDTO> findAllShowings() {
         List<Showing> showings = showingRepository.findAll();
         List<ShowingDTO> showingResponses = showings.stream().map(this::toDTO).toList();
-
         return showingResponses;
     }
 
@@ -133,6 +135,16 @@ public class ShowingService {
             return reservedSeats.stream().map(seatService::toDTO).toList();
         }
 
+
+        public List<RowDTO> getRowsInShowing(int showingId) {
+            Hall hall = hallRepository.findById((showingRepository.findById(showingId)).orElseThrow(() ->
+                    new IllegalArgumentException("Showing not found")).getHall().getId()).orElseThrow(() ->
+                    new IllegalArgumentException("Hall not found"));
+
+            List<Row> rows = rowRepository.findAllByHallId(hall.getId());
+
+            return rows.stream().map(rowService::toDTO).toList();
+        }
 
 
     public ShowingDTO toDTO(Showing showing) {
