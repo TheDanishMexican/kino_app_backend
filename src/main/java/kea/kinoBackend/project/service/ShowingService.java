@@ -135,6 +135,11 @@ public class ShowingService {
             return reservedSeats.stream().map(seatService::toDTO).toList();
         }
 
+        public int getCinemaId(int showingId) {
+            return showingRepository.findById(showingId).orElseThrow(() ->
+                    new IllegalArgumentException("Showing not found")).getHall().getCinema().getId();
+        }
+
 
         public List<RowDTO> getRowsInShowing(int showingId) {
             Hall hall = hallRepository.findById((showingRepository.findById(showingId)).orElseThrow(() ->

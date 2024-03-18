@@ -77,11 +77,14 @@ public class ShowingController {
     public List<SeatDTO> getReservedSeatsInShowing(@PathVariable int id) {
         return showingService.getReservedSeatsInShowing(id);
     }
-
+  
     @GetMapping("{id}/rows")
     public List<RowDTO> getRowsInShowing(@PathVariable int id) {
         return showingService.getRowsInShowing(id);
     }
 
-
+    @GetMapping("/{id}/cinema")
+    public int getCinemaId(@PathVariable int id) {
+        return showingService.getCinemaId(id);
+    }
 }

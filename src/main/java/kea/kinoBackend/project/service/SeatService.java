@@ -1,6 +1,7 @@
 package kea.kinoBackend.project.service;
 
 import kea.kinoBackend.project.dto.SeatDTO;
+import kea.kinoBackend.project.model.Row;
 import kea.kinoBackend.project.model.Seat;
 import kea.kinoBackend.project.repository.RowRepository;
 import kea.kinoBackend.project.repository.SeatRepository;
@@ -77,6 +78,11 @@ public class SeatService {
         Seat seat = seatRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Seat not found"));
         seatRepository.delete(seat);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
+
+    public Row getRowBySeatId(int id) {
+        Seat seat = seatRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Seat not found"));
+        return seat.getRow();
     }
 
     public SeatDTO toDTO(Seat seat) {

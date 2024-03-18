@@ -1,7 +1,6 @@
 package kea.kinoBackend.project.model;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,26 +24,24 @@ public class Movie {
 
     private String name;
 
-    @JsonIgnore
     private String posterUrl;
-    @JsonIgnore
     private String description;
-    @JsonIgnore
+
     private LocalDate releaseDate;
-    @JsonIgnore
+
     private String director;
-    @JsonIgnore
+
     private int duration;
-    @JsonIgnore
+
     @ElementCollection
     private List<String> actors;
-    @JsonIgnore
+
     @ElementCollection
     private List<String> genres;
-    @JsonIgnore
+
     @CreationTimestamp
     private LocalDateTime created;
-    @JsonIgnore
+
     @UpdateTimestamp
     private LocalDateTime edited;
 

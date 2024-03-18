@@ -12,9 +12,6 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private int userId;
-
-
     @ManyToMany
     private List<Seat> seats;
 
@@ -51,13 +48,13 @@ public class Reservation {
         for (Seat seat : seats) {
             switch(seat.getRow().getSeatType()) {
                 case COUCH:
-                    totalPrice += showing.getPrice() * 0.8;
+                    totalPrice += showing.getPrice() * 1.2;
                     break;
                 case STANDARD:
                     totalPrice += showing.getPrice();
                     break;
                 case COWBOY:
-                    totalPrice += showing.getPrice() * 1.2;
+                    totalPrice += showing.getPrice() * 0.8;
                     break;
             }
         }
@@ -131,4 +128,5 @@ public class Reservation {
     public void setUser(UserWithRoles user) {
         this.user = user;
     }
+
 }
