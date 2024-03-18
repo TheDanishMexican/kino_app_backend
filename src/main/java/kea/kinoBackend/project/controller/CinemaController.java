@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import kea.kinoBackend.project.dto.*;
 import kea.kinoBackend.project.service.CinemaService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -87,6 +88,7 @@ public class CinemaController {
     }
 
     // refactor to optionals/body
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/{cinemaId}/halls/{hallId}/reservations")
     public ResponseEntity<List<ReservationDTO>> getAllReservationsInHallInCinema(@PathVariable("cinemaId") int cinemaId, @PathVariable("hallId") int hallId) {
         List<ReservationDTO> reservations = cinemaService.getAllReservationsInHallInCinemaById(cinemaId, hallId);
@@ -97,6 +99,7 @@ public class CinemaController {
     }
 
 
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'STAFF')")
     @GetMapping("/{id}/reservations")
     public ResponseEntity<List<ReservationDTO>> getAllReservationsInCinema(@PathVariable int id) {
         List<ReservationDTO> reservations = cinemaService.getAllReservationsInCinemaById(id);
@@ -106,16 +109,19 @@ public class CinemaController {
         return ResponseEntity.ok(reservations);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping
     public CinemaDTO addCinema(@RequestBody CinemaDTO request) {
         return cinemaService.addCinema(request);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/{id}")
     public CinemaDTO updateCinema(@RequestBody CinemaDTO request, @PathVariable int id) {
         return cinemaService.editCinema(request, id);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity deleteCinema(@PathVariable int id) {
         return cinemaService.deleteCinema(id);

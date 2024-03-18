@@ -4,6 +4,7 @@ import kea.kinoBackend.project.dto.SeatDTO;
 import kea.kinoBackend.project.dto.ShowingDTO;
 import kea.kinoBackend.project.service.ShowingService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -29,11 +30,13 @@ public class ShowingController {
         return showingService.getShowingById(id);
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','STAFF','USER')")
     @PostMapping
     public ShowingDTO addShowing(@RequestBody ShowingDTO request) {
         return showingService.addShowing(request);
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','STAFF')")
     @PutMapping("/{id}")
     public ShowingDTO updateShowing(@RequestBody ShowingDTO request, @PathVariable int id) {
         return showingService.editShowing(request, id);
@@ -42,6 +45,7 @@ public class ShowingController {
     //The below route is used to find the price of a specific seat in a specific showing
     //it is for the frontend to be able to show the price of a specific seat inside a showing
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','STAFF','USER')")
     @GetMapping("/{id}/seat/{seatId}/price")
     public ResponseEntity<Map<String, Double>> getSeatInShowingPrice(@PathVariable int id, @PathVariable int seatId) {
         double seatPrice = showingService.getSeatPriceFromShowing(id, seatId);
@@ -53,16 +57,19 @@ public class ShowingController {
         return ResponseEntity.ok().body(response);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity deleteShowing(@PathVariable int id) {
        return showingService.deleteShowing(id);
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','STAFF','USER')")
     @GetMapping("{id}/seats")
     public List<SeatDTO> getSeatsInShowing(@PathVariable int id) {
         return showingService.getSeatsInShowing(id);
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','STAFF','USER')")
     @GetMapping("{id}/reserved_seats")
     public List<SeatDTO> getReservedSeatsInShowing(@PathVariable int id) {
         return showingService.getReservedSeatsInShowing(id);
