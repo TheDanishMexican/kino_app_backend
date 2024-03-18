@@ -40,6 +40,7 @@ public class SeatController {
         return seatService.editSeat(request, id);
     }
 
+    @PreAuthorize("hasAnyAuthority('USER', 'ADMIN', 'STAFF')")
     @GetMapping("/{id}/row")
     public Row getRow(@PathVariable int id) {
         return seatService.getRowBySeatId(id);
