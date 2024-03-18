@@ -17,7 +17,6 @@ public class MovieDTO {
     @JsonIgnore
     private Integer id;
     private String name;
-    @JsonIgnore
     private String posterUrl;
     private String description;
     private String releaseDate;
