@@ -100,13 +100,13 @@ public class ShowingService {
 
             switch (seatType) {
                 case COUCH:
-                    seatPrice += showingPrice * 0.8;
+                    seatPrice += showingPrice * 1.2;
                     break;
                 case STANDARD:
                     seatPrice += showingPrice;
                     break;
                 case COWBOY:
-                    seatPrice += showingPrice * 1.2;
+                    seatPrice += showingPrice * 0.8;
                     break;
             }
             return seatPrice;
