@@ -106,4 +106,17 @@ public class UserWithRolesService {
     }
   }
 
+    public UserWithRolesResponse deleteUser(String username) {
+        UserWithRoles user = userWithRolesRepository.findById(username).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+        userWithRolesRepository.delete(user);
+        return new UserWithRolesResponse(user);
+    }
+
+    public UserWithRolesResponse createStaff(UserWithRolesRequest request) {
+        UserWithRoles userWithRoles = new UserWithRoles(request.getUsername(), passwordEncoder.encode(request.getPassword()), request.getEmail());
+        Role role = roleRepository.findById("STAFF").orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Role not found"));
+        userWithRoles.addRole(role);
+        return new UserWithRolesResponse(userWithRolesRepository.save(userWithRoles));
+    }
+
 }
