@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class MovieDTO {
-    
+
     private Integer id;
     private String name;
     private String posterUrl;
