@@ -41,4 +41,21 @@ public class UserWithRoleController {
   public UserWithRolesResponse removeRole(@PathVariable String username, @PathVariable String role) {
     return userWithRolesService.removeRole(username, role);
   }
+
+  //Delete a use from the system.
+  @PreAuthorize("hasAuthority('ADMIN')")
+  @DeleteMapping("/{username}")
+  @Operation(summary = "Delete a user", description = "Caller must be authenticated with the role ADMIN")
+    public UserWithRolesResponse deleteUser(@PathVariable String username) {
+        return userWithRolesService.deleteUser(username);
+    }
+
+  //Create a new staff member
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @PostMapping("/staff")
+    @Operation(summary = "Create a new staff member", description = "Caller must be authenticated with the role ADMIN")
+    public UserWithRolesResponse createStaff(@RequestBody UserWithRolesRequest request) {
+        return userWithRolesService.createStaff(request);
+    }
+
 }
