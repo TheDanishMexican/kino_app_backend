@@ -10,6 +10,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -26,7 +28,7 @@ public class UserWithRoleController {
   //Anonymous users can call this.
   @PostMapping
   @Operation(summary = "Add a new UserWithRoles user",
-             description = "If a default role is defined (app.default-role ), this role will be assigned to the user.")
+          description = "If a default role is defined (app.default-role ), this role will be assigned to the user.")
   public UserWithRolesResponse addUserWithRoles(@RequestBody UserWithRolesRequest request) {
     return userWithRolesService.addUserWithRoles(request);
   }
@@ -51,15 +53,33 @@ public class UserWithRoleController {
   @PreAuthorize("hasAuthority('ADMIN')")
   @DeleteMapping("/{username}")
   @Operation(summary = "Delete a user", description = "Caller must be authenticated with the role ADMIN")
-    public UserWithRolesResponse deleteUser(@PathVariable String username) {
-        return userWithRolesService.deleteUser(username);
+  public UserWithRolesResponse deleteUser(@PathVariable String username) {
+    try {
+      return userWithRolesService.deleteUser(username);
+    } catch (Exception e) {
+      throw new RuntimeException("User not found");
     }
+
+  }
 
   @PreAuthorize("hasAuthority('ADMIN')")
   @GetMapping("/users")
   @Operation(summary = "Get all users", description = "Caller must be authenticated with the role ADMIN")
-    public List<UserWithRoles> getAllUsers() {
-          return userWithRolesService.getAllUsers();
-    }
+  public List<UserWithRoles> getAllUsers() {
+    return userWithRolesService.getAllUsers();
   }
+
+  @PreAuthorize("hasAuthority('ADMIN')")
+  @PutMapping("/update-user/{username}")
+  @Operation(summary = "Update a user", description = "Caller must be authenticated with the role ADMIN")
+  public UserWithRolesResponse editUserWithRoles(@PathVariable String username, @RequestBody UserWithRolesRequest body) {
+    UserWithRoles updatedUser = userWithRolesService.getUser(username);
+
+    updatedUser.setEmail(body.getEmail());
+    updatedUser.setRoles(body.getRoles());
+    updatedUser.setEdited(LocalDateTime.now());
+
+    return userWithRolesService.editUserWithRoles(username, new UserWithRolesRequest(updatedUser.getUsername(), updatedUser.getPassword(), updatedUser.getEmail(), updatedUser.getRoles()));
+  }
+}
 

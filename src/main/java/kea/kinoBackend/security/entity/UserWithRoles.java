@@ -52,6 +52,7 @@ public class UserWithRoles implements UserDetails {
   private LocalDateTime edited;
 
 
+  @Getter
   @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(name = "user_roles",
           joinColumns = {@JoinColumn(name = "user_username", referencedColumnName = "username")},
