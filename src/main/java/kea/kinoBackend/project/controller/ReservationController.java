@@ -17,13 +17,13 @@ public class ReservationController {
         this.reservationService = reservationService;
     }
 
-    @PreAuthorize("hasAnyAuthority('ADMIN','STAFF')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','STAFF','USER')")
     @GetMapping
     public List<ReservationDTO> getAllReservations() {
         return reservationService.getAllReservations();
     }
 
-    @PreAuthorize("hasAnyAuthority('ADMIN','STAFF')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','STAFF','USER')")
     @GetMapping("/{id}")
     public ReservationDTO getReservation(@PathVariable int id) {
         return reservationService.getReservationById(id);
