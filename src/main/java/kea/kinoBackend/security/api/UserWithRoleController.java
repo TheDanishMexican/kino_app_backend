@@ -47,7 +47,7 @@ public class UserWithRoleController {
     return userWithRolesService.removeRole(username, role);
   }
 
-  //Delete a use from the system.
+  //Delete a user from the system.
   @PreAuthorize("hasAuthority('ADMIN')")
   @DeleteMapping("/{username}")
   @Operation(summary = "Delete a user", description = "Caller must be authenticated with the role ADMIN")
