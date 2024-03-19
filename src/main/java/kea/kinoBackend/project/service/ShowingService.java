@@ -69,6 +69,7 @@ public class ShowingService {
         original.setPrice(request.price());
         original.setCinemaId(request.cinemaId());
         original.setShowingDate(request.showingDate());
+        original.setIs3dMovie(request.is3dMovie());
         if (original.getEndTime() == null) {
             original.calculateEndTime();
         }
@@ -167,8 +168,9 @@ public class ShowingService {
                 reservationDTOs,
                 showing.getPrice(),
                 showing.getHall().getCinema().getId(),
-                showing.getShowingDate()
-
+                showing.getShowingDate(),
+                showing.isSpecialMovie(),
+                showing.isIs3dMovie()
         );
     }
 }

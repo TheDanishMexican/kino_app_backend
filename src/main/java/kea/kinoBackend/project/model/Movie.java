@@ -45,7 +45,6 @@ public class Movie {
     @UpdateTimestamp
     private LocalDateTime edited;
 
-
     public Movie(String name, String posterUrl, String description, int duration, LocalDate releaseDate, String director, List<String> actors, List<String> genres) {
         this.name = name;
         this.posterUrl = posterUrl;
