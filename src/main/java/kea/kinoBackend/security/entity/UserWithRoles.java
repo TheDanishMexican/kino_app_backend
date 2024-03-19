@@ -1,5 +1,6 @@
 package kea.kinoBackend.security.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -38,6 +39,7 @@ public class UserWithRoles implements UserDetails {
   String email;
 
   //60 = length of a bcrypt encoded password
+  @JsonIgnore
   @Column(nullable = false, length = 60)
   String password;
 

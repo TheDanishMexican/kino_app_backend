@@ -1,11 +1,16 @@
 package kea.kinoBackend.security.api;
 
+import kea.kinoBackend.project.dto.MovieDTO;
+import kea.kinoBackend.project.model.Movie;
 import kea.kinoBackend.security.dto.UserWithRolesRequest;
 import kea.kinoBackend.security.dto.UserWithRolesResponse;
+import kea.kinoBackend.security.entity.UserWithRoles;
 import kea.kinoBackend.security.service.UserWithRolesService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
@@ -50,12 +55,11 @@ public class UserWithRoleController {
         return userWithRolesService.deleteUser(username);
     }
 
-  //Create a new staff member
-    @PreAuthorize("hasAuthority('ADMIN')")
-    @PostMapping("/staff")
-    @Operation(summary = "Create a new staff member", description = "Caller must be authenticated with the role ADMIN")
-    public UserWithRolesResponse createStaff(@RequestBody UserWithRolesRequest request) {
-        return userWithRolesService.createStaff(request);
+  @PreAuthorize("hasAuthority('ADMIN')")
+  @GetMapping("/users")
+  @Operation(summary = "Get all users", description = "Caller must be authenticated with the role ADMIN")
+    public List<UserWithRoles> getAllUsers() {
+          return userWithRolesService.getAllUsers();
     }
+  }
 
-}

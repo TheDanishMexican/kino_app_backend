@@ -1,5 +1,7 @@
 package kea.kinoBackend.security.service;
 
+import kea.kinoBackend.project.dto.MovieDTO;
+import kea.kinoBackend.project.model.Movie;
 import kea.kinoBackend.security.dto.UserWithRolesRequest;
 import kea.kinoBackend.security.dto.UserWithRolesResponse;
 import kea.kinoBackend.security.entity.Role;
@@ -12,6 +14,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.util.List;
 
 @Service
 public class UserWithRolesService {
@@ -117,6 +121,10 @@ public class UserWithRolesService {
         Role role = roleRepository.findById("STAFF").orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Role not found"));
         userWithRoles.addRole(role);
         return new UserWithRolesResponse(userWithRolesRepository.save(userWithRoles));
+    }
+
+    public List<UserWithRoles> getAllUsers() {
+        return userWithRolesRepository.findAll();
     }
 
 }
