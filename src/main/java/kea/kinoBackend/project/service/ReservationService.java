@@ -6,6 +6,7 @@ import kea.kinoBackend.project.model.Reservation;
 import kea.kinoBackend.project.repository.ReservationRepository;
 import kea.kinoBackend.project.repository.SeatRepository;
 import kea.kinoBackend.project.repository.ShowingRepository;
+import kea.kinoBackend.security.entity.UserWithRoles;
 import kea.kinoBackend.security.repository.UserWithRolesRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +23,8 @@ public class ReservationService {
     private UserWithRolesRepository userRepository;
     private SeatRepository seatRepository;
     private UserWithRolesRepository userWithRolesRepository;
+
+    private UserWithRoles userWithRoles;
 
     public ReservationService(ReservationRepository reservationRepository, SeatService seatService,
                               ShowingRepository showingRepository, SeatRepository seatRepository, UserWithRolesRepository userWithRolesRepository) {
@@ -56,6 +59,13 @@ public class ReservationService {
         return toDTO(newReservation);
     }
 
+    public List<ReservationDTO> getReservationsByUser(String username) {
+        List<Reservation> reservations = reservationRepository.findAllByUser_Username(username);
+        List<ReservationDTO> reservationResponses = reservations.stream().map(this::toDTO).toList();
+
+        return reservationResponses;
+    }
+
     public void updateReservation(Reservation original, ReservationDTO request) {
 
         original.setSeats(request.seats().stream()
@@ -69,7 +79,7 @@ public class ReservationService {
         original.setHallId(request.hallId());
         original.setTotalPrice(request.totalPrice());
         original.setSeatPrice(request.seatPrice());
-        original.setUser(userWithRolesRepository.findById(request.userName()).orElseThrow(() ->
+        original.setUser(userWithRolesRepository.findById(request.username()).orElseThrow(() ->
                 new IllegalArgumentException("User not found")));
     }
 
@@ -95,4 +105,12 @@ public class ReservationService {
     }
 
 
+    public List<ReservationDTO> getUserReservations(String currentUsername) {
+        // find user in database based on username and use the user to find all reservations in the reservations repository.
+        // UserWithRoles foundUser = userWithRolesRepository.findByUsername(currentUsername);
+        List<Reservation> reservations = reservationRepository.findAllByUser_Username(currentUsername);
+        List<ReservationDTO> reservationResponses = reservations.stream().map(this::toDTO).toList();
+
+        return reservationResponses;
+    }
 }
