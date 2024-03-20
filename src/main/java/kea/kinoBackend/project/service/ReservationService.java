@@ -69,7 +69,7 @@ public class ReservationService {
         original.setHallId(request.hallId());
         original.setTotalPrice(request.totalPrice());
         original.setSeatPrice(request.seatPrice());
-        original.setUser(userWithRolesRepository.findById(request.userName()).orElseThrow(() ->
+        original.setUser(userWithRolesRepository.findById(request.username()).orElseThrow(() ->
                 new IllegalArgumentException("User not found")));
     }
 
