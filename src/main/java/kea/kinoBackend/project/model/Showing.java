@@ -32,6 +32,11 @@ public class Showing {
     @OneToMany(mappedBy = "showing")
     private List<Reservation> reservations;
 
+    private boolean specialMovie;
+
+    private boolean isLongMovie;
+    private boolean is3dMovie;
+
     @ManyToOne
     private Movie movie;
 
@@ -39,7 +44,8 @@ public class Showing {
         this.reservations = new ArrayList<>();
     }
 
-    public Showing(Hall hall, LocalTime startTime, Movie movie, double price, LocalDate showingDate) {
+    public Showing(Hall hall, LocalTime startTime, Movie movie, double price, LocalDate showingDate,
+                   boolean is3dMovie) {
         this.hall = hall;
         this.startTime = startTime;
         this.durationInMinutes = movie.getDuration();
@@ -49,12 +55,28 @@ public class Showing {
         this.cinemaId = hall.getCinema().getId();
         this.showingDate = showingDate;
         this.reservations = new ArrayList<>();
+        this.specialMovie = false;
+        this.is3dMovie = is3dMovie;
+        this.isLongMovie = false;
+        makeLongMovie();
+        makeSpecialMovie();
     }
 
     public void calculateEndTime() {
         this.endTime = startTime.plusMinutes(durationInMinutes);
     }
 
+    public void makeLongMovie() {
+        if (durationInMinutes > 170) {
+            this.isLongMovie = true;
+        }
+    }
+
+    public void makeSpecialMovie() {
+        if (isLongMovie() || is3dMovie) {
+            this.specialMovie = true;
+        }
+    }
 
     public int getId() {
         return id;
@@ -134,5 +156,29 @@ public class Showing {
 
     public void setShowingDate(LocalDate showingDate) {
         this.showingDate = showingDate;
+    }
+
+    public boolean isSpecialMovie() {
+        return specialMovie;
+    }
+
+    public void setSpecialMovie(boolean specialMovie) {
+        this.specialMovie = specialMovie;
+    }
+
+    public boolean isLongMovie() {
+        return isLongMovie;
+    }
+
+    public void setLongMovie(boolean longMovie) {
+        isLongMovie = longMovie;
+    }
+
+    public boolean isIs3dMovie() {
+        return is3dMovie;
+    }
+
+    public void setIs3dMovie(boolean is3dMovie) {
+        this.is3dMovie = is3dMovie;
     }
 }

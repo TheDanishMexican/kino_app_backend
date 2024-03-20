@@ -24,9 +24,7 @@ public class MovieDTO {
     private int duration;
     private List<String> actors;
     private List<String> genres;
-    @JsonIgnore
     private String created;
-    @JsonIgnore
     private String edited;
 
     public MovieDTO(Movie r, boolean includeAll) {

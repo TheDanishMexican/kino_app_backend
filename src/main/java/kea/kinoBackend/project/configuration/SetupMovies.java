@@ -266,28 +266,28 @@ public class SetupMovies implements ApplicationRunner {
         UserWithRolesRepository.save(userDaniel);
 
         //CREATED SHOWINGS FOR HALL1 IN CENTRALBIO
-        Showing BarbieAt12march3 = new Showing(hall1CentralBio, LocalTime.of(12, 0), barbie, 100, LocalDate.of(2024, 3, 18));
-        Showing InceptionAt15march3 = new Showing(hall1CentralBio, LocalTime.of(15, 0), inception, 100, LocalDate.of(2024, 3, 18));
-        Showing BatmanAt18march3 = new Showing(hall1CentralBio, LocalTime.of(18, 0), batman, 100, LocalDate.of(2024, 3, 18));
-        Showing BarbieAt12march4 = new Showing(hall1CentralBio, LocalTime.of(12, 0), barbie, 100, LocalDate.of(2024, 3, 19));
-        Showing InceptionAt15march4 = new Showing(hall1CentralBio, LocalTime.of(15, 0), inception, 100, LocalDate.of(2024, 3, 19));
-        Showing BatmanAt18march4 = new Showing(hall1CentralBio, LocalTime.of(18, 0), batman, 100, LocalDate.of(2024, 3, 19));
-        Showing BarbieAt12march5 = new Showing(hall1CentralBio, LocalTime.of(12, 0), barbie, 100, LocalDate.of(2024, 3, 20));
-        Showing InceptionAt15march5 = new Showing(hall1CentralBio, LocalTime.of(15, 0), inception, 100, LocalDate.of(2024, 3, 20));
-        Showing BatmanAt18march5 = new Showing(hall1CentralBio, LocalTime.of(18, 0), batman, 100, LocalDate.of(2024, 3, 20));
-        Showing ShawshankAt21march5 = new Showing(hall1CentralBio, LocalTime.of(21, 0), shawshank, 100, LocalDate.of(2024, 3, 20));
-        Showing ShawshankAt21march6 = new Showing(hall1CentralBio, LocalTime.of(21, 0), shawshank, 100, LocalDate.of(2024, 3, 21));
-        Showing ShawshankAt21march7 = new Showing(hall1CentralBio, LocalTime.of(21, 0), shawshank, 100, LocalDate.of(2024, 3, 22));
-        Showing ShawshankAt21march8 = new Showing(hall1CentralBio, LocalTime.of(21, 0), shawshank, 100, LocalDate.of(2024, 3, 23));
-        Showing ShawshankAt21march9 = new Showing(hall1CentralBio, LocalTime.of(21, 0), shawshank, 100, LocalDate.of(2024, 3, 24));
-        Showing TheBigShortAt21march9 = new Showing(hall1CentralBio, LocalTime.of(21, 0), bigShort, 100, LocalDate.of(2024, 3, 24));
-        Showing TheWolfOfWallStreetAt21march9 = new Showing(hall1CentralBio, LocalTime.of(21, 0), wolfOfWallStreet, 100, LocalDate.of(2024, 3, 24));
-        Showing TheGodfatherAt21march9 = new Showing(hall1CentralBio, LocalTime.of(21, 0), godfather, 100, LocalDate.of(2024, 3, 24));
-        Showing TheStarWarsAt21march9 = new Showing(hall1CentralBio, LocalTime.of(21, 0), starWars, 100, LocalDate.of(2024, 3, 24));
-        Showing TheBigShortAt21march10 = new Showing(hall1CentralBio, LocalTime.of(21, 0), bigShort, 100, LocalDate.of(2024, 3, 19));
-        Showing TheWolfOfWallStreetAt21march10 = new Showing(hall1CentralBio, LocalTime.of(21, 0), wolfOfWallStreet, 100, LocalDate.of(2024, 3, 19));
-        Showing TheGodfatherAt21march10 = new Showing(hall1CentralBio, LocalTime.of(21, 0), godfather, 100, LocalDate.of(2024, 3, 19));
-        Showing TheStarWarsAt21march10 = new Showing(hall1CentralBio, LocalTime.of(21, 0), starWars, 100, LocalDate.of(2024, 3, 19));
+        Showing BarbieAt12march3 = new Showing(hall1CentralBio, LocalTime.of(12, 0), barbie, 100, LocalDate.of(2024, 3, 18), false);
+        Showing InceptionAt15march3 = new Showing(hall1CentralBio, LocalTime.of(15, 0), inception, 100, LocalDate.of(2024, 3, 18), false);
+        Showing BatmanAt18march3 = new Showing(hall1CentralBio, LocalTime.of(18, 0), batman, 100, LocalDate.of(2024, 3, 18), false);
+        Showing BarbieAt12march4 = new Showing(hall1CentralBio, LocalTime.of(12, 0), barbie, 100, LocalDate.of(2024, 3, 19), false);
+        Showing InceptionAt15march4 = new Showing(hall1CentralBio, LocalTime.of(15, 0), inception, 100, LocalDate.of(2024, 3, 19), false);
+        Showing BatmanAt18march4 = new Showing(hall1CentralBio, LocalTime.of(18, 0), batman, 100, LocalDate.of(2024, 3, 19), false);
+        Showing BarbieAt12march5 = new Showing(hall1CentralBio, LocalTime.of(12, 0), barbie, 100, LocalDate.of(2024, 3, 20), false);
+        Showing InceptionAt15march5 = new Showing(hall1CentralBio, LocalTime.of(15, 0), inception, 100, LocalDate.of(2024, 3, 20), false);
+        Showing BatmanAt18march5 = new Showing(hall1CentralBio, LocalTime.of(18, 0), batman, 100, LocalDate.of(2024, 3, 20), false);
+        Showing ShawshankAt21march5 = new Showing(hall1CentralBio, LocalTime.of(21, 0), shawshank, 100, LocalDate.of(2024, 3, 20), false);
+        Showing ShawshankAt21march6 = new Showing(hall1CentralBio, LocalTime.of(21, 0), shawshank, 100, LocalDate.of(2024, 3, 21), false);
+        Showing ShawshankAt21march7 = new Showing(hall1CentralBio, LocalTime.of(21, 0), shawshank, 100, LocalDate.of(2024, 3, 22), false);
+        Showing ShawshankAt21march8 = new Showing(hall1CentralBio, LocalTime.of(21, 0), shawshank, 100, LocalDate.of(2024, 3, 23), true);
+        Showing ShawshankAt21march9 = new Showing(hall1CentralBio, LocalTime.of(21, 0), shawshank, 100, LocalDate.of(2024, 3, 24), true);
+        Showing TheBigShortAt21march9 = new Showing(hall1CentralBio, LocalTime.of(12, 0), bigShort, 100, LocalDate.of(2024, 3, 25), false);
+        Showing TheWolfOfWallStreetAt21march9 = new Showing(hall1CentralBio, LocalTime.of(12, 0), wolfOfWallStreet, 100, LocalDate.of(2024, 3, 24), false);
+        Showing TheGodfatherAt21march9 = new Showing(hall1CentralBio, LocalTime.of(15, 0), godfather, 100, LocalDate.of(2024, 3, 25), false);
+        Showing TheStarWarsAt21march9 = new Showing(hall1CentralBio, LocalTime.of(15, 0), starWars, 100, LocalDate.of(2024, 3, 24), false);
+        Showing TheBigShortAt21march10 = new Showing(hall1CentralBio, LocalTime.of(18, 0), bigShort, 100, LocalDate.of(2024, 3, 25), false);
+        Showing TheWolfOfWallStreetAt21march10 = new Showing(hall1CentralBio, LocalTime.of(12, 0), wolfOfWallStreet, 100, LocalDate.of(2024, 3, 26), false);
+        Showing TheGodfatherAt21march10 = new Showing(hall1CentralBio, LocalTime.of(15, 0), godfather, 100, LocalDate.of(2024, 3, 26), false);
+        Showing TheStarWarsAt21march10 = new Showing(hall1CentralBio, LocalTime.of(18, 0), starWars, 100, LocalDate.of(2024, 3, 26), false);
 
         showingRepository.saveAll(List.of(BarbieAt12march3, InceptionAt15march3, BatmanAt18march3, BarbieAt12march4, InceptionAt15march4, BatmanAt18march4,
                 BarbieAt12march5, InceptionAt15march5, BatmanAt18march5, ShawshankAt21march5, ShawshankAt21march6, ShawshankAt21march7, ShawshankAt21march8,
@@ -356,24 +356,24 @@ public class SetupMovies implements ApplicationRunner {
         createSeats(row13Hall1EmpireBio, "M", row13Hall1EmpireBio.getAmountOfSeats());
 
         //CREATED SHOWINGS FOR HALL1 IN EMPIREBIO
-        Showing pulpfictionAt12March19 = new Showing(hall1EmpireBio, LocalTime.of(12, 0), movieRepository.findByNameLike("Pulp Fiction"), 100, LocalDate.of(2024, 3, 19));
-        Showing matrixAt15March19 = new Showing(hall1EmpireBio, LocalTime.of(15, 0), movieRepository.findByNameLike("The Matrix"), 100, LocalDate.of(2024, 3, 19));
-        Showing lordOfTheRingsAt18March19 = new Showing(hall1EmpireBio, LocalTime.of(18, 0), movieRepository.findByNameLike("The Lord of the Rings"), 100, LocalDate.of(2024, 3, 19));
-        Showing pulpfictionAt12March20 = new Showing(hall1EmpireBio, LocalTime.of(12, 0), movieRepository.findByNameLike("Pulp Fiction"), 100, LocalDate.of(2024, 3, 20));
-        Showing matrixAt15March20 = new Showing(hall1EmpireBio, LocalTime.of(15, 0), movieRepository.findByNameLike("The Matrix"), 100, LocalDate.of(2024, 3, 20));
-        Showing lordOfTheRingsAt18March20 = new Showing(hall1EmpireBio, LocalTime.of(18, 0), movieRepository.findByNameLike("The Lord of the Rings"), 100, LocalDate.of(2024, 3, 20));
-        Showing pulpfictionAt12March21 = new Showing(hall1EmpireBio, LocalTime.of(12, 0), movieRepository.findByNameLike("Pulp Fiction"), 100, LocalDate.of(2024, 3, 21));
-        Showing matrixAt15March21 = new Showing(hall1EmpireBio, LocalTime.of(15, 0), movieRepository.findByNameLike("The Matrix"), 100, LocalDate.of(2024, 3, 21));
-        Showing lordOfTheRingsAt18March21 = new Showing(hall1EmpireBio, LocalTime.of(18, 0), movieRepository.findByNameLike("The Lord of the Rings"), 100, LocalDate.of(2024, 3, 21));
-        Showing pulpfictionAt12March22 = new Showing(hall1EmpireBio, LocalTime.of(12, 0), movieRepository.findByNameLike("Pulp Fiction"), 100, LocalDate.of(2024, 3, 22));
-        Showing matrixAt15March22 = new Showing(hall1EmpireBio, LocalTime.of(15, 0), movieRepository.findByNameLike("The Matrix"), 100, LocalDate.of(2024, 3, 22));
-        Showing lordOfTheRingsAt18March22 = new Showing(hall1EmpireBio, LocalTime.of(18, 0), movieRepository.findByNameLike("The Lord of the Rings"), 100, LocalDate.of(2024, 3, 22));
-        Showing pulpfictionAt12March23 = new Showing(hall1EmpireBio, LocalTime.of(12, 0), movieRepository.findByNameLike("Pulp Fiction"), 100, LocalDate.of(2024, 3, 23));
-        Showing matrixAt15March23 = new Showing(hall1EmpireBio, LocalTime.of(15, 0), movieRepository.findByNameLike("The Matrix"), 100, LocalDate.of(2024, 3, 23));
-        Showing lordOfTheRingsAt18March23 = new Showing(hall1EmpireBio, LocalTime.of(18, 0), movieRepository.findByNameLike("The Lord of the Rings"), 100, LocalDate.of(2024, 3, 23));
-        Showing pulpfictionAt12March24 = new Showing(hall1EmpireBio, LocalTime.of(12, 0), movieRepository.findByNameLike("Pulp Fiction"), 100, LocalDate.of(2024, 3, 24));
-        Showing matrixAt15March24 = new Showing(hall1EmpireBio, LocalTime.of(15, 0), movieRepository.findByNameLike("The Matrix"), 100, LocalDate.of(2024, 3, 24));
-        Showing lordOfTheRingsAt18March24 = new Showing(hall1EmpireBio, LocalTime.of(18, 0), movieRepository.findByNameLike("The Lord of the Rings"), 100, LocalDate.of(2024, 3, 24));
+        Showing pulpfictionAt12March19 = new Showing(hall1EmpireBio, LocalTime.of(12, 0), movieRepository.findByNameLike("Pulp Fiction"), 100, LocalDate.of(2024, 3, 19), false);
+        Showing matrixAt15March19 = new Showing(hall1EmpireBio, LocalTime.of(15, 0), movieRepository.findByNameLike("The Matrix"), 100, LocalDate.of(2024, 3, 19), false);
+        Showing lordOfTheRingsAt18March19 = new Showing(hall1EmpireBio, LocalTime.of(18, 0), movieRepository.findByNameLike("The Lord of the Rings"), 100, LocalDate.of(2024, 3, 19), false);
+        Showing pulpfictionAt12March20 = new Showing(hall1EmpireBio, LocalTime.of(12, 0), movieRepository.findByNameLike("Pulp Fiction"), 100, LocalDate.of(2024, 3, 20), false);
+        Showing matrixAt15March20 = new Showing(hall1EmpireBio, LocalTime.of(15, 0), movieRepository.findByNameLike("The Matrix"), 100, LocalDate.of(2024, 3, 20), false);
+        Showing lordOfTheRingsAt18March20 = new Showing(hall1EmpireBio, LocalTime.of(18, 0), movieRepository.findByNameLike("The Lord of the Rings"), 100, LocalDate.of(2024, 3, 20), false);
+        Showing pulpfictionAt12March21 = new Showing(hall1EmpireBio, LocalTime.of(12, 0), movieRepository.findByNameLike("Pulp Fiction"), 100, LocalDate.of(2024, 3, 21), false);
+        Showing matrixAt15March21 = new Showing(hall1EmpireBio, LocalTime.of(15, 0), movieRepository.findByNameLike("The Matrix"), 100, LocalDate.of(2024, 3, 21), false);
+        Showing lordOfTheRingsAt18March21 = new Showing(hall1EmpireBio, LocalTime.of(18, 0), movieRepository.findByNameLike("The Lord of the Rings"), 100, LocalDate.of(2024, 3, 21),true );
+        Showing pulpfictionAt12March22 = new Showing(hall1EmpireBio, LocalTime.of(12, 0), movieRepository.findByNameLike("Pulp Fiction"), 100, LocalDate.of(2024, 3, 22), true);
+        Showing matrixAt15March22 = new Showing(hall1EmpireBio, LocalTime.of(15, 0), movieRepository.findByNameLike("The Matrix"), 100, LocalDate.of(2024, 3, 22), false);
+        Showing lordOfTheRingsAt18March22 = new Showing(hall1EmpireBio, LocalTime.of(18, 0), movieRepository.findByNameLike("The Lord of the Rings"), 100, LocalDate.of(2024, 3, 22), false);
+        Showing pulpfictionAt12March23 = new Showing(hall1EmpireBio, LocalTime.of(12, 0), movieRepository.findByNameLike("Pulp Fiction"), 100, LocalDate.of(2024, 3, 23),false);
+        Showing matrixAt15March23 = new Showing(hall1EmpireBio, LocalTime.of(15, 0), movieRepository.findByNameLike("The Matrix"), 100, LocalDate.of(2024, 3, 23), true);
+        Showing lordOfTheRingsAt18March23 = new Showing(hall1EmpireBio, LocalTime.of(18, 0), movieRepository.findByNameLike("The Lord of the Rings"), 100, LocalDate.of(2024, 3, 23),false);
+        Showing pulpfictionAt12March24 = new Showing(hall1EmpireBio, LocalTime.of(12, 0), movieRepository.findByNameLike("Pulp Fiction"), 100, LocalDate.of(2024, 3, 24),false );
+        Showing matrixAt15March24 = new Showing(hall1EmpireBio, LocalTime.of(15, 0), movieRepository.findByNameLike("The Matrix"), 100, LocalDate.of(2024, 3, 24), true);
+        Showing lordOfTheRingsAt18March24 = new Showing(hall1EmpireBio, LocalTime.of(18, 0), movieRepository.findByNameLike("The Lord of the Rings"), 100, LocalDate.of(2024, 3, 24), false);
 
         showingRepository.saveAll(List.of(pulpfictionAt12March19, matrixAt15March19, lordOfTheRingsAt18March19, pulpfictionAt12March20, matrixAt15March20, lordOfTheRingsAt18March20,
                 pulpfictionAt12March21, matrixAt15March21, lordOfTheRingsAt18March21, pulpfictionAt12March22, matrixAt15March22, lordOfTheRingsAt18March22,

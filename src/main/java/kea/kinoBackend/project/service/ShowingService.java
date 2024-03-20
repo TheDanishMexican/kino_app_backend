@@ -69,6 +69,7 @@ public class ShowingService {
         original.setPrice(request.price());
         original.setCinemaId(request.cinemaId());
         original.setShowingDate(request.showingDate());
+        original.setIs3dMovie(request.is3dMovie());
         if (original.getEndTime() == null) {
             original.calculateEndTime();
         }
@@ -151,6 +152,32 @@ public class ShowingService {
             return rows.stream().map(rowService::toDTO).toList();
         }
 
+    public double reservationPrice(List<SeatDTO> selectedSeats, int showingId) {
+        Showing showing = showingRepository.findById(showingId).orElseThrow(() ->
+                new IllegalArgumentException("Showing not found"));
+        double price = 0;
+        double fee = 50;
+        double discountRate = 0.93;
+        double discountThreshold = 10;
+
+        for (SeatDTO seat : selectedSeats) {
+            price += getSeatPriceFromShowing(showingId, seat.id());
+        }
+
+        if (selectedSeats.size() <= 5) {  // Apply fee for 5 or fewer reservations
+            price += fee;
+        } else if (selectedSeats.size() >= discountThreshold) {  // Apply discount for 10 or more reservations
+            price *= discountRate;
+        }
+
+        if (showing.isSpecialMovie()) {
+            price += 50;
+        }
+
+        return price;
+    }
+
+
 
     public ShowingDTO toDTO(Showing showing) {
         List<ReservationDTO> reservationDTOs = showing.getReservations().stream()
@@ -167,8 +194,9 @@ public class ShowingService {
                 reservationDTOs,
                 showing.getPrice(),
                 showing.getHall().getCinema().getId(),
-                showing.getShowingDate()
-
+                showing.getShowingDate(),
+                showing.isSpecialMovie(),
+                showing.isIs3dMovie()
         );
     }
 }

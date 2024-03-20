@@ -3,6 +3,7 @@ package kea.kinoBackend.project.controller;
 import kea.kinoBackend.project.dto.RowDTO;
 import kea.kinoBackend.project.dto.SeatDTO;
 import kea.kinoBackend.project.dto.ShowingDTO;
+import kea.kinoBackend.project.model.PreReservationInfo;
 import kea.kinoBackend.project.service.RowService;
 import kea.kinoBackend.project.service.ShowingService;
 import org.springframework.http.ResponseEntity;
@@ -87,4 +88,21 @@ public class ShowingController {
     public int getCinemaId(@PathVariable int id) {
         return showingService.getCinemaId(id);
     }
+
+    @PreAuthorize("hasAnyAuthority('ADMIN','STAFF','USER')")
+    @PostMapping("/reservation_price")
+    public ResponseEntity<Map<String, Double>> calculateReservationPrice(
+            @RequestBody PreReservationInfo preReservationInfo) {
+
+        List<SeatDTO> selectedSeats = preReservationInfo.getSelectedSeats();
+        int showingId = preReservationInfo.getShowingId();
+
+        double price = showingService.reservationPrice(selectedSeats, showingId);
+
+        Map<String, Double> response = new HashMap<>();
+        response.put("reservationPrice", price);
+
+        return ResponseEntity.ok().body(response);
+    }
+
 }
