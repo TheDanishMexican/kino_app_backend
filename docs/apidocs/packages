@@ -1,0 +1,15 @@
+kea.kinoBackend.security.dto
+kea.kinoBackend.security.repository
+kea.kinoBackend.security.config
+kea.kinoBackend.security.entity
+kea.kinoBackend.security.api
+kea.kinoBackend.security.service
+kea.kinoBackend.security.error
+kea.kinoBackend.security.for_security_tests
+kea.kinoBackend
+kea.kinoBackend.project.dto
+kea.kinoBackend.project.configuration
+kea.kinoBackend.project.repository
+kea.kinoBackend.project.controller
+kea.kinoBackend.project.model
+kea.kinoBackend.project.service
