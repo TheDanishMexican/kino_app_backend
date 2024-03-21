@@ -16,12 +16,12 @@ This repository hosts the backend for our cinema platform. You can also explore 
 
 JDBC_DATABASE_URL=jdbc:mysql://localhost:3306/INSERTDATABASENAMEHERE;JDBC_PASSWORD=INSERTDBPASSWORDHERE;JDBC_USERNAME=INSERTDBUSERNAMEHERE;SECRET_TOKEN=INSERTSECRETTOKENHERE
 
-4. **Setup the Database:**
+3. **Setup the Database:**
 
     - Open your database IDE, set up the connection, and create the database by building the program.
 
 
-6. **Frontend Setup:**
+4. **Frontend Setup:**
     - Go to the frontend repository at: [https://github.com/TheDanishMexican/kino_app_frontend](https://github.com/TheDanishMexican/kino_app_frontend) and follow the steps in the README.md file to complete the setup.
 
 Congratulations! Your backend is now up and running at [http://localhost:8080](http://localhost:8080). Feel free to explore as needed!
