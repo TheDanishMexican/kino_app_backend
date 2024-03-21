@@ -2,9 +2,9 @@
 
 Hvis du ønsker at køre programmet skal du blot åbne linket "https://lemon-tree-0aebf7903.5.azurestaticapps.net" 
 
-# YogaBackend
+# Kino
 
-This repository hosts the backend for our yoga platform. You can also explore the live version [here](https://kinobackend.azurewebsites.net).
+This repository hosts the backend for our cinema platform. You can also explore the live version [here](https://kinobackend.azurewebsites.net).
 
 ## Running Locally
 
