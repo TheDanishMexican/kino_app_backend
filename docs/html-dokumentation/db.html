@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>database dokumentation😔</title>
+</head>
+<body>
+  <img src="kinoDB.png" alt="db" height="800px" width="600px">
+ <h2>cinemas: </h2>
+  <p>  Indeholder oplysninger om biografer, inklusive en location og et name. </p>
+<h2>halls: </h2>
+<p>Relateret til cinemas gennem cinema_id og indeholder biografsale. </p>
+<h2>seat_rows:</h2>
+<p> Tilordnet til halls gennem hall_id og omfatter information om rækkeinddelinger i en sal.
+  <h2>seats:</h2>
+ Relateret til seat_rows og indeholder individuelle siddepladser.</p>
+<h2>movies: </h2>
+<p>Indeholder oplysninger om film, som f.eks. duration, release_date, description, director, imdb_score, og poster_url. </p>
+
+<h2>showings: </h2>
+<p> Repræsenterer filmforevisninger og er knyttet til både movies og cinemas.</p>
+<h2>reservations: </h2>
+<p> Omhandler reservationer, som er knyttet til showings og relaterer til users via user_username.</p>
+
+<h2>reservations_seats: </h2>
+<p> En mange-til-mange-relation mellem reservations og seats.</p>
+<h2> movie_genres og movie_actors: </h2>
+<p> til at klassificere film efter genrer og skuespillere.</p>
+<h2>user_with_roles, role, og user_roles:</h2>  
+<p> Disse tabeller håndterer brugeroplysninger og roller, hvilket muligvis er til adgangskontrol og autorisation inden for systemet.
+Relationerne er angivet med linjer, som forbinder de relevante nøgler (primærnøgler og fremmednøgler) mellem tabellerne. Hver tabel har også attributter, som f.eks. id, name, username, osv., der beskriver egenskaberne ved hver entitet.</p>
+  
+</body>
+</html>
