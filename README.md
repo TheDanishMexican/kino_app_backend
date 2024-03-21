@@ -1,10 +1,10 @@
 [![Build and deploy JAR app to Azure Web App - kinobackend](https://github.com/TheDanishMexican/kino_app_backend/actions/workflows/main_kinobackend.yml/badge.svg)](https://github.com/TheDanishMexican/kino_app_backend/actions/workflows/main_kinobackend.yml)
 
-Hvis du ønsker at køre programmet skal du blot åbne linket "https://lemon-tree-0aebf7903.5.azurestaticapps.net" 
+Hvis du ønsker at køre programmet skal du blot åbne linket "" 
 
 # Kino
 
-This repository hosts the backend for our cinema platform. You can also explore the live version [here](https://kinobackend.azurewebsites.net).
+This repository hosts the backend for our cinema platform. You can also explore the live version frontend [here](https://lemon-tree-0aebf7903.5.azurestaticapps.net) backend [here](https://kinobackend.azurewebsites.net).
 
 ## Running Locally
 
