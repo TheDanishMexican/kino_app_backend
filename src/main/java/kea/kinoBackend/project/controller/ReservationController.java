@@ -47,8 +47,8 @@ public class ReservationController {
         Jwt jwt = jwtDecoder.decode(token);
         System.out.println(jwt);
 
-        // Extract the username claim
-        String currentUsername = jwt.getSubject();; // adjust the claim name if necessary
+        // Extract the username from the token.
+        String currentUsername = jwt.getSubject();;
 
         if (currentUsername == null) {
             throw new IllegalArgumentException("Username claim could not be found in the Jwt.");
@@ -68,17 +68,29 @@ public class ReservationController {
 
     @PreAuthorize("hasAnyAuthority('ADMIN','STAFF','USER')")
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteReservation(@PathVariable int id) {
+    public ResponseEntity deleteReservation(@PathVariable int id, @RequestHeader("Authorization") String bearerToken) {
+        //Allow admin and staff to delete without checking token
+        if (SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ADMIN") || a.getAuthority().equals("STAFF"))) {
+            return reservationService.deleteReservation(id);
+        }
+
         ReservationDTO reservation = reservationService.getReservationById(id);
 
-        // Get the currently authenticated user
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String currentUsername;
-        if (principal instanceof UserDetails) {
-            currentUsername = ((UserDetails)principal).getUsername();
-        } else {
-            currentUsername = principal.toString();
+        // Remove the 'Bearer ' prefix from the token
+        String token = bearerToken.substring(7);
+
+        // Decode the token
+        Jwt jwt = jwtDecoder.decode(token);
+        System.out.println(jwt);
+
+        // Extract the username from the token.
+        String currentUsername = jwt.getSubject();;
+
+        if (currentUsername == null) {
+            throw new IllegalArgumentException("Username claim could not be found in the Jwt.");
         }
+
+        System.out.println("Current user: " + currentUsername);
 
         // Check if the currently authenticated user is the same as the user who made the reservation
         if (reservation.getUsername().equals(currentUsername)) {
