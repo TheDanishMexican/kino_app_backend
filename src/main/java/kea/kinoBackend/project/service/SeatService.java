@@ -23,6 +23,11 @@ public class SeatService {
         this.rowRepository = rowRepository;
     }
 
+    /**
+     * Get all seats
+     * @return a list of all seats
+     */
+
     public List<SeatDTO> getAllSeats() {
         List<Seat> seats = seatRepository.findAll();
         List<SeatDTO> seatResponses = seats.stream().map(this::toDTO).toList();
@@ -30,11 +35,21 @@ public class SeatService {
         return seatResponses;
     }
 
+    /**
+     * Get seat by id
+     * @param id - the id of the seat
+     * @return  the seat with the given id
+     */
     public SeatDTO getSeatById(int id) {
         Seat seat = seatRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Seat not found"));
         return toDTO(seat);
     }
 
+    /**
+     * Add a new seat
+     * @param request - the seat to add
+     * @return the added seat
+     */
     public SeatDTO addSeat(SeatDTO request) {
         if (request.id() != null) {
             throw new IllegalArgumentException("You cannot provide the id for a new seat");
@@ -56,6 +71,12 @@ public class SeatService {
         original.setRow(rowRepository.findById(request.rowId()).orElseThrow(() -> new IllegalArgumentException("Row not found")));
     }
 
+    /**
+     * Edit a seat
+     * @param request - the new seat data
+     * @param id - the id of the seat to edit
+     * @return the edited seat
+     */
     public SeatDTO editSeat(SeatDTO request, int id) {
         Seat seat = seatRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Seat not found"));
 

@@ -22,6 +22,10 @@ public class RowService {
         this.hallRepository = hallRepository;
     }
 
+    /**
+     * Get all rows
+     * @return a list of all rows
+     */
     public List<RowDTO> getAllRows() {
         List<Row> rows = rowRepository.findAll();
         List<RowDTO> rowResponses = rows.stream().map(this::toDTO).toList();
@@ -29,10 +33,21 @@ public class RowService {
         return rowResponses;
     }
 
+    /**
+     * Get row by id
+     * @param id - the id of the row
+     * @return the row with the given id
+     */
     public RowDTO getRowById(int id) {
         Row row = rowRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Row not found"));
         return toDTO(row);
     }
+
+    /**
+     * Add a new row
+     * @param request - the row to add
+     * @return the added row
+     */
 
     public RowDTO addRow(RowDTO request) {
         if (request.id() != null) {
@@ -51,6 +66,12 @@ public class RowService {
         original.setSeatType(request.seatType());
     }
 
+    /**
+     * Edit a row
+     * @param request - the new row data
+     * @param id - the id of the row to edit
+     * @return the edited row
+     */
     public RowDTO editRow(RowDTO request, int id) {
         Row row = rowRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Row not found"));
         updateRow(row, request);
@@ -58,6 +79,11 @@ public class RowService {
         return toDTO(row);
     }
 
+    /**
+     * Deletes the row with the given id
+     * @param id - the id of the row to delete
+     * @return - a response entity with No Content status
+     */
     public ResponseEntity deleteRow(int id) {
         Row row = rowRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Row not found"));
         rowRepository.delete(row);

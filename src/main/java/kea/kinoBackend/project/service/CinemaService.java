@@ -103,36 +103,69 @@ public class CinemaService {
                 .toList();
     }
 
+    /**
+     * Get all halls in a cinema
+     * @param id - id of the cinema
+     * @return - list of all halls in the cinema
+     */
     public List<HallDTO> getAllHallsByCinemaId(int id) {
         return hallRepository.findAllByCinemaId(id).stream()
                 .map(hallService::toDTO)
                 .toList();
     }
 
+    /**
+     * Get all rows in a hall in a cinema
+     * @param cinemaId - id of the cinema
+     * @param hallId - id of the hall
+     * @return - list of all rows in the hall in the cinema
+     */
     public List<RowDTO> getAllRowsInHallInCinemaById(int cinemaId, int hallId) {
         return rowRepository.findAllByCinemaIdAndHallId(cinemaId, hallId).stream()
                 .map(rowService::toDTO)
                 .toList();
     }
 
+    /**
+     * Get all showings in a cinema
+     * @param id - id of the cinema
+     * @return - list of all showings in the cinema
+     */
     public List<ShowingDTO> getAllShowingsInCinemaById(int id) {
         return showingRepository.findAllByCinemaId(id).stream()
                 .map(showingService::toDTO)
                 .toList();
     }
 
+    /**
+     * Get all showings in a hall in a cinema
+     * @param cinemaId - id of the cinema
+     * @param hallId - id of the hall
+     * @return - list of all showings in the hall in the cinema
+     */
     public List<ShowingDTO> getAllShowingsInHallInCinemaById(int cinemaId, int hallId) {
         return showingRepository.findAllByCinemaIdAndHallId(cinemaId, hallId).stream()
                 .map(showingService::toDTO)
                 .toList();
     }
 
+    /**
+     * Get all reservations in a hall in a cinema
+     * @param cinemaId - id of the cinema
+     * @param hallId - id of the hall
+     * @return - list of all reservations in the hall in the cinema
+     */
     public List<ReservationDTO> getAllReservationsInHallInCinemaById(int cinemaId, int hallId) {
         return reservationRepository.findAllByCinemaIdAndHallId(cinemaId, hallId).stream()
                 .map(reservationService::toDTO)
                 .toList();
     }
 
+    /**
+     * Get all reservations in a cinema
+     * @param id - id of the cinema
+     * @return - list of all reservations in the cinema
+     */
     public List<ReservationDTO> getAllReservationsInCinemaById(int id) {
         return reservationRepository.findAllByCinemaId(id).stream()
                 .map(reservationService::toDTO)
