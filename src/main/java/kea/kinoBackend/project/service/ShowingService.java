@@ -69,19 +69,14 @@ public class ShowingService {
     }
 
     public void updateShowing(Showing original, ShowingDTO request) {
+        original.setHall(hallRepository.findById(request.hallId()).orElseThrow(() ->
+                new IllegalArgumentException("Hall not found")));
         original.setStartTime(request.startTime());
         original.setMovie(movieRepository.findById(request.movie().getId()).orElseThrow(() ->
                 new IllegalArgumentException("Movie not found")));
-        original.setHall(hallRepository.findById(request.hallId()).orElseThrow(() ->
-                new IllegalArgumentException("Hall not found")));
-        original.setDurationInMinutes(original.getMovie().getDuration());
         original.setPrice(request.price());
-        original.setCinemaId(request.cinemaId());
         original.setShowingDate(request.showingDate());
         original.setIs3dMovie(request.is3dMovie());
-        if (original.getEndTime() == null) {
-            original.calculateEndTime();
-        }
     }
 
     public ShowingDTO editShowing(ShowingDTO request, int id) {
