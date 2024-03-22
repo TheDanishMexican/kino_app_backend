@@ -1,6 +1,7 @@
 package kea.kinoBackend.security.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
@@ -24,6 +25,7 @@ public class Role {
       this.roleName = roleName;
    }
 
+   @JsonIgnore
    @ManyToMany(mappedBy = "roles",fetch = FetchType.EAGER)
    Set<UserWithRoles> users;
 

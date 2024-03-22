@@ -1,5 +1,7 @@
 package kea.kinoBackend.security.service;
 
+import kea.kinoBackend.project.dto.MovieDTO;
+import kea.kinoBackend.project.model.Movie;
 import kea.kinoBackend.security.dto.UserWithRolesRequest;
 import kea.kinoBackend.security.dto.UserWithRolesResponse;
 import kea.kinoBackend.security.entity.Role;
@@ -12,6 +14,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.util.List;
 
 @Service
 public class UserWithRolesService {
@@ -76,7 +80,8 @@ public class UserWithRolesService {
   public UserWithRolesResponse editUserWithRoles(String username, UserWithRolesRequest body) {
     UserWithRoles user = userWithRolesRepository.findById(username).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
     user.setEmail(body.getEmail());
-    user.setPassword(passwordEncoder.encode(body.getPassword()));
+    user.setRoles(body.getRoles());
+    // Do not change the password
     return new UserWithRolesResponse(userWithRolesRepository.save(user));
   }
 
@@ -112,11 +117,11 @@ public class UserWithRolesService {
         return new UserWithRolesResponse(user);
     }
 
-    public UserWithRolesResponse createStaff(UserWithRolesRequest request) {
-        UserWithRoles userWithRoles = new UserWithRoles(request.getUsername(), passwordEncoder.encode(request.getPassword()), request.getEmail());
-        Role role = roleRepository.findById("STAFF").orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Role not found"));
-        userWithRoles.addRole(role);
-        return new UserWithRolesResponse(userWithRolesRepository.save(userWithRoles));
+    public List<UserWithRoles> getAllUsers() {
+        return userWithRolesRepository.findAll();
     }
 
+  public UserWithRoles getUser(String username) {
+    return userWithRolesRepository.findById(username).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+  }
 }
