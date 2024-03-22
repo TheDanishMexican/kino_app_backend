@@ -26,7 +26,10 @@ public class HallService {
         this.showingService = showingService;
         this.cinemaRepository = cinemaRepository;
     }
-
+    /**
+     * Get all halls
+     * @return a list of all halls
+     */
     public List<HallDTO> getAllHalls() {
         List<Hall> halls = hallRepository.findAll();
         List<HallDTO> hallResponses = halls.stream().map(this::toDTO).toList();
@@ -34,11 +37,21 @@ public class HallService {
         return hallResponses;
     }
 
+    /**
+     * Get all halls in a cinema
+     * @param id - the id of the cinema
+     * @return a list of all halls in the cinema
+     */
     public HallDTO getHallById(int id) {
         Hall hall = hallRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Hall not found"));
         return toDTO(hall);
     }
 
+    /**
+     * Adds a new hall
+     * @param request the hall to add
+     * @return the added hall
+     */
     public HallDTO addHall(HallDTO request) {
         if (request.id() != null) {
             throw new IllegalArgumentException("You cannot provide the id for a new hall");
@@ -49,7 +62,11 @@ public class HallService {
         return toDTO(newHall);
     }
 
-    //Der skal tilføjes rows og showings til denne, men det kræver at der også bliver lavet metoder i deres service classes
+    /**
+     * Updates hall
+     * @param original - the hall to update
+     * @param request - the new hall data
+     */
     public void updateHall(Hall original, HallDTO request) {
         System.out.println("hall added to cinema" + request.cinemaId());
         original.setCinema(cinemaRepository.findById(request.cinemaId()).orElseThrow(() -> new IllegalArgumentException("Cinema not found")));
@@ -65,6 +82,11 @@ public class HallService {
         return toDTO(hallToEdit);
     }
 
+    /**
+     * Deletes the hall with the given id
+     * @param id - the id of the hall to delete
+     * @return a response entity with the status code
+     */
     public ResponseEntity deleteHall(int id) {
         Hall hall = hallRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Hall not found"));
         hallRepository.delete(hall);

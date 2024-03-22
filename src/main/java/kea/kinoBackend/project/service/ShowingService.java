@@ -37,6 +37,10 @@ public class ShowingService {
         this.rowService = rowService;
     }
 
+    /**
+     * Get all showings
+     * @return a list of all showings
+     */
     public List<ShowingDTO> findAllShowings() {
         List<Showing> showings = showingRepository.findAll();
         List<ShowingDTO> showingResponses = showings.stream().map(this::toDTO).toList();
@@ -48,6 +52,11 @@ public class ShowingService {
         return toDTO(showing);
     }
 
+    /**
+     * Adds a new showing
+     * @param request the showing to add
+     * @return the added showing
+     */
     public ShowingDTO addShowing(ShowingDTO request) {
         if (request.id() != null) {
             throw new IllegalArgumentException("You cannot provide the id for a new showing");
@@ -88,6 +97,12 @@ public class ShowingService {
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
+    /**
+     * Get seat price from showing
+     * @param showingId - the id of the showing
+     * @param seatId - the id of the seat
+     * @return the price of the seat
+     */
     public double getSeatPriceFromShowing(int showingId, int seatId) {
         double seatPrice = 0;
 
@@ -113,7 +128,12 @@ public class ShowingService {
             return seatPrice;
         }
 
-        public List<SeatDTO> getSeatsInShowing(int showingId) {
+    /**
+     * Get all seats in a showing
+     * @param showingId - the id of the showing
+     * @return a list of all seats in the showing
+     */
+    public List<SeatDTO> getSeatsInShowing(int showingId) {
             Hall hall = hallRepository.findById((showingRepository.findById(showingId)).orElseThrow(() ->
                     new IllegalArgumentException("Showing not found")).getHall().getId()).orElseThrow(() ->
                     new IllegalArgumentException("Hall not found"));
@@ -152,6 +172,12 @@ public class ShowingService {
             return rows.stream().map(rowService::toDTO).toList();
         }
 
+    /**
+     * Get reservation price
+      * @param selectedSeats - the id's of the selected seats
+     * @param showingId - the id of the showing
+     * @return the price of the reservation
+     */
     public double reservationPrice(List<SeatDTO> selectedSeats, int showingId) {
         Showing showing = showingRepository.findById(showingId).orElseThrow(() ->
                 new IllegalArgumentException("Showing not found"));

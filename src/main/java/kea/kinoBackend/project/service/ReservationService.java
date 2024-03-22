@@ -35,6 +35,10 @@ public class ReservationService {
         this.userWithRolesRepository = userWithRolesRepository;
     }
 
+    /**
+     * Get all reservations
+     * @return a list of all reservations
+     */
     public List<ReservationDTO> getAllReservations() {
         List<Reservation> reservations = reservationRepository.findAll();
         List<ReservationDTO> reservationResponses = reservations.stream().map(this::toDTO).toList();
@@ -42,11 +46,21 @@ public class ReservationService {
         return reservationResponses;
     }
 
+    /**
+     * Get reservation by id
+     * @param id - the id of the reservation
+     * @return the reservation with the given id
+     */
     public ReservationDTO getReservationById(int id) {
         Reservation reservation = reservationRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Reservation not found"));
         return toDTO(reservation);
     }
 
+    /**
+     * Add a new reservation
+     * @param request - the reservation to add
+     * @return the added reservation
+     */
     public ReservationDTO addReservation(ReservationDTO request) {
         System.out.println("this is the cinemaID " + request.cinemaId());
 
@@ -66,6 +80,12 @@ public class ReservationService {
         return reservationResponses;
     }
 
+    /**
+     * Edit a reservation
+     * @param original - the id of the original reservation to edit
+     * @param request - the new reservation data
+     * @return the edited reservation
+     */
     public void updateReservation(Reservation original, ReservationDTO request) {
 
         original.setSeats(request.seats().stream()
@@ -83,6 +103,11 @@ public class ReservationService {
                 new IllegalArgumentException("User not found")));
     }
 
+    /**
+     * Delete a reservation
+     * @param id - the id of the reservation to delete
+     * @return a response entity with status NO_CONTENT
+     */
     public ResponseEntity deleteReservation(int id) {
         Reservation reservation = reservationRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Reservation not found"));
         reservationRepository.delete(reservation);
