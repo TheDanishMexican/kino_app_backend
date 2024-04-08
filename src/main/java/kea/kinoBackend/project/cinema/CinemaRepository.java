@@ -1,6 +1,5 @@
-package kea.kinoBackend.project.repository;
+package kea.kinoBackend.project.cinema;
 
-import kea.kinoBackend.project.model.Cinema;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CinemaRepository extends JpaRepository<Cinema, Integer> {

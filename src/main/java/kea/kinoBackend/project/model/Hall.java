@@ -1,6 +1,7 @@
 package kea.kinoBackend.project.model;
 
 import jakarta.persistence.*;
+import kea.kinoBackend.project.cinema.Cinema;
 
 import java.util.ArrayList;
 import java.util.List;

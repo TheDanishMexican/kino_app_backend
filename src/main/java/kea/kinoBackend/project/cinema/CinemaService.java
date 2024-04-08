@@ -1,8 +1,8 @@
-package kea.kinoBackend.project.service;
+package kea.kinoBackend.project.cinema;
 
 import kea.kinoBackend.project.dto.*;
-import kea.kinoBackend.project.model.Cinema;
 import kea.kinoBackend.project.repository.*;
+import kea.kinoBackend.project.service.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;

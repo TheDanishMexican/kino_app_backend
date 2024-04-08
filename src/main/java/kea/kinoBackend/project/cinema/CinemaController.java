@@ -1,8 +1,7 @@
-package kea.kinoBackend.project.controller;
+package kea.kinoBackend.project.cinema;
 
 import io.swagger.v3.oas.annotations.Operation;
 import kea.kinoBackend.project.dto.*;
-import kea.kinoBackend.project.service.CinemaService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;

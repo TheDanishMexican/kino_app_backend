@@ -1,4 +1,6 @@
-package kea.kinoBackend.project.dto;
+package kea.kinoBackend.project.cinema;
+
+import kea.kinoBackend.project.dto.HallIdDTO;
 
 import java.util.List;
 

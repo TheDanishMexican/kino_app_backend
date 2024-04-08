@@ -1,5 +1,7 @@
 package kea.kinoBackend.project.configuration;
 
+import kea.kinoBackend.project.cinema.Cinema;
+import kea.kinoBackend.project.cinema.CinemaRepository;
 import kea.kinoBackend.project.model.*;
 import kea.kinoBackend.project.repository.*;
 import kea.kinoBackend.security.entity.Role;

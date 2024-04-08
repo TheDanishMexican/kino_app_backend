@@ -4,7 +4,7 @@ import kea.kinoBackend.project.dto.HallDTO;
 import kea.kinoBackend.project.dto.RowDTO;
 import kea.kinoBackend.project.dto.ShowingDTO;
 import kea.kinoBackend.project.model.Hall;
-import kea.kinoBackend.project.repository.CinemaRepository;
+import kea.kinoBackend.project.cinema.CinemaRepository;
 import kea.kinoBackend.project.repository.HallRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

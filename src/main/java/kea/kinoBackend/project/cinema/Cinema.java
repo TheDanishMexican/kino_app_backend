@@ -1,7 +1,8 @@
-package kea.kinoBackend.project.model;
+package kea.kinoBackend.project.cinema;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import kea.kinoBackend.project.model.Hall;
 
 import java.util.ArrayList;
 import java.util.List;
