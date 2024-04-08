@@ -1,7 +1,5 @@
 package kea.kinoBackend.security.service;
 
-import kea.kinoBackend.project.dto.MovieDTO;
-import kea.kinoBackend.project.model.Movie;
 import kea.kinoBackend.security.dto.UserWithRolesRequest;
 import kea.kinoBackend.security.dto.UserWithRolesResponse;
 import kea.kinoBackend.security.entity.Role;

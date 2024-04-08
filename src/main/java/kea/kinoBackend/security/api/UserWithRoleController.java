@@ -1,7 +1,5 @@
 package kea.kinoBackend.security.api;
 
-import kea.kinoBackend.project.dto.MovieDTO;
-import kea.kinoBackend.project.model.Movie;
 import kea.kinoBackend.security.dto.UserWithRolesRequest;
 import kea.kinoBackend.security.dto.UserWithRolesResponse;
 import kea.kinoBackend.security.entity.UserWithRoles;
@@ -10,7 +8,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 

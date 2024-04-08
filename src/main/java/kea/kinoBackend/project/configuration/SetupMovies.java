@@ -1,7 +1,20 @@
 package kea.kinoBackend.project.configuration;
 
-import kea.kinoBackend.project.model.*;
-import kea.kinoBackend.project.repository.*;
+import kea.kinoBackend.project.cinema.Cinema;
+import kea.kinoBackend.project.cinema.CinemaRepository;
+import kea.kinoBackend.project.hall.Hall;
+import kea.kinoBackend.project.hall.HallRepository;
+import kea.kinoBackend.project.movies.Movie;
+import kea.kinoBackend.project.movies.MovieRepository;
+import kea.kinoBackend.project.reservation.Reservation;
+import kea.kinoBackend.project.reservation.ReservationRepository;
+import kea.kinoBackend.project.row.Row;
+import kea.kinoBackend.project.row.RowRepository;
+import kea.kinoBackend.project.seat.Seat;
+import kea.kinoBackend.project.seat.SeatRepository;
+import kea.kinoBackend.project.seat.SeatType;
+import kea.kinoBackend.project.showing.Showing;
+import kea.kinoBackend.project.showing.ShowingRepository;
 import kea.kinoBackend.security.entity.Role;
 import kea.kinoBackend.security.entity.UserWithRoles;
 import kea.kinoBackend.security.repository.RoleRepository;

@@ -1,0 +1,110 @@
+package kea.kinoBackend.project.row;
+
+import jakarta.persistence.*;
+import kea.kinoBackend.project.hall.Hall;
+import kea.kinoBackend.project.seat.Seat;
+import kea.kinoBackend.project.seat.SeatType;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Table(name = "seat_rows")
+public class Row {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    private int amountOfSeats;
+
+    private int seatRowNumber;
+
+    private int cinemaId;
+
+    @ManyToOne
+    @JoinColumn(name = "hall_id", nullable = false)
+    private Hall hall;
+
+    @Enumerated(EnumType.STRING)
+    private SeatType seatType;
+
+    @OneToMany(mappedBy = "row", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<Seat> seats;
+
+    public Row() {
+        this.seats = new ArrayList<>();
+    }
+
+    public Row(int amountOfSeats, int rowNumber, Hall hall, SeatType seatType) {
+        this.amountOfSeats = amountOfSeats;
+        this.seatRowNumber = rowNumber;
+        this.hall = hall;
+        this.seatType = seatType;
+        this.seats = new ArrayList<>();
+        this.cinemaId = hall.getCinema().getId();
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getAmountOfSeats() {
+        return amountOfSeats;
+    }
+
+    public void setAmountOfSeats(int amountOfSeats) {
+        this.amountOfSeats = amountOfSeats;
+    }
+
+    public int getRowNumber() {
+        return seatRowNumber;
+    }
+
+    public void setRowNumber(int rowNumber) {
+        this.seatRowNumber = rowNumber;
+    }
+
+    public SeatType getSeatType() {
+        return seatType;
+    }
+
+    public void setSeatType(SeatType seatType) {
+        this.seatType = seatType;
+    }
+
+    public List<Seat> getSeats() {
+        return seats;
+    }
+
+    public void setSeats(List<Seat> seats) {
+        this.seats = seats;
+    }
+
+    public Hall getHall() {
+        return hall;
+    }
+
+    public void setHall(Hall hall) {
+        this.hall = hall;
+    }
+
+    public int getSeatRowNumber() {
+        return seatRowNumber;
+    }
+
+    public void setSeatRowNumber(int seatRowNumber) {
+        this.seatRowNumber = seatRowNumber;
+    }
+
+    public int getCinemaId() {
+        return cinemaId;
+    }
+
+    public void setCinemaId(int cinemaId) {
+        this.cinemaId = cinemaId;
+    }
+}
